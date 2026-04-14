@@ -1,54 +1,125 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Gravity22 | Smart Converter</title>
-    <style>
-        body { font-family: 'Segoe UI', sans-serif; background: #0f172a; color: white; display: flex; justify-content: center; align-items: center; min-height: 100vh; margin: 0; }
-        .card { background: #1e293b; padding: 2rem; border-radius: 20px; box-shadow: 0 10px 25px rgba(0,0,0,0.5); width: 350px; text-align: center; border: 1px solid #334155; }
-        h1 { color: #38bdf8; margin-bottom: 1.5rem; }
-        input, select { width: 100%; padding: 12px; margin: 10px 0; border-radius: 8px; border: none; background: #334155; color: white; font-size: 1rem; box-sizing: border-box; }
-        .result { background: #0ea5e9; padding: 15px; border-radius: 8px; margin-top: 20px; font-weight: bold; font-size: 1.2rem; }
-        .ad-slot { margin-top: 25px; font-size: 0.7rem; color: #64748b; border: 1px dashed #475569; padding: 10px; }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>gRaviTy Research</title>
+
+<style>
+body {
+    margin: 0;
+    font-family: 'Segoe UI', sans-serif;
+    background: #0f172a;
+    color: #e2e8f0;
+}
+
+/* NAVBAR */
+.nav {
+    padding: 20px;
+    text-align: center;
+    background: #020617;
+    font-size: 22px;
+    font-weight: bold;
+    color: #38bdf8;
+}
+
+/* HERO */
+.hero {
+    text-align: center;
+    padding: 80px 20px;
+}
+
+.hero h1 {
+    font-size: 40px;
+    color: #38bdf8;
+}
+
+.hero p {
+    max-width: 700px;
+    margin: 20px auto;
+    font-size: 18px;
+    color: #94a3b8;
+}
+
+/* BUTTON */
+.btn {
+    margin-top: 20px;
+    padding: 12px 25px;
+    background: #38bdf8;
+    border: none;
+    border-radius: 8px;
+    color: black;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+/* SECTION */
+.section {
+    padding: 60px 20px;
+    text-align: center;
+}
+
+.section h2 {
+    color: #38bdf8;
+}
+
+/* CARD */
+.card {
+    background: #1e293b;
+    padding: 20px;
+    margin: 20px auto;
+    border-radius: 12px;
+    max-width: 600px;
+}
+
+/* FOOTER */
+.footer {
+    text-align: center;
+    padding: 20px;
+    font-size: 12px;
+    color: #64748b;
+}
+</style>
 </head>
+
 <body>
 
-<div class="card">
-    <h1>Gravity 22</h1>
-    <p>Fast Interactive Converter</p>
-    
-    <input type="number" id="val" placeholder="Enter value..." oninput="convert()">
-    
-    <select id="type" onchange="convert()">
-        <option value="kg-lb">KG to Pounds</option>
-        <option value="lb-kg">Pounds to KG</option>
-        <option value="km-mi">KM to Miles</option>
-        <option value="mi-km">Miles to KM</option>
-    </select>
+<div class="nav">gRaviTy Research</div>
 
-    <div class="result" id="out">Result will appear...</div>
-
-    <div class="ad-slot">AD SPACE (Ads will appear here later)</div>
+<div class="hero">
+    <h1>Understanding Market Forces</h1>
+    <p>
+        RaviTy Research is a market insights firm focused on understanding the forces that drive financial markets.
+        We break down businesses, trends, and market movements into clear, structured insights — making complex data simple and meaningful.
+    </p>
+    <button class="btn" onclick="alert('More features coming soon!')">Explore Insights</button>
 </div>
 
-<script>
-    function convert() {
-        const v = parseFloat(document.getElementById('val').value);
-        const t = document.getElementById('type').value;
-        const out = document.getElementById('out');
-        if (isNaN(v)) { out.innerText = "Waiting for input..."; return; }
-        
-        let res;
-        if(t === "kg-lb") res = (v * 2.204).toFixed(2) + " lbs";
-        else if(t === "lb-kg") res = (v / 2.204).toFixed(2) + " kg";
-        else if(t === "km-mi") res = (v * 0.621).toFixed(2) + " miles";
-        else if(t === "mi-km") res = (v / 0.621).toFixed(2) + " km";
-        
-        out.innerText = res;
-    }
-</script>
+<div class="section">
+    <h2>Our Philosophy</h2>
+
+    <div class="card">
+        Markets are not random. They move with logic, patterns, and unseen forces.
+        Our goal is to decode them and present clarity in a noisy world.
+    </div>
+
+    <div class="card">
+        We analyze businesses, identify trends, and simplify financial complexity
+        so anyone can understand market behavior.
+    </div>
+</div>
+
+<div class="section">
+    <h2>Future Features</h2>
+
+    <div class="card">Market Analysis Reports</div>
+    <div class="card">Stock Insights Dashboard</div>
+    <div class="card">Interactive Tools & Calculators</div>
+</div>
+
+<div class="footer">
+    © 2026 gRaviTy Research | All Rights Reserved
+</div>
 
 </body>
 </html>
