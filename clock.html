@@ -3,169 +3,126 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CLOCK_TERMINAL | gRaviTy Research</title>
+    <title>GRAVITY | CLOCK</title>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@100;400;700&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@100;300;600&display=swap');
 
         body {
             margin: 0;
-            padding: 0;
-            background-color: #030303;
-            color: #d4af37;
-            font-family: 'JetBrains Mono', monospace;
+            background-color: #000;
+            color: #fff;
+            font-family: 'Inter', sans-serif;
             height: 100vh;
             display: flex;
+            flex-direction: column;
             justify-content: center;
             align-items: center;
-            overflow: hidden;
+            letter-spacing: 0.15em;
         }
 
-        /* Scanline Overlay Effect */
-        body::before {
-            content: " ";
-            display: block;
+        /* Top Corner Meta */
+        .meta-header {
             position: absolute;
-            top: 0; left: 0; bottom: 0; right: 0;
-            background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%), 
-                        linear-gradient(90deg, rgba(255, 0, 0, 0.03), rgba(0, 255, 0, 0.01), rgba(0, 0, 255, 0.03));
-            z-index: 10;
-            background-size: 100% 2px, 3px 100%;
-            pointer-events: none;
-        }
-
-        .terminal-frame {
-            border: 1px solid rgba(212, 175, 55, 0.2);
-            padding: 60px;
-            position: relative;
-            background: rgba(10, 10, 10, 0.5);
-            box-shadow: 0 0 50px rgba(0,0,0,1);
-        }
-
-        .terminal-header {
-            position: absolute;
-            top: -10px;
-            left: 20px;
-            background: #030303;
-            padding: 0 10px;
+            top: 40px;
+            left: 40px;
             font-size: 10px;
-            letter-spacing: 2px;
-            color: #666;
+            color: #444;
+            font-weight: 600;
         }
 
+        /* Large Minimal Clock */
         #clock {
-            font-size: 110px;
+            font-size: clamp(80px, 18vw, 160px);
             font-weight: 100;
-            color: #ffffff;
-            letter-spacing: -5px;
-            margin-bottom: 5px;
+            margin: 0;
+            line-height: 1;
         }
 
-        .status-line {
-            font-size: 12px;
-            letter-spacing: 3px;
-            margin-bottom: 60px;
-            color: #d4af37;
-            opacity: 0.6;
+        /* Separator Line */
+        .divider {
+            width: 40px;
+            height: 1px;
+            background: #d4af37;
+            margin: 40px 0;
+            opacity: 0.5;
         }
 
-        .data-grid {
+        /* Countdown */
+        .countdown-container {
             display: flex;
             gap: 40px;
-            border-top: 1px solid rgba(212, 175, 55, 0.1);
-            padding-top: 40px;
-        }
-
-        .data-block {
-            text-align: left;
-        }
-
-        .label {
-            display: block;
-            font-size: 9px;
-            color: #444;
-            margin-bottom: 5px;
-            font-weight: 700;
-        }
-
-        .value {
-            font-size: 24px;
             color: #d4af37;
+            font-size: 14px;
+            font-weight: 300;
         }
 
-        .launch-meta {
-            margin-top: 40px;
-            font-size: 10px;
-            color: #333;
-            text-align: left;
+        .unit span {
+            display: block;
+            font-size: 8px;
+            color: #444;
+            margin-bottom: 8px;
+            text-align: center;
+        }
+
+        /* Bottom Fixed Info */
+        .launch-footer {
+            position: absolute;
+            bottom: 40px;
+            font-size: 11px;
+            color: #666;
+            text-align: center;
         }
 
         .back-link {
             position: absolute;
-            bottom: -30px;
-            right: 0;
+            bottom: 40px;
+            left: 40px;
             text-decoration: none;
-            color: #444;
+            color: #222;
             font-size: 10px;
-            transition: 0.3s;
+            transition: color 0.3s;
         }
 
-        .back-link:hover { color: #d4af37; }
-
-        /* Glitch animation for specific elements */
-        .glitch { animation: pulse 4s infinite; }
-        @keyframes pulse {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0.7; }
+        .back-link:hover {
+            color: #d4af37;
         }
+
+        /* Disable user selection for a cleaner feel */
+        * { user-select: none; }
     </style>
 </head>
 <body>
 
-    <div class="terminal-frame">
-        <div class="terminal-header">NODE.0425_T0</div>
-        
-        <div id="clock">00:00:00</div>
-        <div class="status-line glitch">SYSTEM_OPERATIONAL // MARKET_SYNC</div>
+    <div class="meta-header">SYSTEM_TIME</div>
 
-        <div class="data-grid">
-            <div class="data-block">
-                <span class="label">T-MINUS_DAYS</span>
-                <span class="value" id="days">000</span>
-            </div>
-            <div class="data-block">
-                <span class="label">HOURS</span>
-                <span class="value" id="hours">00</span>
-            </div>
-            <div class="data-block">
-                <span class="label">MINUTES</span>
-                <span class="value" id="minutes">00</span>
-            </div>
-            <div class="data-block">
-                <span class="label">SECONDS</span>
-                <span class="value" id="seconds">00</span>
-            </div>
-        </div>
+    <div id="clock">00:00:00</div>
 
-        <div class="launch-meta">
-            OBJECTIVE: GRAND_LAUNCH<br>
-            TARGET_DATE: 25_APRIL_2026<br>
-            ENTITY: GRAVITY_RESEARCH
-        </div>
+    <div class="divider"></div>
 
-        <a href="index.html" class="back-link">RETURN_TO_MAIN_CONSOLE</a>
+    <div class="countdown-container">
+        <div class="unit"><span>DAYS</span><div id="days">000</div></div>
+        <div class="unit"><span>HRS</span><div id="hours">00</div></div>
+        <div class="unit"><span>MIN</span><div id="minutes">00</div></div>
+        <div class="unit"><span>SEC</span><div id="seconds">00</div></div>
     </div>
+
+    <div class="launch-footer">
+        GRAVITY RESEARCH | 25.04.2026
+    </div>
+
+    <a href="index.html" class="back-link">EXIT</a>
 
     <script>
         function update() {
             const now = new Date();
             
-            // Wall Clock
+            // Time
             document.getElementById('clock').textContent = 
                 now.getHours().toString().padStart(2, '0') + ":" +
                 now.getMinutes().toString().padStart(2, '0') + ":" +
                 now.getSeconds().toString().padStart(2, '0');
 
-            // Launch Countdown
+            // Countdown
             const target = new Date("April 25, 2026 00:00:00").getTime();
             const diff = target - now.getTime();
 
@@ -174,8 +131,6 @@
                 document.getElementById('hours').textContent = Math.floor((diff % 86400000) / 3600000).toString().padStart(2, '0');
                 document.getElementById('minutes').textContent = Math.floor((diff % 3600000) / 60000).toString().padStart(2, '0');
                 document.getElementById('seconds').textContent = Math.floor((diff % 60000) / 1000).toString().padStart(2, '0');
-            } else {
-                document.querySelector('.data-grid').innerHTML = "<span class='value'>INITIALIZATION_COMPLETE</span>";
             }
         }
 
