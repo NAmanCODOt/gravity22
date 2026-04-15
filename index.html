@@ -26,10 +26,10 @@
             z-index: 1000;
             top: 0;
             left: 0;
-            background-color: rgba(10, 10, 10, 0.95);
+            background-color: rgba(10, 10, 10, 0.98); /* Slightly more opaque for readability */
             backdrop-filter: blur(15px);
             overflow-x: hidden;
-            transition: 0.5s;
+            transition: 0.5s cubic-bezier(0.77,0.2,0.05,1.0); /* Smoother slide */
             padding-top: 60px;
             border-right: 1px solid #1f1f1f;
         }
@@ -42,113 +42,115 @@
             display: block;
             transition: 0.3s;
             font-weight: 300;
+            white-space: nowrap; /* Prevents text wrapping during animation */
         }
 
         .sidebar a:hover { color: #d4af37; padding-left: 40px; }
 
         .sidebar .close-btn {
             position: absolute;
-            top: 10px;
+            top: 15px;
             right: 25px;
             font-size: 36px;
-            margin-left: 50px;
             cursor: pointer;
+            color: #d4af37;
         }
 
         .menu-label {
             padding: 10px 32px;
-            font-size: 12px;
+            font-size: 11px;
             color: #d4af37;
             text-transform: uppercase;
             letter-spacing: 2px;
             margin-top: 20px;
+            opacity: 0.7;
         }
 
         /* --- TOP NAV --- */
         .nav {
-            padding: 15px 20px;
+            padding: 10px 25px;
             display: flex;
             align-items: center;
-            justify-content: space-between;
-            background: rgba(0, 0, 0, 0.8);
-            backdrop-filter: blur(10px);
+            justify-content: space-between; /* This handles the spacing perfectly */
+            background: rgba(0, 0, 0, 0.85);
+            backdrop-filter: blur(12px);
             border-bottom: 1px solid #1f1f1f;
             position: sticky;
             top: 0;
             z-index: 100;
         }
 
-        /* The Menu Button (Three Dots) */
         .menu-icon {
             cursor: pointer;
             padding: 10px;
             display: flex;
             flex-direction: column;
-            gap: 4px;
+            gap: 5px;
+            width: 30px; /* Consistent hit area */
         }
 
         .menu-icon span {
             display: block;
-            width: 4px;
-            height: 4px;
+            width: 5px;
+            height: 5px;
             background-color: #d4af37;
             border-radius: 50%;
             transition: 0.3s;
         }
 
-        .menu-icon:hover span { transform: scale(1.3); }
+        .menu-icon:hover span { transform: scale(1.4); background-color: #ffffff; }
 
-        .nav img { width: 140px; margin-right: 40px; } /* Adjusted for centering */
+        .nav img { width: 140px; }
 
         /* HERO */
         .hero { text-align: center; padding: 120px 20px; }
-        .hero h1 { font-family: 'Playfair Display', serif; font-size: 48px; color: #d4af37; margin-bottom: 10px; }
+        .hero h1 { font-family: 'Playfair Display', serif; font-size: 48px; color: #d4af37; margin-bottom: 15px; }
         .hero p { max-width: 700px; margin: 20px auto; font-size: 18px; color: #9ca3af; line-height: 1.8; }
 
         .btn {
             margin: 10px;
-            padding: 14px 30px;
+            padding: 14px 32px;
             background: transparent;
             border: 1px solid #d4af37;
             border-radius: 8px;
             color: #d4af37;
             font-weight: 500;
             cursor: pointer;
-            transition: all 0.4s ease;
+            transition: 0.4s;
             text-decoration: none;
             display: inline-block;
         }
 
-        .btn:hover { background: #d4af37; color: black; transform: translateY(-3px); }
+        .btn:hover { background: #d4af37; color: black; box-shadow: 0 0 20px rgba(212, 175, 55, 0.3); }
 
-        /* SECTION & CARDS */
+        /* SECTIONS */
         .section { padding: 80px 20px; text-align: center; }
         .section h2 { font-family: 'Playfair Display', serif; color: #d4af37; font-size: 32px; margin-bottom: 40px; }
+
         .card {
-            background: rgba(10, 10, 10, 0.6);
-            backdrop-filter: blur(5px);
-            padding: 30px;
-            margin: 20px auto;
+            background: rgba(15, 15, 15, 0.6);
+            backdrop-filter: blur(8px);
+            padding: 35px;
+            margin: 25px auto;
             border-radius: 16px;
             max-width: 600px;
             border: 1px solid #1f1f1f;
             color: #d1d5db;
-            transition: 0.5s;
+            transition: 0.5s ease;
         }
-        .card:hover { border-color: #d4af37; transform: translateY(-5px); }
+        .card:hover { border-color: #d4af37; transform: translateY(-8px); background: rgba(20, 20, 20, 0.8); }
 
         .footer { text-align: center; padding: 40px; font-size: 12px; color: #6b7280; border-top: 1px solid #1f1f1f; }
 
-        /* REFINED FADE-UP */
-        .fade-up { opacity: 0; transform: translateY(40px); animation: fadeUp 1.2s cubic-bezier(0.22, 1, 0.36, 1) forwards; }
-        .delay { animation-delay: 0.2s; }
-        .delay2 { animation-delay: 0.4s; }
+        /* ANIMATIONS */
+        .fade-up { opacity: 0; transform: translateY(30px); animation: fadeUp 1s ease forwards; }
+        .delay { animation-delay: 0.3s; }
+        .delay2 { animation-delay: 0.6s; }
         @keyframes fadeUp { to { opacity: 1; transform: translateY(0); } }
 
-        /* BACKGROUND ORBS */
-        .gold-orb { position: fixed; border-radius: 50%; filter: blur(80px); pointer-events: none; z-index: 0; will-change: transform; }
-        .orb1 { width: 400px; height: 400px; background: radial-gradient(circle, rgba(212,175,55,0.15), transparent 70%); animation: move1 25s linear infinite; }
-        @keyframes move1 { 0% { transform: translate(0, 0); } 50% { transform: translate(100vw, 50vh); } 100% { transform: translate(0, 0); } }
+        .gold-orb { position: fixed; border-radius: 50%; filter: blur(80px); pointer-events: none; z-index: 0; }
+        .orb1 { width: 400px; height: 400px; background: radial-gradient(circle, rgba(212,175,55,0.12), transparent 70%); animation: move1 25s infinite alternate; }
+        @keyframes move1 { from { transform: translate(-10%, -10%); } to { transform: translate(100vw, 100vh); } }
 
         body > * { position: relative; z-index: 1; }
     </style>
@@ -156,7 +158,7 @@
 
 <body>
     <div id="mySidebar" class="sidebar">
-        <a href="javascript:void(0)" class="close-btn" onclick="closeNav()">&times;</a>
+        <span class="close-btn" onclick="closeNav()">&times;</span>
         
         <div class="menu-label">Insights</div>
         <a href="markettata.html">Tata Market Analysis</a>
@@ -177,7 +179,7 @@
             <span></span>
         </div>
         <img src="logo.png" alt="gRaviTy Logo">
-        <div style="width: 40px;"></div> </div>
+        <div style="width: 30px;"></div> </div>
 
     <div class="hero">
         <h1 class="fade-up">Understanding Market Forces</h1>
@@ -211,13 +213,19 @@
 
     <script>
         function openNav() {
-            document.getElementById("mySidebar").style.width = "300px";
+            document.getElementById("mySidebar").style.width = "280px";
         }
 
         function closeNav() {
             document.getElementById("mySidebar").style.width = "0";
         }
+        
+        // Bonus: Close sidebar if user clicks outside of it
+        window.onclick = function(event) {
+            if (event.target == document.getElementById("mySidebar")) {
+                closeNav();
+            }
+        }
     </script>
-
 </body>
 </html>
