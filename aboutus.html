@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Us | gRaviTy Research</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600&family=Inter:wght@300;400&display=swap');
+        
+        body {
+            margin: 0;
+            background: #000;
+            color: #fff;
+            font-family: 'Inter', sans-serif;
+            overflow-x: hidden;
+        }
+
+        /* --- HEADER --- */
+        .header {
+            padding: 20px 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid rgba(212, 175, 55, 0.2);
+            background: rgba(10, 10, 10, 0.8);
+            backdrop-filter: blur(15px);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .btn-home {
+            color: #d4af37;
+            text-decoration: none;
+            font-size: 13px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            border: 1px solid rgba(212, 175, 55, 0.4);
+            padding: 8px 18px;
+            border-radius: 5px;
+            transition: 0.3s;
+        }
+
+        .btn-home:hover { background: #d4af37; color: #000; }
+
+        /* --- CONTENT --- */
+        .container {
+            max-width: 1000px;
+            margin: 60px auto;
+            padding: 0 20px;
+        }
+
+        .hero-text { text-align: center; margin-bottom: 80px; }
+        .hero-text h1 { font-family: 'Playfair Display'; font-size: 52px; color: #d4af37; margin: 0; }
+        .hero-text p { color: #9ca3af; font-size: 18px; margin-top: 15px; }
+
+        /* BENTO GRID LAYOUT */
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 25px;
+        }
+
+        .bento-item {
+            background: rgba(15, 15, 15, 0.6);
+            border: 1px solid #1f1f1f;
+            padding: 40px;
+            border-radius: 20px;
+            transition: 0.4s;
+        }
+
+        .bento-item:hover { border-color: #d4af37; transform: translateY(-5px); }
+
+        .full-width { grid-column: span 2; }
+
+        h3 { font-family: 'Playfair Display'; color: #d4af37; font-size: 24px; margin-top: 0; }
+        p { color: #d1d5db; line-height: 1.8; font-size: 15px; }
+
+        .accent-number {
+            font-size: 48px;
+            font-family: 'Playfair Display';
+            color: rgba(212, 175, 55, 0.2);
+            display: block;
+            margin-bottom: 10px;
+        }
+
+        /* --- ORBS --- */
+        .orb {
+            position: fixed;
+            width: 500px;
+            height: 500px;
+            background: radial-gradient(circle, rgba(212, 175, 55, 0.05), transparent 70%);
+            filter: blur(100px);
+            z-index: -1;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        @media (max-width: 768px) {
+            .grid { grid-template-columns: 1fr; }
+            .full-width { grid-column: span 1; }
+            .hero-text h1 { font-size: 38px; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="header">
+        <img src="logo.png" alt="gRaviTy" style="width: 120px;">
+        <a href="index.html" class="btn-home">← Back to Home</a>
+    </div>
+
+    <div class="orb"></div>
+
+    <div class="container">
+        <div class="hero-text">
+            <h1>Defining the Force</h1>
+            <p>A mission to decode market complexity with precision.</p>
+        </div>
+
+        <div class="grid">
+            <div class="bento-item full-width">
+                <h3>Our Core Purpose</h3>
+                <p>
+                    Financial markets aren't random; they are driven by the "gravity" of fundamental value, human psychology, and industrial shifts. <strong>gRaviTy Research</strong> was founded to bridge the gap between high-level institutional data and the modern retail investor. We don't chase hype; we follow the force.
+                </p>
+            </div>
+
+            <div class="bento-item">
+                <span class="accent-number">01.</span>
+                <h3>Deep Analysis</h3>
+                <p>We strip away the noise of the daily news cycle to focus on the balance sheets, supply chains, and fiscal policies that actually move the needle.</p>
+            </div>
+
+            <div class="bento-item">
+                <span class="accent-number">02.</span>
+                <h3>Industrial Focus</h3>
+                <p>Our primary lens is fixed on the Indian growth story, with a specialized vertical dedicated to the Automotive and EV transition (PV segment).</p>
+            </div>
+
+            <div class="bento-item full-width" style="text-align: center;">
+                <h3>"Intelligence is the ultimate hedge."</h3>
+                <p style="font-style: italic; color: #9ca3af;">— The gRaviTy Ethos</p>
+            </div>
+        </div>
+    </div>
+
+    <div style="text-align: center; padding: 60px 0; color: #666; font-size: 12px; border-top: 1px solid #1f1f1f;">
+        © 2026 gRaviTy Research | Private Analysis Firm
+    </div>
+
+</body>
+</html>
