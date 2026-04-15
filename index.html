@@ -45,9 +45,7 @@ body {
     font-size: 18px;
     color: #9ca3af;
 }
-<a href="market.html">
-<button class="btn">Market Analysis</button>
-</a>
+
 /* BUTTON */
 .btn {
     margin-top: 15px;
@@ -95,7 +93,8 @@ body {
     font-size: 12px;
     color: #6b7280;
 }
-    /* TEXT ENTRY ANIMATION */
+
+/* TEXT ENTRY ANIMATION */
 .fade-up {
     opacity: 0;
     transform: translateY(30px);
@@ -116,8 +115,8 @@ body {
         transform: translateY(0);
     }
 }
-    /* GOLD MOVING ORB */
-/* BASE ORB */
+
+/* GOLD MOVING ORB */
 .gold-orb {
     position: fixed;
     width: 300px;
@@ -129,28 +128,10 @@ body {
     z-index: 0;
 }
 
-/* ORB 1 */
-.orb1 {
-    animation: move1 18s linear infinite;
-}
+.orb1 { animation: move1 18s linear infinite; }
+.orb2 { width: 250px; height: 250px; animation: move2 25s linear infinite; opacity: 0.7; }
+.orb3 { width: 200px; height: 200px; animation: move3 30s linear infinite; opacity: 0.5; }
 
-/* ORB 2 */
-.orb2 {
-    width: 250px;
-    height: 250px;
-    animation: move2 25s linear infinite;
-    opacity: 0.7;
-}
-
-/* ORB 3 */
-.orb3 {
-    width: 200px;
-    height: 200px;
-    animation: move3 30s linear infinite;
-    opacity: 0.5;
-}
-
-/* PATHS */
 @keyframes move1 {
     0%   { top: 10%; left: 10%; }
     25%  { top: 70%; left: 20%; }
@@ -174,7 +155,8 @@ body {
     75%  { top: 30%; left: 90%; }
     100% { top: 50%; left: 0%; }
 }
-    body > * {
+
+body > * {
     position: relative;
     z-index: 1;
 }
@@ -185,12 +167,12 @@ body {
 <div class="gold-orb orb1"></div>
 <div class="gold-orb orb2"></div>
 <div class="gold-orb orb3"></div>
+
 <div class="nav">
     <img src="logo.png" alt="gRaviTy Logo">
 </div>
 
 <div class="hero">
-
     <h1 class="fade-up">Understanding Market Forces</h1>
 
     <p class="fade-up delay">
@@ -208,20 +190,13 @@ body {
             </button>
         </a>
     </div>
-
 </div>
 
 <div class="section">
     <h2>Our Philosophy</h2>
-
-   
-   <div class="card"
-onmouseover="this.style.border='1px solid #d4af37'; this.style.transform='scale(1.02)';"
-onmouseout="this.style.border='1px solid #1f1f1f'; this.style.transform='scale(1)';">
-    Market Analysis Reports
-</div>
-
-    <div class="card">
+    <div class="card"
+    onmouseover="this.style.border='1px solid #d4af37'; this.style.transform='scale(1.02)';"
+    onmouseout="this.style.border='1px solid #1f1f1f'; this.style.transform='scale(1)';">
         We analyze businesses, identify trends, and simplify financial complexity
         so anyone can understand market behavior.
     </div>
@@ -229,28 +204,9 @@ onmouseout="this.style.border='1px solid #1f1f1f'; this.style.transform='scale(1
 
 <div class="section">
     <h2>Future Features</h2>
-
     <div class="card">Market Analysis Reports</div>
     <div class="card">Stock Insights Dashboard</div>
     <div class="card">Interactive Tools & Calculators</div>
-</div>
-    <div class="section" id="insights">
-    <h2>Insights</h2>
-
-    <div class="card">
-        <h3>Stock Market Basics</h3>
-        <p>Understanding how demand, supply, and sentiment move stock prices.</p>
-    </div>
-
-    <div class="card">
-        <h3>Trend Analysis</h3>
-        <p>Markets follow patterns. Identifying trends helps predict future movements.</p>
-    </div>
-
-    <div class="card">
-        <h3>Business Breakdown</h3>
-        <p>We simplify companies into understandable models — revenue, growth, and risk.</p>
-    </div>
 </div>
 
 <div class="footer">
