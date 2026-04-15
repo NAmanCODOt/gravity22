@@ -6,46 +6,68 @@
     <title>Market Analysis | gRaviTy Research</title>
 
     <style>
+        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600&family=Inter:wght@300;400&display=swap');
+
+        /* SMOOTH SCROLLING & BASE */
+        html {
+            scroll-behavior: smooth;
+        }
+
         body {
             margin: 0;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: 'Inter', sans-serif;
             background: #000;
             color: #e5e5e5;
             line-height: 1.6;
+            overflow-x: hidden;
         }
 
-        /* NAV */
+        /* NAVIGATION */
         .nav {
             padding: 18px;
             text-align: center;
-            background: #000;
+            background: rgba(0, 0, 0, 0.9);
+            backdrop-filter: blur(10px);
             border-bottom: 1px solid #1f1f1f;
             color: #d4af37;
             font-weight: bold;
             letter-spacing: 1px;
-            text-transform: uppercase;
+            position: sticky;
+            top: 0;
+            z-index: 100;
         }
 
         /* CONTAINER */
         .container {
-            max-width: 1000px;
+            max-width: 900px;
             margin: auto;
             padding: 20px;
+            position: relative;
+            z-index: 1;
         }
 
         /* HEADINGS */
         h1, h2, h3 {
             color: #d4af37;
-            margin-top: 0;
+            font-family: 'Playfair Display', serif;
         }
 
-        /* CARD */
+        /* GLASS CARD STYLING */
         .card {
-            background: #0a0a0a;
+            background: rgba(10, 10, 10, 0.7);
             border: 1px solid #1f1f1f;
-            padding: 25px;
-            border-radius: 12px;
-            margin: 20px 0;
+            padding: 30px;
+            border-radius: 16px;
+            margin: 25px 0;
+            backdrop-filter: blur(5px);
+            transition: all 0.4s ease;
+            animation: fadeUp 1s ease-out forwards;
+        }
+
+        .card:hover {
+            border-color: #d4af37;
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
         }
 
         /* BAR CHART STYLING */
@@ -53,7 +75,7 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 5px;
+            margin-bottom: 8px;
             font-size: 0.95rem;
         }
 
@@ -63,7 +85,7 @@
         }
 
         .bar {
-            height: 12px;
+            height: 10px;
             background: #1f1f1f;
             border-radius: 10px;
             overflow: hidden;
@@ -74,9 +96,11 @@
             height: 100%;
             background: linear-gradient(90deg, #d4af37, #f5d76e);
             border-radius: 10px;
+            width: 0; /* Changed for animation effect */
+            transition: width 1.5s cubic-bezier(0.1, 0.5, 0.5, 1);
         }
 
-        /* GRID */
+        /* STAT GRID */
         .grid {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
@@ -84,43 +108,81 @@
         }
 
         .stat-card {
-            background: #111;
-            padding: 15px;
-            border-radius: 8px;
+            background: rgba(20, 20, 20, 0.5);
+            padding: 20px;
+            border-radius: 12px;
             border: 1px solid #1f1f1f;
             text-align: center;
+            transition: 0.3s;
+        }
+
+        .stat-card:hover {
+            background: rgba(212, 175, 55, 0.05);
+            border-color: #d4af37;
+        }
+
+        /* SOURCE NOTES */
+        .source-note {
+            font-size: 0.75rem;
+            color: #666;
+            font-style: italic;
+            margin-top: -10px;
+            margin-bottom: 15px;
+        }
+
+        /* EXTRA INFO SECTION */
+        .extra-info {
+            font-size: 0.85rem;
+            color: #888;
+            border-top: 1px solid #1f1f1f;
+            padding-top: 20px;
+            margin-top: 25px;
+        }
+
+        .info-item b {
+            color: #d4af37;
         }
 
         /* BUTTON */
         .btn {
-            padding: 10px 22px;
+            padding: 12px 25px;
             background: transparent;
             border: 1px solid #d4af37;
             color: #d4af37;
             border-radius: 8px;
             cursor: pointer;
-            margin-top: 10px;
+            margin-top: 20px;
             text-decoration: none;
             display: inline-block;
-            transition: 0.3s;
+            transition: 0.4s;
         }
 
         .btn:hover {
             background: #d4af37;
             color: black;
+            box-shadow: 0 0 15px rgba(212, 175, 55, 0.4);
         }
 
-        /* INFO TEXT */
-        .extra-info {
-            font-size: 0.85rem;
-            color: #888;
-            border-top: 1px solid #1f1f1f;
-            padding-top: 15px;
-            margin-top: 20px;
+        /* BACKGROUND ORBS */
+        .gold-orb {
+            position: fixed;
+            border-radius: 50%;
+            filter: blur(80px);
+            pointer-events: none;
+            z-index: 0;
+            will-change: transform;
         }
 
-        .info-item b {
-            color: #d4af37;
+        .orb1 { width: 400px; height: 400px; background: radial-gradient(circle, rgba(212,175,55,0.1), transparent 70%); animation: move 20s infinite alternate; }
+        
+        @keyframes move {
+            from { transform: translate(-10%, -10%); }
+            to { transform: translate(80%, 80%); }
+        }
+
+        @keyframes fadeUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
         }
 
         @media(max-width: 768px){
@@ -131,13 +193,15 @@
 
 <body>
 
+<div class="gold-orb orb1"></div>
+
 <div class="nav">gRaviTy Research — Market Analysis</div>
 
 <div class="container">
 
     <div class="card">
         <h2>Industry Overview (Auto Sector India)</h2>
-        <p>Strategic analysis of the Indian Automobile Industry with a primary focus on the Tata Motors PV segment (FY 2020–2030 outlook).</p>
+        <p>Strategic analysis of the Indian Automobile Industry with a primary focus on the Tata Motors Passenger Vehicle (PV) segment for the 2030 outlook.</p>
     </div>
 
     <div class="card">
@@ -151,6 +215,8 @@
 
         <div class="chart-label"><span>EV Adoption</span> <span class="percentage">90%</span></div>
         <div class="bar"><div class="fill" style="width:90%"></div></div>
+
+        <p class="source-note">*Estimates based on industry production capacity and gRaviTy Research modeling.</p>
     </div>
 
     <div class="card">
@@ -158,26 +224,26 @@
         <div class="grid">
             <div class="stat-card">
                 <h3>EV Market Share</h3>
-                <p style="font-size:24px;color:#d4af37;margin:0;">65–70%</p>
+                <p style="font-size:28px; color:#d4af37; margin:0; font-weight:bold;">65–70%</p>
             </div>
             <div class="stat-card">
                 <h3>PV Market Share</h3>
-                <p style="font-size:24px;color:#d4af37;margin:0;">~14%</p>
+                <p style="font-size:28px; color:#d4af37; margin:0; font-weight:bold;">~14%</p>
             </div>
             <div class="stat-card">
                 <h3>Investment (FY26–30)</h3>
-                <p style="font-size:24px;color:#d4af37;margin:0;">₹33,000 Cr</p>
+                <p style="font-size:28px; color:#d4af37; margin:0; font-weight:bold;">₹33,000 Cr</p>
             </div>
             <div class="stat-card">
                 <h3>Patents Filed</h3>
-                <p style="font-size:24px;color:#d4af37;margin:0;">250+</p>
+                <p style="font-size:28px; color:#d4af37; margin:0; font-weight:bold;">250+</p>
             </div>
         </div>
     </div>
 
     <div class="card">
         <h2>EV Market Outlook</h2>
-        <p>EV growth is projected to be exponential, driven by infrastructure and policy support.</p>
+        <p>The transition to electric mobility is projected to be exponential, supported by the PLI scheme and charging infrastructure expansion.</p>
 
         <div class="chart-label"><span>2022 Performance</span> <span class="percentage">30%</span></div>
         <div class="bar"><div class="fill" style="width:30%"></div></div>
@@ -187,6 +253,8 @@
 
         <div class="chart-label"><span>2030 Target</span> <span class="percentage">95%</span></div>
         <div class="bar"><div class="fill" style="width:95%"></div></div>
+
+        <p class="source-note">*Note: 2030 targets reflect a "Bull Case" scenario aligned with NITI Aayog's aggressive electrification goals.</p>
     </div>
 
     <div class="card">
@@ -197,11 +265,9 @@
 
         <div class="extra-info">
             <h3>Knowledge Hub: Market Scenarios</h3>
-            <div class="info-item">
-                <p><b>Bull Case:</b> The "Best Case" scenario. It assumes everything goes right—strong economic growth, high consumer demand, and peak operational efficiency.</p>
-                <p><b>Base Case:</b> The "Most Likely" scenario. This is the grounded expectation based on current trends and planned institutional growth.</p>
-                <p><b>Bear Case:</b> The "Worst Case" scenario. It accounts for potential risks like economic downturns, regulatory hurdles, or increased competition.</p>
-            </div>
+            <p><b>Bull Case:</b> The optimistic outlook. Assumes maximum government subsidies, rapid battery cost reduction, and high consumer sentiment.</p>
+            <p><b>Base Case:</b> The most realistic projection. Based on current policy trajectories and steady infrastructure growth.</p>
+            <p><b>Bear Case:</b> The conservative outlook. Accounts for potential supply chain disruptions, high interest rates, or slower-than-expected charging station deployment.</p>
         </div>
     </div>
 
