@@ -181,16 +181,13 @@
         .orb2 { width: 400px; height: 400px; background: radial-gradient(circle, rgba(212,175,55,0.05), transparent 70%); bottom: 10%; right: -5%; }
 
         body > * { position: relative; z-index: 1; }
-        #loader
+   #loader
 {
     position: fixed;
     inset: 0;
-    background: black;
     display: flex;
     justify-content: center;
     align-items: center;
-    flex-direction: column;
-    z-index: 9999;
 }
 
 .planet
@@ -198,6 +195,7 @@
     width: 90px;
     height: 90px;
     border-radius: 50%;
+    position: absolute;
     background: radial-gradient(circle at 30% 30%, #ffd700, #b8860b, #3a2a00);
     box-shadow: 0 0 30px rgba(127, 211, 255, 0.4);
     animation: pulse 2s infinite ease-in-out;
@@ -211,41 +209,45 @@
 
 .orbit
 {
-    width: 220px;
-    height: 220px;
-    position: relative;
-    animation: spin 6s linear infinite;
+    position: absolute;
+    width: 260px;
+    height: 260px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
-.orbit span
+/* TRUE CENTER RING */
+.ring
+{
+    position: relative;
+    width: 100%;
+    height: 100%;
+    animation: spin 6s linear infinite;
+    transform-origin: center;
+}
+
+/* PERFECT CIRCLE POSITIONING */
+.ring span
 {
     position: absolute;
     top: 50%;
     left: 50%;
+
     font-size: 22px;
     font-weight: bold;
-    color: #ffffff;
+    color: #fff;
 
     transform:
-        rotate(calc(var(--i) * 51.5deg))
-        translate(110px)
-        rotate(calc(var(--i) * -51.5deg));
+        rotate(calc(var(--i) * 51.43deg))
+        translate(130px)
+        rotate(calc(var(--i) * -51.43deg));
 
+    transform-origin: center;
     opacity: 0;
     animation: fadeIn 1s forwards;
-    animation-delay: calc(var(--i) * 0.15s);
-}
-
-@keyframes spin
-{
-    from { transform: rotate(0deg); }
-    to { transform: rotate(360deg); }
-}
-
-@keyframes fadeIn
-{
-    from { opacity: 0; }
-    to { opacity: 1; }
+    animation-delay: calc(var(--i) * 0.12s);
 }
     </style>
 </head>
@@ -254,13 +256,15 @@
     <div class="planet"></div>
 
     <div class="orbit">
-        <span style="--i:0">G</span>
-        <span style="--i:1">R</span>
-        <span style="--i:2">A</span>
-        <span style="--i:3">V</span>
-        <span style="--i:4">I</span>
-        <span style="--i:5">T</span>
-        <span style="--i:6">Y</span>
+        <div class="ring">
+            <span style="--i:0">G</span>
+            <span style="--i:1">R</span>
+            <span style="--i:2">A</span>
+            <span style="--i:3">V</span>
+            <span style="--i:4">I</span>
+            <span style="--i:5">T</span>
+            <span style="--i:6">Y</span>
+        </div>
     </div>
 </div>
 <div id="mySidebar" class="sidebar">
