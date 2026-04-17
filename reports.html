@@ -1,117 +1,168 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Coming Soon | gRaviTy Research</title>
-    <style>
-        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600&family=Inter:wght@300;400&display=swap');
-        
-        body {
-            margin: 0;
-            height: 100vh;
-            background: #000;
-            color: #ffffff;
-            font-family: 'Inter', sans-serif;
-            display: flex;
-            flex-direction: column;
-            overflow: hidden;
-        }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Reports | gRaviTy Research</title>
 
-        /* --- NAVIGATION (Centered Logo) --- */
-        .nav {
-            padding: 20px 0;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            border-bottom: 1px solid rgba(212,175,55,0.1);
-            position: absolute;
-            top: 0;
-            width: 100%;
-            z-index: 10;
-        }
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600&family=Inter:wght@300;400;500&display=swap');
 
-        /* --- CONTENT AREA --- */
-        .main-wrapper {
-            flex: 1;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            text-align: center;
-            position: relative;
-        }
+:root {
+    --gold: #d4af37;
+    --bg: #000;
+}
 
-        .container {
-            position: relative;
-            z-index: 2;
-            padding: 20px;
-        }
+body {
+    margin: 0;
+    height: 100vh;
+    background: var(--bg);
+    color: #fff;
+    font-family: 'Inter', sans-serif;
+    overflow: hidden;
+}
 
-        h1 {
-            font-family: 'Playfair Display', serif;
-            font-size: 56px;
-            color: #d4af37;
-            margin-bottom: 10px;
-        }
+/* TOP BAR */
+.nav {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    padding: 18px 0;
+    display: flex;
+    justify-content: center;
+    border-bottom: 1px solid rgba(212,175,55,0.12);
+    backdrop-filter: blur(10px);
+    z-index: 10;
+}
 
-        p {
-            color: #9ca3af;
-            font-size: 18px;
-            letter-spacing: 2px;
-            text-transform: uppercase;
-            margin-bottom: 40px;
-        }
+.nav img {
+    width: 140px;
+}
 
-        .btn {
-            padding: 12px 25px;
-            background: transparent;
-            border: 1px solid #d4af37;
-            border-radius: 8px;
-            color: #d4af37;
-            text-decoration: none;
-            transition: 0.3s;
-            text-transform: uppercase;
-            font-size: 14px;
-            letter-spacing: 1px;
-        }
+/* MAIN */
+.main {
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    position: relative;
+    padding: 20px;
+}
 
-        .btn:hover {
-            background: #d4af37;
-            color: black;
-        }
+.container {
+    max-width: 700px;
+    z-index: 2;
+}
 
-        /* Ambient Background Orb */
-        .orb {
-            position: absolute;
-            width: 500px;
-            height: 500px;
-            background: radial-gradient(circle, rgba(212,175,55,0.12), transparent 70%);
-            filter: blur(80px);
-            z-index: 1;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            pointer-events: none;
-        }
-    </style>
+h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: 54px;
+    color: var(--gold);
+    margin-bottom: 10px;
+}
+
+.tagline {
+    color: #888;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    font-size: 13px;
+    margin-bottom: 25px;
+}
+
+.desc {
+    color: #aaa;
+    font-size: 16px;
+    line-height: 1.6;
+    margin-bottom: 40px;
+}
+
+/* PREVIEW BOX */
+.preview {
+    border: 1px solid rgba(255,255,255,0.08);
+    padding: 20px;
+    margin-bottom: 40px;
+    text-align: left;
+}
+
+.preview-title {
+    color: var(--gold);
+    font-size: 13px;
+    letter-spacing: 2px;
+    margin-bottom: 10px;
+}
+
+.preview-item {
+    color: #bbb;
+    font-size: 14px;
+    margin: 6px 0;
+}
+
+/* BUTTON */
+.btn {
+    display: inline-block;
+    padding: 12px 24px;
+    border: 1px solid var(--gold);
+    color: var(--gold);
+    text-decoration: none;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    font-size: 12px;
+    transition: 0.3s;
+}
+
+.btn:hover {
+    background: var(--gold);
+    color: #000;
+}
+
+/* ORB */
+.orb {
+    position: absolute;
+    width: 500px;
+    height: 500px;
+    background: radial-gradient(circle, rgba(212,175,55,0.12), transparent 70%);
+    filter: blur(90px);
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    pointer-events: none;
+}
+</style>
 </head>
+
 <body>
 
-    <div class="nav">
-        <a href="index.html">
-            <img src="logo.png" alt="gRaviTy Logo" style="width:140px;">
-        </a>
-    </div>
+<div class="nav">
+    <a href="index.html">
+        <img src="logo.png" alt="logo">
+    </a>
+</div>
 
-    <div class="main-wrapper">
-        <div class="orb"></div>
-        
-        <div class="container">
-            <h1>Coming Soon</h1>
-            <p>This feature is currently under development</p>
-            <a href="index.html" class="btn">Return Home</a>
+<div class="main">
+    <div class="orb"></div>
+
+    <div class="container">
+
+        <h1>Research Reports</h1>
+        <div class="tagline">Structured intelligence under development</div>
+
+        <div class="desc">
+            A centralized system for deep market reports, sector breakdowns, and macro analysis.
+            Built for disciplined, research-driven decision making.
         </div>
+
+        <div class="preview">
+            <div class="preview-title">COMING REPORTS</div>
+            <div class="preview-item">• Market Structural Shift Analysis</div>
+            <div class="preview-item">• Sector Rotation Intelligence</div>
+            <div class="preview-item">• Liquidity Flow Mapping</div>
+        </div>
+
+        <a href="index.html" class="btn">Return Home</a>
+
     </div>
+</div>
 
 </body>
 </html>
