@@ -3,121 +3,221 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Wealth Calculator | gRaviTy Research</title>
+    <title>Market Clock | gRaviTy Research</title>
+
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600&family=Inter:wght@300;400&display=swap');
-        
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;600&display=swap');
+
+        :root {
+            --gold: #d4af37;
+            --bg-black: #050505;
+        }
+
         body {
             margin: 0;
-            background: #000;
-            color: #fff;
+            padding: 0;
             font-family: 'Inter', sans-serif;
-            min-height: 100vh;
+            background: var(--bg-black);
+            color: #ffffff;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+            -webkit-font-smoothing: antialiased;
+            
+            /* --- PREVENT TEXT SELECTION & HIGHLIGHT --- */
+            user-select: none;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            cursor: default; /* No I-beam cursor on text */
+        }
+
+        /* --- AMBIENT BACKGROUND --- */
+        .gold-orb { 
+            position: fixed; 
+            border-radius: 50%; 
+            filter: blur(140px); 
+            pointer-events: none; 
+            z-index: 1; 
+            opacity: 0.15; 
+        }
+        .orb1 { width: 600px; height: 600px; background: var(--gold); top: -20%; left: -10%; }
+        .orb2 { width: 500px; height: 500px; background: var(--gold); bottom: -10%; right: -10%; }
+
+        /* --- MINIMALIST CLOCK --- */
+        .clock-container {
+            text-align: center;
+            z-index: 10;
+        }
+
+        .launch-label {
+            font-size: 12px;
+            color: var(--gold);
+            text-transform: uppercase;
+            letter-spacing: 12px;
+            margin-bottom: 30px;
+            font-weight: 300;
+            opacity: 0.7;
+            display: block;
+            animation: fadeIn 2s ease-in-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; letter-spacing: 25px; }
+            to { opacity: 0.7; letter-spacing: 12px; }
+        }
+
+        .timer-display {
             display: flex;
             justify-content: center;
             align-items: center;
+            gap: clamp(10px, 4vw, 40px);
+            font-size: clamp(60px, 18vw, 180px);
+            font-weight: 100;
+            color: var(--gold);
+            line-height: 1;
+            letter-spacing: -5px;
         }
 
-        .calc-card {
-            background: rgba(10, 10, 10, 0.8);
-            backdrop-filter: blur(20px);
-            border: 1px solid #d4af37;
-            padding: 40px;
-            border-radius: 20px;
-            width: 90%;
-            max-width: 500px;
-            box-shadow: 0 0 30px rgba(212, 175, 55, 0.1);
-            text-align: center;
+        .timer-unit {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            animation: pulse 4s infinite ease-in-out;
         }
 
-        h1 { font-family: 'Playfair Display'; color: #d4af37; margin-bottom: 30px; }
-
-        .input-group { text-align: left; margin-bottom: 20px; }
-        label { display: block; font-size: 11px; color: #d4af37; text-transform: uppercase; letter-spacing: 1.5px; margin-bottom: 8px; }
-        
-        input {
-            width: 100%;
-            background: transparent;
-            border: none;
-            border-bottom: 1px solid #333;
-            color: #fff;
-            padding: 10px 0;
-            font-size: 20px;
-            outline: none;
-            transition: 0.3s;
+        @keyframes pulse {
+            0%, 100% { text-shadow: 0 0 0px transparent; opacity: 0.8; }
+            50% { text-shadow: 0 0 30px rgba(212, 175, 55, 0.4); opacity: 1; }
         }
 
-        input:focus { border-bottom-color: #d4af37; }
-
-        .btn-calc {
-            width: 100%;
-            padding: 15px;
-            background: #d4af37;
-            color: #000;
-            border: none;
-            border-radius: 8px;
-            font-weight: bold;
-            font-size: 16px;
-            cursor: pointer;
+        .timer-label {
+            font-size: 9px;
+            color: #444;
+            text-transform: uppercase;
+            letter-spacing: 5px;
             margin-top: 20px;
+            font-weight: 600;
+            transform: translateX(2.5px);
+        }
+
+        .separator {
+            opacity: 0.2;
+            font-weight: 100;
+            padding-bottom: 45px;
+        }
+
+        /* --- NAVIGATION --- */
+        .footer-nav {
+            position: absolute;
+            bottom: 40px;
+            z-index: 10;
+            opacity: 0.4;
             transition: 0.3s;
         }
 
-        .btn-calc:hover { transform: scale(1.02); box-shadow: 0 0 20px rgba(212, 175, 55, 0.4); }
+        .footer-nav:hover { opacity: 1; }
 
-        .results { margin-top: 35px; border-top: 1px solid #1f1f1f; padding-top: 25px; display: none; }
-        .res-val { font-size: 32px; color: #d4af37; font-weight: bold; margin: 10px 0; }
-        
-        .back-link { display: block; margin-top: 30px; color: #666; text-decoration: none; font-size: 13px; }
-        .back-link:hover { color: #d4af37; }
+        .back-link {
+            color: #fff;
+            text-decoration: none;
+            font-size: 10px;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            padding: 10px 20px;
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .back-link:hover {
+            border-color: var(--gold);
+            color: var(--gold);
+        }
     </style>
 </head>
-<body>
+<body oncontextmenu="return false;" ondragstart="return false;" onselectstart="return false;"> 
 
-    <div class="calc-card">
-        <img src="logo.png" alt="gRaviTy" style="width: 100px; margin-bottom: 20px;">
-        <h1>Wealth Projection</h1>
+<div class="gold-orb orb1"></div>
+<div class="gold-orb orb2"></div>
 
-        <div class="input-group">
-            <label>Monthly SIP Amount (₹)</label>
-            <input type="number" id="monthly" value="5000">
+<div class="clock-container">
+    <span class="launch-label">Time to Launch</span>
+    
+    <div class="timer-display">
+        <div class="timer-unit">
+            <span id="days">00</span>
+            <span class="timer-label">Days</span>
         </div>
-
-        <div class="input-group">
-            <label>Expected Annual Return (%)</label>
-            <input type="number" id="rate" value="12">
+        <span class="separator">:</span>
+        <div class="timer-unit">
+            <span id="hours">00</span>
+            <span class="timer-label">Hours</span>
         </div>
-
-        <div class="input-group">
-            <label>Investment Duration (Years)</label>
-            <input type="number" id="years" value="10">
+        <span class="separator">:</span>
+        <div class="timer-unit">
+            <span id="minutes">00</span>
+            <span class="timer-label">Minutes</span>
         </div>
-
-        <button class="btn-calc" onclick="runCalc()">Calculate Future Value</button>
-
-        <div class="results" id="results">
-            <p style="color: #9ca3af; margin: 0;">Total wealth created will be approx:</p>
-            <div class="res-val" id="total">₹0</div>
-            <p style="font-size: 12px; color: #555;">(Calculation assumes monthly compounding)</p>
+        <span class="separator">:</span>
+        <div class="timer-unit">
+            <span id="seconds">00</span>
+            <span class="timer-label">Seconds</span>
         </div>
-
-        <a href="index.html" class="back-link">← Back to Research Home</a>
     </div>
+</div>
 
-    <script>
-        function runCalc() {
-            const P = parseFloat(document.getElementById('monthly').value);
-            const i = (parseFloat(document.getElementById('rate').value) / 100) / 12;
-            const n = parseFloat(document.getElementById('years').value) * 12;
+<div class="footer-nav">
+    <a href="index.html" class="back-link">Return to Home</a>
+</div>
 
-            if(!P || !i || !n) return;
+<script>
+    const target = new Date("2026-04-25T00:00:00+05:30").getTime();
 
-            // SIP Formula: M = P × ({[1 + i]^n – 1} / i) × (1 + i)
-            const fv = P * ((Math.pow(1 + i, n) - 1) / i) * (1 + i);
+    function updateClock() {
+        const now = new Date().getTime();
+        const diff = target - now;
 
-            document.getElementById('total').innerText = "₹" + Math.round(fv).toLocaleString('en-IN');
-            document.getElementById('results').style.display = 'block';
+        if (diff <= 0) {
+            document.querySelector(".timer-display").innerHTML = "LIVE";
+            return;
         }
-    </script>
+
+        const d = Math.floor(diff / 86400000);
+        const h = Math.floor((diff % 86400000) / 3600000);
+        const m = Math.floor((diff % 3600000) / 60000);
+        const s = Math.floor((diff % 60000) / 1000);
+
+        const dEl = document.getElementById("days");
+        const hEl = document.getElementById("hours");
+        const mEl = document.getElementById("minutes");
+        const sEl = document.getElementById("seconds");
+
+        if(dEl) dEl.innerText = d.toString().padStart(2, '0');
+        if(hEl) hEl.innerText = h.toString().padStart(2, '0');
+        if(mEl) mEl.innerText = m.toString().padStart(2, '0');
+        if(sEl) sEl.innerText = s.toString().padStart(2, '0');
+    }
+
+    setInterval(updateClock, 1000);
+    updateClock();
+
+    // TOTAL LOCKDOWN: PREVENT SOURCE VIEW / INSPECT / DRAG
+    document.onkeydown = function(e) {
+        // Blocks F12, Ctrl+Shift+I, J, C, and Ctrl+U, S
+        // Also supports Meta key for Mac users
+        if (
+            e.keyCode === 123 || 
+            ((e.ctrlKey || e.metaKey) && e.shiftKey && (e.keyCode === 73 || e.keyCode === 74 || e.keyCode === 67)) || 
+            ((e.ctrlKey || e.metaKey) && (e.keyCode === 85 || e.keyCode === 83))
+        ) {
+            return false;
+        }
+    };
+    
+    // Prevent dragging elements to see highights
+    document.addEventListener('dragstart', function(e) { e.preventDefault(); });
+</script>
 </body>
 </html>
