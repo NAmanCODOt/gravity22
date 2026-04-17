@@ -6,131 +6,187 @@
     <title>gRaviTy Research | Understanding Market Forces</title>
 
     <style>
+            /* HOVER OPEN SIDEBAR */
 .nav:hover + #mySidebar,
 #mySidebar:hover {
     width: 350px;
 }
+        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600&family=Inter:wght@300;400;500&display=swap');
 
-@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600&family=Inter:wght@300;400;500&display=swap');
+        html { scroll-behavior: smooth; }
 
-html { scroll-behavior: smooth; }
+        body {
+            margin: 0;
+            font-family: 'Inter', sans-serif;
+            background: #000;
+            color: #ffffff;
+            overflow-x: hidden;
+        }
 
-body {
-    margin: 0;
-    font-family: 'Inter', sans-serif;
-    background: #000;
-    color: #ffffff;
-    overflow-x: hidden;
-}
+        /* --- SIDEBAR NAVIGATION --- */
+        .sidebar {
+            height: 100%;
+            width: 0;
+            position: fixed;
+            z-index: 1000;
+            top: 0;
+            left: 0;
+            background-color: rgba(10, 10, 10, 0.98);
+            backdrop-filter: blur(20px);
+            overflow-x: hidden;
+            transition: 0.5s cubic-bezier(0.77,0.2,0.05,1.0);
+            padding-top: 60px;
+            border-right: 1px solid #d4af37;
+        }
 
-/* SIDEBAR */
-.sidebar {
-    height: 100%;
-    width: 0;
-    position: fixed;
-    z-index: 1000;
-    top: 0;
-    left: 0;
-    background-color: rgba(10, 10, 10, 0.98);
-    backdrop-filter: blur(20px);
-    overflow-x: hidden;
-    transition: 0.5s cubic-bezier(0.77,0.2,0.05,1.0);
-    padding-top: 60px;
-    border-right: 1px solid #d4af37;
-}
+        .sidebar-content { padding: 0 32px; min-width: 280px; }
 
-.sidebar-content { padding: 0 32px; min-width: 280px; }
+        .sidebar a {
+            padding: 12px 0;
+            text-decoration: none;
+            font-size: 18px;
+            color: #9ca3af;
+            display: block;
+            transition: 0.3s;
+            font-weight: 300;
+        }
 
-.sidebar a {
-    padding: 12px 0;
-    text-decoration: none;
-    font-size: 18px;
-    color: #9ca3af;
-    display: block;
-}
+        .sidebar a:hover { color: #d4af37; padding-left: 10px; }
 
-.sidebar a:hover { color: #d4af37; padding-left: 10px; }
+        .sidebar .close-btn {
+            position: absolute;
+            top: 15px;
+            right: 25px;
+            font-size: 36px;
+            cursor: pointer;
+            color: #d4af37;
+        }
 
-.sidebar .close-btn {
-    position: absolute;
-    top: 15px;
-    right: 25px;
-    font-size: 36px;
-    cursor: pointer;
-    color: #d4af37;
-}
+        .menu-label {
+            padding: 20px 0 10px 0;
+            font-size: 11px;
+            color: #d4af37;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            opacity: 0.7;
+        }
 
-.menu-label {
-    padding: 20px 0 10px 0;
-    font-size: 11px;
-    color: #d4af37;
-    text-transform: uppercase;
-    letter-spacing: 2px;
-}
+        /* --- COUNTDOWN STYLES --- */
+        .countdown-box {
+            background: rgba(212, 175, 55, 0.05);
+            border: 1px solid rgba(212, 175, 55, 0.2);
+            padding: 20px 10px;
+            border-radius: 12px;
+            margin: 20px 0;
+            text-align: center;
+        }
 
-/* COUNTDOWN */
-.countdown-box {
-    background: rgba(212, 175, 55, 0.05);
-    border: 1px solid rgba(212, 175, 55, 0.2);
-    padding: 20px;
-    border-radius: 12px;
-    margin: 20px 0;
-    text-align: center;
-}
+        .timer-display {
+            font-family: 'Inter', sans-serif;
+            font-size: 18px;
+            color: #d4af37;
+            font-weight: 400;
+        }
 
-.timer-display { font-size: 18px; color: #d4af37; }
+        .timer-unit {
+            display: inline-block;
+            min-width: 35px;
+        }
 
-/* NAV */
-.nav {
-    padding: 10px 25px;
-    display: flex;
-    justify-content: space-between;
-    background: rgba(0,0,0,0.85);
-    border-bottom: 1px solid #1f1f1f;
-}
+        .timer-label {
+            font-size: 10px;
+            color: #6b7280;
+            text-transform: uppercase;
+            display: block;
+            margin-top: 4px;
+        }
 
-.nav img { width: 140px; }
+        /* --- NAVIGATION BAR --- */
+        .nav {
+            padding: 10px 25px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background: rgba(0, 0, 0, 0.85);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid #1f1f1f;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
 
-/* HERO */
-.hero { text-align: center; padding: 120px 20px; }
-.hero h1 { font-family: 'Playfair Display'; font-size: 60px; color: #d4af37; }
-.hero p { max-width: 700px; margin: auto; color: #9ca3af; }
+        .menu-icon {
+            cursor: pointer;
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+        }
 
-/* BUTTON */
-.btn {
-    padding: 14px 32px;
-    border: 1px solid #d4af37;
-    color: #d4af37;
-    text-decoration: none;
-}
+        .menu-icon span {
+            display: block;
+            width: 6px;
+            height: 6px;
+            background-color: #d4af37;
+            border-radius: 50%;
+            transition: 0.3s;
+        }
 
-.btn:hover { background: #d4af37; color: black; }
+        .menu-icon:hover span { transform: scale(1.4); background-color: #ffffff; }
 
-/* SECTION */
-.section { padding: 80px 20px; text-align: center; }
+        .nav img { width: 140px; }
 
-.card {
-    background: rgba(15,15,15,0.6);
-    padding: 40px;
-    margin: auto;
-    max-width: 650px;
-    border: 1px solid #1f1f1f;
-}
+        /* --- HERO SECTION --- */
+        .hero { text-align: center; padding: 120px 20px; position: relative; }
+        .hero h1 { font-family: 'Playfair Display', serif; font-size: clamp(36px, 8vw, 64px); color: #d4af37; margin-bottom: 20px; line-height: 1.1; }
+        .hero p { max-width: 700px; margin: 0 auto 40px auto; font-size: 18px; color: #9ca3af; line-height: 1.8; }
 
-/* FOOTER */
-.footer {
-    text-align: center;
-    padding: 60px;
-    font-size: 12px;
-    color: #6b7280;
-}
+        .btn {
+            margin: 10px;
+            padding: 14px 32px;
+            background: transparent;
+            border: 1px solid #d4af37;
+            border-radius: 8px;
+            color: #d4af37;
+            font-weight: 500;
+            cursor: pointer;
+            transition: 0.4s;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .btn:hover { background: #d4af37; color: black; box-shadow: 0 0 25px rgba(212, 175, 55, 0.3); }
+
+        .section { padding: 80px 20px; text-align: center; }
+        .section h2 { font-family: 'Playfair Display', serif; color: #d4af37; font-size: 32px; margin-bottom: 40px; }
+
+        .card {
+            background: rgba(15, 15, 15, 0.6);
+            backdrop-filter: blur(8px);
+            padding: 40px;
+            margin: 25px auto;
+            border-radius: 16px;
+            max-width: 650px;
+            border: 1px solid #1f1f1f;
+            color: #d1d5db;
+            transition: 0.5s ease;
+            line-height: 1.7;
+        }
+        .card:hover { border-color: #d4af37; transform: translateY(-8px); }
+
+        .footer { text-align: center; padding: 60px; font-size: 12px; color: #6b7280; border-top: 1px solid #1f1f1f; letter-spacing: 1px; }
+
+        /* --- BACKGROUND ORBS --- */
+        .gold-orb { position: fixed; border-radius: 50%; filter: blur(100px); pointer-events: none; z-index: 0; }
+        .orb1 { width: 500px; height: 500px; background: radial-gradient(circle, rgba(212,175,55,0.1), transparent 70%); top: 10%; left: -10%; }
+        .orb2 { width: 400px; height: 400px; background: radial-gradient(circle, rgba(212,175,55,0.05), transparent 70%); bottom: 10%; right: -5%; }
+
+        body > * { position: relative; z-index: 1; }
     </style>
 </head>
-
 <body>
 
-<!-- SIDEBAR -->
 <div id="mySidebar" class="sidebar">
+
     <span class="close-btn">&times;</span>
 
     <div class="sidebar-content">
@@ -139,11 +195,30 @@ body {
 
         <div class="countdown-box">
             <div class="timer-display">
-                <span id="days">00</span> :
-                <span id="hours">00</span> :
-                <span id="minutes">00</span> :
-                <span id="seconds">00</span>
+                <span class="timer-unit">
+                    <span id="days">00</span>
+                    <small class="timer-label">Days</small>
+                </span>
+                <span>:</span>
+                <span class="timer-unit">
+                    <span id="hours">00</span>
+                    <small class="timer-label">Hrs</small>
+                </span>
+                <span>:</span>
+                <span class="timer-unit">
+                    <span id="minutes">00</span>
+                    <small class="timer-label">Min</small>
+                </span>
+                <span>:</span>
+                <span class="timer-unit">
+                    <span id="seconds">00</span>
+                    <small class="timer-label">Sec</small>
+                </span>
             </div>
+
+            <p style="font-size: 10px; color: #9ca3af; margin-top: 15px; letter-spacing: 1px;">
+                LAUNCHING APRIL 25, 2026
+            </p>
         </div>
 
         <div class="menu-label">Market Insights</div>
@@ -159,48 +234,102 @@ body {
         <a href="aboutus.html">About Us</a>
 
     </div>
-</div>
 
-<!-- NAV -->
-<div class="nav">
-    <div></div>
-    <a href="index.html"><img src="logo.png"></a>
-    <div></div>
 </div>
+        
+    <div class="gold-orb orb1"></div>
+    <div class="gold-orb orb2"></div>
 
-<!-- HERO -->
-<div class="hero">
-    <h1>Decoding the Pulse of the Market</h1>
-    <p>gRaviTy Research is a market research and analysis firm.</p>
-    <a href="insights.html" class="btn">Explore Insights</a>
-</div>
+<div class="nav-wrapper">
 
-<!-- SECTION -->
-<div class="section">
-    <div class="card">
-        We believe that markets are governed by predictable forces.
+    <div class="nav">
+        <div class="menu-icon">
+            <span></span><span></span><span></span>
+        </div>
+        <a href="index.html"><img src="logo.png" alt="gRaviTy Research Logo"></a>
+        <div style="width: 30px;"></div> 
     </div>
-</div>
 
-<!-- FOOTER -->
-<div class="footer">
-    © 2026 gRaviTy Research
-</div>
+    
 
-<!-- COUNTDOWN SCRIPT -->
+</div> <div class="hero">
+        <h1>Decoding the Pulse <br>of the Market</h1>
+        <p>
+            gRaviTy Research is a market research and analysis firm focused on understanding 
+            and explaining financial markets, businesses, and industry trends.
+        </p>
+        <div class="btn-group">
+            <a href="insights.html" class="btn">Explore Insights</a>
+            <a href="vision.html" class="btn" style="border-color: rgba(212,175,55,0.2); color: #9ca3af;">Our Vision</a>
+        </div>
+    </div>
+
+    <div class="section">
+        <h2>The Core Philosophy</h2>
+        <div class="card">
+            We believe that markets are governed by predictable forces. Our job is to measure the 
+            "gravity" of value, momentum, and industrial shifts to give you a clearer view of the 
+            financial horizon. We don't manage money; we decode the forces behind it.
+        </div>
+    </div>
+
+    <div class="footer">
+        © 2026 gRaviTy Research | Private Analysis Firm <br>
+        <span style="font-size: 10px; opacity: 0.5; margin-top: 10px; display: block;">Informational purposes only. All market investments are subject to risk.</span>
+    </div>
+
 <script>
-const targetTime = new Date("April 25, 2026 00:00:00").getTime();
+document.addEventListener("DOMContentLoaded", function () {
 
-setInterval(() => {
-    const now = Date.now();
-    const diff = targetTime - now;
+    // CACHE DOM
+    const sidebar = document.getElementById("mySidebar");
+    const daysEl = document.getElementById("days");
+    const hoursEl = document.getElementById("hours");
+    const minutesEl = document.getElementById("minutes");
+    const secondsEl = document.getElementById("seconds");
+    const countdownBox = document.querySelector(".countdown-box");
 
-    document.getElementById("days").textContent = Math.floor(diff / 86400000);
-    document.getElementById("hours").textContent = Math.floor(diff % 86400000 / 3600000);
-    document.getElementById("minutes").textContent = Math.floor(diff % 3600000 / 60000);
-    document.getElementById("seconds").textContent = Math.floor(diff % 60000 / 1000);
-}, 1000);
+  
+
+
+    // CLICK OUTSIDE
+    document.addEventListener("click", function(event) {
+        if (event.target === sidebar) {
+            closeNav();
+        }
+    });
+
+    // COUNTDOWN TIMER
+    const targetTime = new Date("April 25, 2026 00:00:00").getTime();
+
+    const interval = setInterval(updateCountdown, 1000);
+
+    function updateCountdown() {
+        const now = Date.now();
+        const timeLeft = targetTime - now;
+
+        if (timeLeft <= 0) {
+            clearInterval(interval);
+            if (countdownBox) {
+                countdownBox.innerHTML = "<p style='color:#d4af37'>BUSINESS FULLY LAUNCHED</p>";
+            }
+            return;
+        }
+
+        const d = Math.floor(timeLeft / 86400000);
+        const h = Math.floor((timeLeft % 86400000) / 3600000);
+        const m = Math.floor((timeLeft % 3600000) / 60000);
+        const s = Math.floor((timeLeft % 60000) / 1000);
+
+        if (daysEl) daysEl.textContent = String(d).padStart(2, '0');
+        if (hoursEl) hoursEl.textContent = String(h).padStart(2, '0');
+        if (minutesEl) minutesEl.textContent = String(m).padStart(2, '0');
+        if (secondsEl) secondsEl.textContent = String(s).padStart(2, '0');
+    }
+
+    updateCountdown(); // instant render
+
+});
 </script>
-
 </body>
 </html>
