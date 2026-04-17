@@ -6,13 +6,6 @@
     <title>gRaviTy Research | Understanding Market Forces</title>
 
     <style>
-        /* HOVER OPEN SIDEBAR (PC) */
-        .nav:hover + #mySidebar,
-        #mySidebar:hover,
-        #mySidebar.open {
-            width: 350px;
-        }
-
         @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600&family=Inter:wght@300;400;500&display=swap');
 
         html { scroll-behavior: smooth; }
@@ -28,7 +21,7 @@
         /* --- SIDEBAR NAVIGATION --- */
         .sidebar {
             height: 100%;
-            width: 0;
+            width: 0; /* Controlled by JS class .open */
             position: fixed;
             z-index: 1000;
             top: 0;
@@ -39,6 +32,11 @@
             transition: 0.5s cubic-bezier(0.77,0.2,0.05,1.0);
             padding-top: 60px;
             border-right: 1px solid #d4af37;
+        }
+
+        /* The fix: Class-based opening */
+        .sidebar.open {
+            width: 350px;
         }
 
         .sidebar-content { padding: 0 32px; min-width: 280px; }
@@ -62,6 +60,7 @@
             font-size: 36px;
             cursor: pointer;
             color: #d4af37;
+            z-index: 1001; /* Ensure it is clickable above content */
         }
 
         .menu-label {
@@ -122,7 +121,7 @@
             display: flex;
             flex-direction: column;
             gap: 5px;
-            padding: 10px; /* Bigger tap target for mobile */
+            padding: 10px; 
         }
 
         .menu-icon span {
@@ -195,25 +194,13 @@
         <div class="menu-label">Full Launch Countdown</div>
         <div class="countdown-box">
             <div class="timer-display">
-                <span class="timer-unit">
-                    <span id="days">00</span>
-                    <small class="timer-label">Days</small>
-                </span>
+                <span class="timer-unit"><span id="days">00</span><small class="timer-label">Days</small></span>
                 <span>:</span>
-                <span class="timer-unit">
-                    <span id="hours">00</span>
-                    <small class="timer-label">Hrs</small>
-                </span>
+                <span class="timer-unit"><span id="hours">00</span><small class="timer-label">Hrs</small></span>
                 <span>:</span>
-                <span class="timer-unit">
-                    <span id="minutes">00</span>
-                    <small class="timer-label">Min</small>
-                </span>
+                <span class="timer-unit"><span id="minutes">00</span><small class="timer-label">Min</small></span>
                 <span>:</span>
-                <span class="timer-unit">
-                    <span id="seconds">00</span>
-                    <small class="timer-label">Sec</small>
-                </span>
+                <span class="timer-unit"><span id="seconds">00</span><small class="timer-label">Sec</small></span>
             </div>
             <p style="font-size: 10px; color: #9ca3af; margin-top: 15px; letter-spacing: 1px;">
                 LAUNCHING APRIL 25, 2026
@@ -295,13 +282,17 @@ document.addEventListener("DOMContentLoaded", function () {
         sidebar.classList.remove("open");
     }
 
-    // EVENT LISTENERS
+    // CLICK MENU ICON
     menuBtn.addEventListener("click", function(e) {
         e.stopPropagation();
         openNav();
     });
 
-    closeBtn.addEventListener("click", closeNav);
+    // CLICK CLOSE BUTTON
+    closeBtn.addEventListener("click", function(e) {
+        e.stopPropagation();
+        closeNav();
+    });
 
     // CLICK OUTSIDE TO CLOSE
     document.addEventListener("click", function(event) {
