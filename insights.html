@@ -10,6 +10,7 @@
         :root {
             --gold: #d4af37;
             --bg-black: #050505;
+            --glass: rgba(255, 255, 255, 0.03);
         }
 
         body {
@@ -20,12 +21,7 @@
             color: #ffffff;
             overflow-x: hidden;
             -webkit-font-smoothing: antialiased;
-            
-            /* --- LOCKDOWN: UNCOPYABLE --- */
             user-select: none;
-            -webkit-user-select: none;
-            -moz-user-select: none;
-            -ms-user-select: none;
             cursor: default;
         }
 
@@ -45,197 +41,197 @@
 
         .nav img { height: 45px; width: auto; }
 
-        /* --- CONTAINER --- */
         .container {
             max-width: 900px;
-            margin: 60px auto;
+            margin: 40px auto;
             padding: 0 20px;
-            position: relative;
             z-index: 10;
+            position: relative;
         }
 
-        h1 {
-            font-family: 'Playfair Display', serif;
+        /* --- SEARCH & FILTERS --- */
+        .controls {
+            margin-bottom: 40px;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            align-items: center;
+        }
+
+        #searchBar {
+            width: 100%;
+            max-width: 500px;
+            background: var(--glass);
+            border: 1px solid rgba(212, 175, 55, 0.2);
+            padding: 15px 25px;
             color: var(--gold);
-            font-size: clamp(32px, 8vw, 42px);
-            text-align: center;
-            margin-bottom: 50px;
+            font-family: 'Inter', sans-serif;
+            font-size: 14px;
+            outline: none;
+            transition: 0.3s;
         }
 
-        /* --- DYNAMIC CARD STYLE --- */
+        #searchBar:focus { border-color: var(--gold); background: rgba(212, 175, 55, 0.05); }
+
+        .filter-group {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .filter-btn {
+            background: transparent;
+            border: 1px solid #333;
+            color: #888;
+            padding: 8px 16px;
+            font-size: 10px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .filter-btn.active, .filter-btn:hover {
+            border-color: var(--gold);
+            color: var(--gold);
+        }
+
+        /* --- CARDS --- */
         .insight-card {
             background: rgba(15,15,15,0.7);
             border: 1px solid rgba(255,255,255,0.05);
             padding: 40px;
             margin-bottom: 30px;
-            transition: 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            opacity: 0;
-            transform: translateY(30px);
+            transition: 0.4s;
+            display: none; /* Controlled by JS */
         }
 
-        .insight-card.loaded {
-            opacity: 1;
-            transform: translateY(0);
-        }
+        .insight-card.visible { display: block; animation: fadeInUp 0.5s forwards; }
 
-        .insight-card:hover {
-            border-color: var(--gold);
-            background: rgba(20,20,20,0.95);
-            box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
         }
 
         .card-header {
             display: flex;
             justify-content: space-between;
             align-items: baseline;
-            margin-bottom: 25px;
-            border-bottom: 1px solid rgba(212, 175, 55, 0.1);
+            margin-bottom: 20px;
+            border-bottom: 1px solid #222;
             padding-bottom: 15px;
         }
 
-        .company-name {
-            font-family: 'Playfair Display', serif;
-            font-size: 24px;
-            color: var(--gold);
-        }
+        .company-name { font-family: 'Playfair Display', serif; font-size: 24px; color: var(--gold); }
+        .live-price { font-size: 18px; color: #fff; }
+        .analysis-content { line-height: 1.8; color: #bbb; font-size: 15px; }
 
-        .price-info { text-align: right; }
-        .live-price { font-size: 18px; display: block; color: #fff; font-weight: 200; }
-        .pct-change { font-size: 12px; font-weight: 600; margin-top: 5px; display: block; }
-
-        .analysis-content {
-            line-height: 1.9;
-            color: #bbb;
-            font-size: 16px;
-            font-weight: 300;
-        }
-
-        /* --- FOOTER NAV --- */
-        .back-nav { text-align: center; margin-top: 60px; padding-bottom: 80px; }
-        .back-link { 
-            color: var(--gold); 
-            text-decoration: none; 
-            font-size: 11px; 
-            letter-spacing: 2px; 
-            text-transform: uppercase; 
-            border: 1px solid var(--gold); 
-            padding: 14px 28px; 
-            transition: 0.4s; 
-        }
-        .back-link:hover { background: var(--gold); color: #000; }
-
-        /* --- LOADING SYSTEM --- */
-        #loader { 
-            text-align: center; 
-            color: var(--gold); 
-            letter-spacing: 5px; 
-            font-size: 10px; 
-            margin-top: 100px; 
+        /* --- LIVE COMMENT TAG --- */
+        .live-tag {
+            display: inline-block;
+            background: rgba(0, 255, 136, 0.1);
+            color: #00ff88;
+            font-size: 9px;
+            padding: 4px 10px;
             text-transform: uppercase;
-            animation: breathe 2s infinite ease-in-out;
+            letter-spacing: 1px;
+            margin-bottom: 15px;
+            border-left: 2px solid #00ff88;
         }
 
-        @keyframes breathe {
-            0%, 100% { opacity: 0.4; }
-            50% { opacity: 1; }
-        }
-
-        /* --- BACKGROUND ORBS --- */
         .gold-orb { position: fixed; border-radius: 50%; filter: blur(140px); pointer-events: none; z-index: 1; opacity: 0.15; }
         .orb1 { width: 500px; height: 500px; background: var(--gold); top: -10%; left: -10%; }
         .orb2 { width: 400px; height: 400px; background: var(--gold); bottom: -5%; right: -5%; }
     </style>
 </head>
-<body oncontextmenu="return false;" ondragstart="return false;" onselectstart="return false;">
+<body oncontextmenu="return false;">
 
 <div class="gold-orb orb1"></div>
 <div class="gold-orb orb2"></div>
 
 <div class="nav">
     <div style="width: 22px;"></div>
-    <a href="index.html"><img src="logo.png" alt="gRaviTy Logo"></a>
+    <a href="index.html"><img src="logo.png" alt="Logo"></a>
     <div style="width: 22px;"></div> 
 </div>
 
 <div class="container">
-    <h1>Market Insights</h1>
-    <div id="loader">Establishing Encrypted Connection...</div>
-    <div id="insights-container"></div>
+    <div class="controls">
+        <input type="text" id="searchBar" placeholder="Search Company or Ticker..." onkeyup="filterInsights()">
+        <div class="filter-group" id="filterGroup">
+            <button class="filter-btn active" onclick="setFilter('all', this)">All Sectors</button>
+            <button class="filter-btn" onclick="setFilter('tech', this)">Tech</button>
+            <button class="filter-btn" onclick="setFilter('finance', this)">Finance</button>
+            <button class="filter-btn" onclick="setFilter('consumer', this)">Consumer</button>
+        </div>
+    </div>
 
-    <div class="back-nav">
-        <a href="index.html" class="back-link">Return to Command Center</a>
+    <div id="insights-container">
+        <div id="loader" style="text-align: center; color: var(--gold);">SYNCHRONIZING...</div>
     </div>
 </div>
 
 <script>
+    let allData = [];
+    let currentFilter = 'all';
+
     async function loadInsights() {
-        // --- YOUR LIVE API ENDPOINT ---
         const SHEETY_URL = 'https://api.sheety.co/27bb86a119d2050ea00da106b6e33003/gRaviTyResearchTerminal/sheet1'; 
 
         try {
             const response = await fetch(SHEETY_URL);
             const data = await response.json();
-            const container = document.getElementById('insights-container');
-            const loader = document.getElementById('loader');
-
-            // Hide loader once data is fetched
-            loader.style.display = 'none';
-
-            // Accessing the 'sheet1' object from your Sheety response
-            const rows = data.sheet1;
-
-            rows.forEach((report, index) => {
-                // Formatting values for a clean UI
-                const priceVal = report.price ? report.price.toLocaleString('en-IN') : "0.00";
-                const rawChange = report.change ? parseFloat(report.change) * 100 : 0;
-                const changeDisplay = rawChange.toFixed(2);
-                const color = rawChange >= 0 ? '#00ff88' : '#ff4444';
-                const sign = rawChange >= 0 ? '+' : '';
-
-                const card = document.createElement('div');
-                card.className = 'insight-card';
-                
-                // Staggered entrance animation
-                card.style.transitionDelay = (index * 0.15) + 's';
-
-                card.innerHTML = `
-                    <div class="card-header">
-                        <div class="company-name">${report.company || 'Loading Asset...'}</div>
-                        <div class="price-info">
-                            <span class="live-price">₹${priceVal}</span>
-                            <span class="pct-change" style="color: ${color}">${sign}${changeDisplay}%</span>
-                        </div>
-                    </div>
-                    <div class="analysis-content">
-                        ${report.analysis || 'Awaiting deep-dive synchronization from the terminal...'}
-                    </div>
-                `;
-
-                container.appendChild(card);
-                
-                // Slight delay to trigger the fade-in transform
-                setTimeout(() => card.classList.add('loaded'), 50);
-            });
-
+            allData = data.sheet1;
+            renderCards();
         } catch (error) {
-            console.error("Connection Error:", error);
-            document.getElementById('loader').innerText = "TERMINAL OFFLINE. CHECK DATA SOURCE.";
+            document.getElementById('insights-container').innerHTML = "Connection Error.";
         }
     }
 
-    // Initialize the feed
+    function renderCards() {
+        const container = document.getElementById('insights-container');
+        container.innerHTML = '';
+        const searchVal = document.getElementById('searchBar').value.toLowerCase();
+
+        allData.forEach(report => {
+            const isVisible = (currentFilter === 'all' || report.sector?.toLowerCase() === currentFilter) &&
+                              (report.company.toLowerCase().includes(searchVal) || report.ticker.toLowerCase().includes(searchVal));
+
+            const changeVal = (parseFloat(report.change) * 100).toFixed(2);
+            const color = changeVal >= 0 ? '#00ff88' : '#ff4444';
+
+            const card = document.createElement('div');
+            card.className = `insight-card ${isVisible ? 'visible' : ''}`;
+            card.innerHTML = `
+                <div class="live-tag">Live Pulse: Market Momentum Active</div>
+                <div class="card-header">
+                    <div class="company-name">${report.company}</div>
+                    <div class="price-info">
+                        <span class="live-price">₹${report.price.toLocaleString('en-IN')}</span>
+                        <span style="color: ${color}; font-size: 12px;">${changeVal >= 0 ? '+' : ''}${changeVal}%</span>
+                    </div>
+                </div>
+                <div class="analysis-content">${report.analysis}</div>
+            `;
+            container.appendChild(card);
+        });
+    }
+
+    function filterInsights() { renderCards(); }
+
+    function setFilter(sector, btn) {
+        currentFilter = sector;
+        document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        renderCards();
+    }
+
     loadInsights();
 
-    // --- SECURITY LOCKDOWN ---
+    // Security Lockdown
     document.onkeydown = function(e) {
-        // Block F12, Ctrl+U, Ctrl+S, Ctrl+Shift+I (Windows/Mac)
-        if (
-            e.keyCode === 123 || 
-            ((e.ctrlKey || e.metaKey) && (e.keyCode === 85 || e.keyCode === 83 || e.keyCode === 73)) ||
-            (e.ctrlKey && e.shiftKey && (e.keyCode === 74 || e.keyCode === 67))
-        ) {
-            return false;
-        }
+        if (e.keyCode === 123 || ((e.ctrlKey || e.metaKey) && (e.keyCode === 85 || e.keyCode === 83 || e.keyCode === 73))) return false;
     };
 </script>
 </body>
