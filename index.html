@@ -27,7 +27,8 @@ body {
     position: fixed;
     left: 0;
     top: 0;
-    background: #050505;
+    background: rgba(5,5,5,0.95);
+    backdrop-filter: blur(20px);
     overflow-x: hidden;
     transition: 0.4s;
     padding-top: 80px;
@@ -35,21 +36,38 @@ body {
     border-right: 1px solid rgba(212,175,55,0.2);
 }
 
-.sidebar.open { width: 260px; }
+.sidebar.open { width: 280px; }
 
+.sidebar-content {
+    padding: 0 30px;
+}
+
+/* SECTION LABEL */
+.menu-label {
+    margin-top: 25px;
+    font-size: 10px;
+    letter-spacing: 2px;
+    color: var(--gold);
+    text-transform: uppercase;
+    opacity: 0.7;
+}
+
+/* LINKS */
 .sidebar a {
     display: block;
-    padding: 15px 30px;
+    padding: 14px 0;
     color: #888;
     text-decoration: none;
     transition: 0.3s;
+    border-bottom: 1px solid rgba(255,255,255,0.05);
 }
 
 .sidebar a:hover {
     color: var(--gold);
-    padding-left: 40px;
+    padding-left: 10px;
 }
 
+/* CLOSE */
 .close-btn {
     position: absolute;
     top: 20px;
@@ -72,6 +90,7 @@ body {
     cursor: pointer;
 }
 
+/* MENU ICON */
 .menu-icon {
     cursor: pointer;
 }
@@ -148,10 +167,19 @@ body > * {
 <div id="sidebar" class="sidebar">
     <span class="close-btn" onclick="closeMenu()">&times;</span>
 
-    <a href="insights.html">Market Insights</a>
-    <a href="calc.html">Wealth Projection</a>
-    <a href="clock.html">Market Clock</a>
-    <a href="aboutus.html">About Us</a>
+    <div class="sidebar-content">
+
+        <!-- ADVANCED TOOLS -->
+        <div class="menu-label">Advanced Tools</div>
+        <a href="calc.html">Wealth Calculators</a>
+        <a href="clock.html">Market Clock</a>
+
+        <!-- OUR FIRM -->
+        <div class="menu-label">Our Firm</div>
+        <a href="aboutus.html">About Us</a>
+        <a href="vision.html">Our Vision</a>
+
+    </div>
 </div>
 
 <!-- NAV -->
@@ -173,7 +201,6 @@ body > * {
         We break down complexity into clarity.
     </p>
 
-    <button class="btn" onclick="go('insights.html')">Explore Insights</button>
     <button class="btn" onclick="go('calc.html')">Wealth Tools</button>
 </div>
 
@@ -190,7 +217,7 @@ function go(page) {
     window.location.href = page;
 }
 
-/* CLICK OUTSIDE TO CLOSE */
+/* CLICK OUTSIDE CLOSE */
 document.addEventListener("click", function(e) {
     const sidebar = document.getElementById("sidebar");
     if (!sidebar.contains(e.target) && !e.target.closest(".menu-icon")) {
