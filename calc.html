@@ -28,12 +28,12 @@ body {
     position: fixed;
     left: 0;
     top: 0;
-    background: #0a0a0a; /* Solid dark background */
+    background: #0a0a0a;
     box-shadow: 2px 0 15px rgba(0,0,0,0.5);
     transition: 0.4s ease-in-out;
     padding-top: 80px;
     z-index: 2000;
-    overflow-x: hidden; /* Keeps content hidden when width is 0 */
+    overflow-x: hidden;
 }
 
 .sidebar.open { 
@@ -42,7 +42,7 @@ body {
 }
 
 .sidebar-content { 
-    min-width: 280px; /* Prevents text wrapping during animation */
+    min-width: 280px;
     padding: 0 30px; 
 }
 
@@ -63,6 +63,7 @@ body {
 }
 .sidebar a:hover {
     color: var(--gold);
+    padding-left: 10px;
 }
 
 .close-btn {
@@ -88,7 +89,6 @@ body {
 
 .menu-icon {
     cursor: pointer;
-    padding: 10px;
     z-index: 101;
 }
 
@@ -111,6 +111,7 @@ h1 {
     font-family: 'Playfair Display', serif;
     color: var(--gold);
     text-align: center;
+    font-size: 2.5rem;
 }
 
 /* CARD */
@@ -121,11 +122,18 @@ h1 {
     margin-top: 30px;
 }
 
+.card h3 {
+    margin-top: 0;
+    font-weight: 400;
+    color: #eee;
+}
+
 label {
-    font-size: 11px;
-    color: #666;
     display: block;
+    font-size: 10px;
+    color: #666;
     margin-top: 10px;
+    text-transform: uppercase;
 }
 
 input {
@@ -135,25 +143,35 @@ input {
     border-bottom: 1px solid #333;
     color: var(--gold);
     padding: 8px 0;
-    margin-bottom: 15px;
+    margin-bottom: 5px;
     font-size: 18px;
     outline: none;
 }
 
+input:focus {
+    border-bottom: 1px solid var(--gold);
+}
+
 .result {
-    font-size: 22px;
+    font-size: 24px;
     color: var(--gold);
-    margin-top: 10px;
-    font-weight: bold;
+    margin-top: 15px;
+    font-weight: 600;
 }
 
 .btn {
-    margin-top: 30px;
-    padding: 10px 25px;
+    margin-top: 40px;
+    padding: 12px 24px;
     border: 1px solid var(--gold);
     background: transparent;
     color: var(--gold);
     cursor: pointer;
+    transition: 0.3s;
+}
+
+.btn:hover {
+    background: var(--gold);
+    color: black;
 }
 </style>
 </head>
@@ -164,12 +182,12 @@ input {
     <span class="close-btn" onclick="closeMenu()">&times;</span>
     <div class="sidebar-content">
         <div class="menu-label">Advanced Tools</div>
-        <a href="#">Wealth Calculators</a>
-        <a href="#">Market Clock</a>
+        <a href="calc.html">Wealth Calculators</a>
+        <a href="clock.html">Market Clock</a>
 
         <div class="menu-label">Our Firm</div>
-        <a href="#">About Us</a>
-        <a href="#">Our Vision</a>
+        <a href="aboutus.html">About Us</a>
+        <a href="vision.html">Our Vision</a>
     </div>
 </div>
 
@@ -177,30 +195,56 @@ input {
     <div class="menu-icon" onclick="openMenu(event)">
         <span></span><span></span><span></span>
     </div>
-    <div style="color: var(--gold); font-size: 20px; font-weight: bold;">gRaviTy</div>
+    <div style="color: var(--gold); font-size: 22px; font-weight: bold; cursor: pointer;" onclick="goHome()">gRaviTy</div>
 </div>
 
 <div class="container">
+
     <h1>Wealth Calculators</h1>
 
     <div class="card">
         <h3>Wealth Projection</h3>
-        <label>Principal</label>
-        <input id="p" type="number" value="100000" oninput="calc()">
-        <label>Monthly Addition</label>
-        <input id="m" type="number" value="10000" oninput="calc()">
-        <label>Return (%)</label>
-        <input id="r" type="number" value="12" oninput="calc()">
-        <label>Years</label>
-        <input id="y" type="number" value="10" oninput="calc()">
+        <label>Initial Investment (P)</label>
+        <input id="p" type="number" value="100000" oninput="calcWealth()">
+        <label>Monthly Addition (M)</label>
+        <input id="m" type="number" value="10000" oninput="calcWealth()">
+        <label>Annual Return (%)</label>
+        <input id="r" type="number" value="12" oninput="calcWealth()">
+        <label>Duration (Years)</label>
+        <input id="y" type="number" value="10" oninput="calcWealth()">
         <div id="res1" class="result">₹ 0</div>
     </div>
+
+    <div class="card">
+        <h3>SIP Calculator</h3>
+        <label>Monthly SIP Amount</label>
+        <input id="sip" type="number" value="5000" oninput="calcSIP()">
+        <label>Expected Return (%)</label>
+        <input id="sipr" type="number" value="12" oninput="calcSIP()">
+        <label>Time Period (Years)</label>
+        <input id="sipy" type="number" value="10" oninput="calcSIP()">
+        <div id="res2" class="result">₹ 0</div>
+    </div>
+
+    <div class="card">
+        <h3>Inflation Adjuster</h3>
+        <label>Target Future Value</label>
+        <input id="fv" type="number" value="1000000" oninput="calcInflation()">
+        <label>Inflation Rate (%)</label>
+        <input id="inf" type="number" value="6" oninput="calcInflation()">
+        <label>Time Horizon (Years)</label>
+        <input id="infy" type="number" value="10" oninput="calcInflation()">
+        <div id="res3" class="result">₹ 0</div>
+    </div>
+
+    <button class="btn" onclick="goHome()">← Back Home</button>
+
 </div>
 
 <script>
 // SIDEBAR CONTROL
 function openMenu(event) {
-    event.stopPropagation(); // Stops the click from immediately triggering the "close" script
+    event.stopPropagation(); 
     document.getElementById("sidebar").classList.add("open");
 }
 
@@ -208,25 +252,27 @@ function closeMenu() {
     document.getElementById("sidebar").classList.remove("open");
 }
 
-// Close when clicking anywhere outside the sidebar
+// Close when clicking outside
 document.addEventListener("click", function(e) {
-    const sidebar = document.getElementById("sidebar");
+    const sb = document.getElementById("sidebar");
     const menuIcon = document.querySelector(".menu-icon");
-    
-    // If the click is NOT on the sidebar and NOT on the menu button, close it
-    if (!sidebar.contains(e.target) && !menuIcon.contains(e.target)) {
+    if (!sb.contains(e.target) && !menuIcon.contains(e.target)) {
         closeMenu();
     }
 });
 
-// CALCULATOR LOGIC
-function calc() {
-    const P = parseFloat(document.getElementById("p").value) || 0;
-    const M = parseFloat(document.getElementById("m").value) || 0;
-    const rateInput = parseFloat(document.getElementById("r").value) || 0;
-    const years = parseFloat(document.getElementById("y").value) || 0;
+function goHome() {
+    window.location.href = "index.html";
+}
 
-    const r = rateInput / 100 / 12;
+// CALCULATOR LOGIC
+function calcWealth() {
+    const P = +document.getElementById("p").value || 0;
+    const M = +document.getElementById("m").value || 0;
+    const rate = +document.getElementById("r").value || 0;
+    const years = +document.getElementById("y").value || 0;
+
+    const r = rate / 100 / 12;
     const t = years * 12;
 
     let val = (r === 0) 
@@ -236,8 +282,34 @@ function calc() {
     document.getElementById("res1").innerText = "₹ " + Math.round(val).toLocaleString("en-IN");
 }
 
-// Run on load
-calc();
+function calcSIP() {
+    const M = +document.getElementById("sip").value || 0;
+    const rate = +document.getElementById("sipr").value || 0;
+    const years = +document.getElementById("sipy").value || 0;
+
+    const r = rate / 100 / 12;
+    const t = years * 12;
+
+    let val = (r === 0) 
+        ? M * t 
+        : M * ((Math.pow(1 + r, t) - 1) / r) * (1 + r);
+
+    document.getElementById("res2").innerText = "₹ " + Math.round(val).toLocaleString("en-IN");
+}
+
+function calcInflation() {
+    const target = +document.getElementById("fv").value || 0;
+    const rate = +document.getElementById("inf").value || 0;
+    const years = +document.getElementById("infy").value || 0;
+
+    let val = target / Math.pow(1 + (rate / 100), years);
+    document.getElementById("res3").innerText = "₹ " + Math.round(val).toLocaleString("en-IN");
+}
+
+// Initialization
+calcWealth();
+calcSIP();
+calcInflation();
 </script>
 
 </body>
