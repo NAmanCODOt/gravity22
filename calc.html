@@ -6,65 +6,6 @@
 <title>Wealth Tools | gRaviTy Research</title>
 
 <style>
-    .info-toggle {
-    margin-top: 10px;
-    cursor: pointer;
-    color: var(--gold);
-    font-size: 14px;
-}
-
-.arrow {
-    transition: 0.3s;
-}
-
-.arrow.rotate {
-    transform: rotate(180deg);
-}
-
-.info-box {
-    max-height: 0;
-    overflow: hidden;
-    transition: 0.4s;
-    color: #aaa;
-    font-size: 13px;
-}
-
-.info-box.open {
-    max-height: 200px;
-    margin-top: 10px;
-}
-    /* DROPDOWN INFO */
-.info-toggle {
-    margin-top: 10px;
-    cursor: pointer;
-    color: var(--gold);
-    font-size: 14px;
-    display: flex;
-    align-items: center;
-    gap: 8px;
-}
-
-.arrow {
-    transition: 0.3s;
-}
-
-.arrow.rotate {
-    transform: rotate(180deg);
-}
-
-.info-box {
-    max-height: 0;
-    overflow: hidden;
-    transition: 0.4s ease;
-    color: #aaa;
-    font-size: 13px;
-    line-height: 1.6;
-}
-
-.info-box.open {
-    max-height: 200px;
-    margin-top: 10px;
-}
 @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600&family=Inter:wght@300;400&display=swap');
 
 :root {
@@ -147,6 +88,39 @@ input {
     background: var(--gold);
     color: black;
 }
+
+/* INFO DROPDOWN */
+.info-toggle {
+    margin-top: 10px;
+    cursor: pointer;
+    color: var(--gold);
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.arrow {
+    transition: 0.3s;
+}
+
+.arrow.rotate {
+    transform: rotate(180deg);
+}
+
+.info-box {
+    max-height: 0;
+    overflow: hidden;
+    transition: 0.4s ease;
+    color: #aaa;
+    font-size: 13px;
+    line-height: 1.6;
+}
+
+.info-box.open {
+    max-height: 300px;
+    margin-top: 10px;
+}
 </style>
 </head>
 
@@ -176,17 +150,18 @@ input {
 <input id="y" type="number" value="10" oninput="calc()">
 
 <div class="result" id="res1">₹ 0</div>
-    <div class="info-toggle" onclick="toggleInfo(this)">
+
+<div class="info-toggle" onclick="toggleInfo(this)">
     <span class="arrow">▼</span> How it works
 </div>
 
 <div class="info-box">
-    Calculates future wealth using compound growth + monthly investments.
-    Useful for long-term investing like mutual funds, stocks, retirement planning.
+    Calculates total wealth using compound interest + monthly investing.
+    Best for long-term planning like stocks, mutual funds, retirement.
 </div>
 </div>
 
-<!-- SIP ONLY -->
+<!-- SIP -->
 <div class="card">
 <h3>SIP Future Value</h3>
 
@@ -200,13 +175,14 @@ input {
 <input id="sipy" type="number" value="10" oninput="calcSIP()">
 
 <div class="result" id="res2">₹ 0</div>
-    <div class="info-toggle" onclick="toggleInfo(this)">
+
+<div class="info-toggle" onclick="toggleInfo(this)">
     <span class="arrow">▼</span> How it works
 </div>
 
 <div class="info-box">
-    Shows how small monthly investments grow over time with compounding.
-    Ideal for SIP investors building wealth consistently.
+    Shows how monthly investments grow with compounding.
+    Ideal for SIP investors building wealth over time.
 </div>
 </div>
 
@@ -224,23 +200,25 @@ input {
 <input id="infy" type="number" value="10" oninput="calcInflation()">
 
 <div class="result" id="res3">₹ 0</div>
- <div class="info-toggle" onclick="toggleInfo(this)">
+
+<div class="info-toggle" onclick="toggleInfo(this)">
     <span class="arrow">▼</span> Why it matters
 </div>
 
 <div class="info-box">
-    Tells you what your future money is worth today.
-    Helps you understand how inflation eats purchasing power.
+    Converts future money into today’s value.
+    Helps you understand loss of purchasing power due to inflation.
 </div>
 </div>
 
+<!-- HOME BUTTON -->
 <button class="btn" onclick="goHome()">← Back Home</button>
 
 </div>
 
 <script>
 
-// MAIN WEALTH CALC
+// MAIN CALC
 function calc(){
     let P = parseFloat(document.getElementById("p").value) || 0;
     let M = parseFloat(document.getElementById("m").value) || 0;
@@ -250,21 +228,16 @@ function calc(){
     let r = rate / 100 / 12;
     let t = years * 12;
 
-    let val;
-
-    if(r === 0){
-        val = P + (M * t);
-    } else {
-        val = P * Math.pow(1 + r, t) +
-              M * ((Math.pow(1 + r, t) - 1) / r) * (1 + r);
-    }
+    let val = (r === 0)
+        ? P + (M * t)
+        : P * Math.pow(1 + r, t) +
+          M * ((Math.pow(1 + r, t) - 1) / r) * (1 + r);
 
     document.getElementById("res1").innerText =
         "₹ " + Math.round(val).toLocaleString("en-IN");
 }
 
-
-// SIP CALC
+// SIP
 function calcSIP(){
     let M = parseFloat(document.getElementById("sip").value) || 0;
     let rate = parseFloat(document.getElementById("sipr").value) || 0;
@@ -273,45 +246,27 @@ function calcSIP(){
     let r = rate / 100 / 12;
     let t = years * 12;
 
-    let val;
-
-    if(r === 0){
-        val = M * t;
-    } else {
-        val = M * ((Math.pow(1 + r, t) - 1) / r) * (1 + r);
-    }
+    let val = (r === 0)
+        ? M * t
+        : M * ((Math.pow(1 + r, t) - 1) / r) * (1 + r);
 
     document.getElementById("res2").innerText =
         "₹ " + Math.round(val).toLocaleString("en-IN");
 }
 
-
-// INFLATION CALC
+// INFLATION
 function calcInflation(){
     let futureVal = parseFloat(document.getElementById("fv").value) || 0;
     let rate = parseFloat(document.getElementById("inf").value) || 0;
     let years = parseFloat(document.getElementById("infy").value) || 0;
 
-    let r = rate / 100;
-
-    let val = futureVal / Math.pow(1 + r, years);
+    let val = futureVal / Math.pow(1 + rate/100, years);
 
     document.getElementById("res3").innerText =
         "₹ " + Math.round(val).toLocaleString("en-IN");
 }
 
-
-// NAV
-function goHome(){
-    window.location.href = "index.html";
-}
-
-
-// INITIAL RUN
-calc();
-calcSIP();
-calcInflation();
-<script>
+// DROPDOWN
 function toggleInfo(el) {
     const box = el.nextElementSibling;
     const arrow = el.querySelector(".arrow");
@@ -319,7 +274,17 @@ function toggleInfo(el) {
     box.classList.toggle("open");
     arrow.classList.toggle("rotate");
 }
-</script>
+
+// HOME NAV
+function goHome(){
+    window.location.href = "index.html";
+}
+
+// INIT
+calc();
+calcSIP();
+calcInflation();
+
 </script>
 
 </body>
