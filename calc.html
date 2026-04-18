@@ -18,6 +18,7 @@ body {
     font-family: 'Inter', sans-serif;
     background: var(--bg);
     color: white;
+    overflow-x: hidden;
 }
 
 /* SIDEBAR */
@@ -27,21 +28,21 @@ body {
     position: fixed;
     left: 0;
     top: 0;
-    background: rgba(5,5,5,0.98);
-    backdrop-filter: blur(20px);
-    transition: 0.4s;
+    background: #0a0a0a; /* Solid dark background */
+    box-shadow: 2px 0 15px rgba(0,0,0,0.5);
+    transition: 0.4s ease-in-out;
     padding-top: 80px;
-    z-index: 1000;
-    overflow-x: hidden; /* CRITICAL: Prevents text showing when closed */
-    border-right: 0px solid var(--gold);
+    z-index: 2000;
+    overflow-x: hidden; /* Keeps content hidden when width is 0 */
 }
+
 .sidebar.open { 
     width: 280px; 
-    border-right: 1px solid #222;
+    border-right: 1px solid var(--gold);
 }
 
 .sidebar-content { 
-    width: 280px; /* Keeps content width stable during slide */
+    min-width: 280px; /* Prevents text wrapping during animation */
     padding: 0 30px; 
 }
 
@@ -62,7 +63,6 @@ body {
 }
 .sidebar a:hover {
     color: var(--gold);
-    padding-left: 10px;
 }
 
 .close-btn {
@@ -80,18 +80,24 @@ body {
     justify-content: space-between;
     align-items: center;
     padding: 20px 40px;
+    position: sticky;
+    top: 0;
+    background: var(--bg);
+    z-index: 100;
 }
 
 .menu-icon {
     cursor: pointer;
+    padding: 10px;
+    z-index: 101;
 }
 
 .menu-icon span {
     display: block;
-    width: 22px;
+    width: 25px;
     height: 2px;
     background: var(--gold);
-    margin: 4px 0;
+    margin: 5px 0;
 }
 
 /* CONTAINER */
@@ -105,7 +111,6 @@ h1 {
     font-family: 'Playfair Display', serif;
     color: var(--gold);
     text-align: center;
-    font-size: 2.5rem;
 }
 
 /* CARD */
@@ -116,16 +121,10 @@ h1 {
     margin-top: 30px;
 }
 
-.card h3 {
-    margin-top: 0;
-    color: #eee;
-    font-weight: 400;
-}
-
 label {
-    display: block;
-    font-size: 10px;
+    font-size: 11px;
     color: #666;
+    display: block;
     margin-top: 10px;
 }
 
@@ -136,35 +135,25 @@ input {
     border-bottom: 1px solid #333;
     color: var(--gold);
     padding: 8px 0;
-    margin-bottom: 5px;
-    font-size: 16px;
+    margin-bottom: 15px;
+    font-size: 18px;
     outline: none;
 }
 
-input:focus {
-    border-bottom: 1px solid var(--gold);
-}
-
 .result {
-    margin-top: 20px;
-    font-size: 24px;
+    font-size: 22px;
     color: var(--gold);
-    font-weight: 600;
+    margin-top: 10px;
+    font-weight: bold;
 }
 
 .btn {
-    margin-top: 40px;
-    padding: 12px 24px;
+    margin-top: 30px;
+    padding: 10px 25px;
     border: 1px solid var(--gold);
     background: transparent;
     color: var(--gold);
     cursor: pointer;
-    transition: 0.3s;
-}
-
-.btn:hover {
-    background: var(--gold);
-    color: black;
 }
 </style>
 </head>
@@ -175,122 +164,80 @@ input:focus {
     <span class="close-btn" onclick="closeMenu()">&times;</span>
     <div class="sidebar-content">
         <div class="menu-label">Advanced Tools</div>
-        <a href="calc.html">Wealth Calculators</a>
-        <a href="clock.html">Market Clock</a>
+        <a href="#">Wealth Calculators</a>
+        <a href="#">Market Clock</a>
 
         <div class="menu-label">Our Firm</div>
-        <a href="aboutus.html">About Us</a>
-        <a href="vision.html">Our Vision</a>
+        <a href="#">About Us</a>
+        <a href="#">Our Vision</a>
     </div>
 </div>
 
 <div class="nav">
-    <div class="menu-icon" onclick="openMenu()">
+    <div class="menu-icon" onclick="openMenu(event)">
         <span></span><span></span><span></span>
     </div>
-    <div style="color: var(--gold); font-weight: bold; cursor: pointer;" onclick="goHome()">gRaviTy</div>
+    <div style="color: var(--gold); font-size: 20px; font-weight: bold;">gRaviTy</div>
 </div>
 
 <div class="container">
-
     <h1>Wealth Calculators</h1>
 
     <div class="card">
         <h3>Wealth Projection</h3>
-        <label>Principal Amount</label>
+        <label>Principal</label>
         <input id="p" type="number" value="100000" oninput="calc()">
         <label>Monthly Addition</label>
         <input id="m" type="number" value="10000" oninput="calc()">
-        <label>Expected Return (%)</label>
+        <label>Return (%)</label>
         <input id="r" type="number" value="12" oninput="calc()">
         <label>Years</label>
         <input id="y" type="number" value="10" oninput="calc()">
         <div id="res1" class="result">₹ 0</div>
     </div>
-
-    <div class="card">
-        <h3>SIP</h3>
-        <label>Monthly SIP</label>
-        <input id="sip" type="number" value="5000" oninput="calcSIP()">
-        <label>Expected Return (%)</label>
-        <input id="sipr" type="number" value="12" oninput="calcSIP()">
-        <label>Years</label>
-        <input id="sipy" type="number" value="10" oninput="calcSIP()">
-        <div id="res2" class="result">₹ 0</div>
-    </div>
-
-    <div class="card">
-        <h3>Inflation</h3>
-        <label>Target Amount</label>
-        <input id="fv" type="number" value="1000000" oninput="calcInflation()">
-        <label>Inflation Rate (%)</label>
-        <input id="inf" type="number" value="6" oninput="calcInflation()">
-        <label>Years</label>
-        <input id="infy" type="number" value="10" oninput="calcInflation()">
-        <div id="res3" class="result">₹ 0</div>
-    </div>
-
-    <button class="btn" onclick="goHome()">← Back Home</button>
-
 </div>
 
 <script>
-// SIDEBAR LOGIC
-function openMenu(){
+// SIDEBAR CONTROL
+function openMenu(event) {
+    event.stopPropagation(); // Stops the click from immediately triggering the "close" script
     document.getElementById("sidebar").classList.add("open");
 }
 
-function closeMenu(){
+function closeMenu() {
     document.getElementById("sidebar").classList.remove("open");
 }
 
-// Close when clicking outside
-document.addEventListener("click", function(e){
-    let sb = document.getElementById("sidebar");
-    let menuIcon = document.querySelector(".menu-icon");
-    if(!sb.contains(e.target) && !menuIcon.contains(e.target) && sb.classList.contains("open")){
+// Close when clicking anywhere outside the sidebar
+document.addEventListener("click", function(e) {
+    const sidebar = document.getElementById("sidebar");
+    const menuIcon = document.querySelector(".menu-icon");
+    
+    // If the click is NOT on the sidebar and NOT on the menu button, close it
+    if (!sidebar.contains(e.target) && !menuIcon.contains(e.target)) {
         closeMenu();
     }
 });
 
-function goHome(){
-    alert("Redirecting to home...");
-    // window.location.href="index.html";
-}
+// CALCULATOR LOGIC
+function calc() {
+    const P = parseFloat(document.getElementById("p").value) || 0;
+    const M = parseFloat(document.getElementById("m").value) || 0;
+    const rateInput = parseFloat(document.getElementById("r").value) || 0;
+    const years = parseFloat(document.getElementById("y").value) || 0;
 
-// CALCULATORS - Using proper DOM selection
-function calc(){
-    const pVal = +document.getElementById("p").value || 0;
-    const mVal = +document.getElementById("m").value || 0;
-    const rVal = (+document.getElementById("r").value || 0) / 100 / 12;
-    const tVal = (+document.getElementById("y").value || 0) * 12;
-    
-    let val = rVal === 0 ? pVal + mVal * tVal : pVal * Math.pow(1 + rVal, tVal) + mVal * ((Math.pow(1 + rVal, tVal) - 1) / rVal) * (1 + rVal);
+    const r = rateInput / 100 / 12;
+    const t = years * 12;
+
+    let val = (r === 0) 
+        ? P + (M * t) 
+        : P * Math.pow(1 + r, t) + M * ((Math.pow(1 + r, t) - 1) / r) * (1 + r);
+
     document.getElementById("res1").innerText = "₹ " + Math.round(val).toLocaleString("en-IN");
 }
 
-function calcSIP(){
-    const mVal = +document.getElementById("sip").value || 0;
-    const rVal = (+document.getElementById("sipr").value || 0) / 100 / 12;
-    const tVal = (+document.getElementById("sipy").value || 0) * 12;
-    
-    let val = rVal === 0 ? mVal * tVal : mVal * ((Math.pow(1 + rVal, tVal) - 1) / rVal) * (1 + rVal);
-    document.getElementById("res2").innerText = "₹ " + Math.round(val).toLocaleString("en-IN");
-}
-
-function calcInflation(){
-    const target = +document.getElementById("fv").value || 0;
-    const rate = +document.getElementById("inf").value || 0;
-    const years = +document.getElementById("infy").value || 0;
-    
-    let val = target / Math.pow(1 + (rate / 100), years);
-    document.getElementById("res3").innerText = "₹ " + Math.round(val).toLocaleString("en-IN");
-}
-
-// Initial Run
-calc(); 
-calcSIP(); 
-calcInflation();
+// Run on load
+calc();
 </script>
 
 </body>
