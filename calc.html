@@ -157,32 +157,77 @@ input {
 
 <script>
 
-// MAIN CALC
+// MAIN WEALTH CALC
 function calc(){
-let P=+p.value, M=+m.value, r=(+r1=r.value)/100/12, t=y.value*12;
-let val=P*Math.pow(1+r,t)+M*((Math.pow(1+r,t)-1)/r)*(1+r);
-res1.innerText="₹ "+val.toLocaleString("en-IN");
+    let P = parseFloat(document.getElementById("p").value) || 0;
+    let M = parseFloat(document.getElementById("m").value) || 0;
+    let rate = parseFloat(document.getElementById("r").value) || 0;
+    let years = parseFloat(document.getElementById("y").value) || 0;
+
+    let r = rate / 100 / 12;
+    let t = years * 12;
+
+    let val;
+
+    if(r === 0){
+        val = P + (M * t);
+    } else {
+        val = P * Math.pow(1 + r, t) +
+              M * ((Math.pow(1 + r, t) - 1) / r) * (1 + r);
+    }
+
+    document.getElementById("res1").innerText =
+        "₹ " + Math.round(val).toLocaleString("en-IN");
 }
 
-// SIP
+
+// SIP CALC
 function calcSIP(){
-let M=+sip.value, r=(+sipr.value)/100/12, t=sipy.value*12;
-let val=M*((Math.pow(1+r,t)-1)/r)*(1+r);
-res2.innerText="₹ "+val.toLocaleString("en-IN");
+    let M = parseFloat(document.getElementById("sip").value) || 0;
+    let rate = parseFloat(document.getElementById("sipr").value) || 0;
+    let years = parseFloat(document.getElementById("sipy").value) || 0;
+
+    let r = rate / 100 / 12;
+    let t = years * 12;
+
+    let val;
+
+    if(r === 0){
+        val = M * t;
+    } else {
+        val = M * ((Math.pow(1 + r, t) - 1) / r) * (1 + r);
+    }
+
+    document.getElementById("res2").innerText =
+        "₹ " + Math.round(val).toLocaleString("en-IN");
 }
 
-// INFLATION
+
+// INFLATION CALC
 function calcInflation(){
-let fv=+fv.value, r=+inf.value/100, t=+infy.value;
-let val=fv/Math.pow(1+r,t);
-res3.innerText="₹ "+val.toLocaleString("en-IN");
+    let futureVal = parseFloat(document.getElementById("fv").value) || 0;
+    let rate = parseFloat(document.getElementById("inf").value) || 0;
+    let years = parseFloat(document.getElementById("infy").value) || 0;
+
+    let r = rate / 100;
+
+    let val = futureVal / Math.pow(1 + r, years);
+
+    document.getElementById("res3").innerText =
+        "₹ " + Math.round(val).toLocaleString("en-IN");
 }
 
+
+// NAV
 function goHome(){
-window.location.href="index.html";
+    window.location.href = "index.html";
 }
 
-calc(); calcSIP(); calcInflation();
+
+// INITIAL RUN
+calc();
+calcSIP();
+calcInflation();
 
 </script>
 
