@@ -10,18 +10,23 @@
 
 @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600&family=Inter:wght@300;400&display=swap');
 
-/* background */
-body 
+:root
+{
+    --gold: #d4af37;
+    --bg: #000;
+}
+
+body
 {
     margin: 0;
     font-family: 'Inter', sans-serif;
-    background: #000;
+    background: var(--bg);
     color: white;
     overflow-x: hidden;
 }
 
-/* orbs */
-.gold-orb 
+/* ORBS */
+.gold-orb
 {
     position: fixed;
     border-radius: 50%;
@@ -30,153 +35,40 @@ body
     z-index: 0;
 }
 
-.orb1 
-{
-    width: 300px;
-    height: 300px;
-    background: rgba(212,175,55,0.25);
-    animation: move1 18s linear infinite;
-}
+.orb1 { width: 300px; height: 300px; background: rgba(212,175,55,0.25); animation: move1 18s linear infinite; }
+.orb2 { width: 250px; height: 250px; background: rgba(212,175,55,0.2); animation: move2 25s linear infinite; }
+.orb3 { width: 200px; height: 200px; background: rgba(212,175,55,0.15); animation: move3 30s linear infinite; }
 
-.orb2 
-{
-    width: 250px;
-    height: 250px;
-    background: rgba(212,175,55,0.2);
-    animation: move2 25s linear infinite;
-}
-
-.orb3 
-{
-    width: 200px;
-    height: 200px;
-    background: rgba(212,175,55,0.15);
-    animation: move3 30s linear infinite;
-}
-
-@keyframes move1 
-{
-    0% { top:10%; left:10%; }
-    50% { top:70%; left:80%; }
-    100% { top:10%; left:10%; }
-}
-
-@keyframes move2 
-{
-    0% { top:80%; left:80%; }
-    50% { top:20%; left:10%; }
-    100% { top:80%; left:80%; }
-}
-
-@keyframes move3 
-{
-    0% { top:50%; left:0%; }
-    50% { top:10%; left:90%; }
-    100% { top:50%; left:0%; }
-}
-
-/* layer fix */
-body > * 
-{
-    position: relative;
-    z-index: 1;
-}
+@keyframes move1 { 0%{top:10%;left:10%}50%{top:70%;left:80%}100%{top:10%;left:10%} }
+@keyframes move2 { 0%{top:80%;left:80%}50%{top:20%;left:10%}100%{top:80%;left:80%} }
+@keyframes move3 { 0%{top:50%;left:0%}50%{top:10%;left:90%}100%{top:50%;left:0%} }
 
 /* NAV */
-.nav 
+.nav
 {
-    padding: 20px;
-    text-align: center;
-    border-bottom: 1px solid #1f1f1f;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 30px;
+    position: fixed;
+    width: 100%;
+    top: 0;
+    background: rgba(0,0,0,0.9);
+    backdrop-filter: blur(10px);
+    z-index: 1001;
 }
 
-.nav img 
+.menu-icon span
 {
-    width: 180px;
+    display: block;
+    width: 22px;
+    height: 2px;
+    background: var(--gold);
+    margin: 5px 0;
     cursor: pointer;
-    transition: 0.3s;
 }
 
-.nav img:hover 
-{
-    transform: scale(1.05);
-    filter: drop-shadow(0 0 8px #d4af37);
-}
-
-/* HERO */
-.hero 
-{
-    text-align: center;
-    padding: 80px 20px;
-}
-
-.hero h1 
-{
-    font-family: 'Playfair Display', serif;
-    font-size: 42px;
-    color: #d4af37;
-}
-
-.hero p 
-{
-    max-width: 750px;
-    margin: 20px auto;
-    color: #9ca3af;
-    font-size: 18px;
-}
-
-/* SECTION */
-.section 
-{
-    padding: 60px 20px;
-    text-align: center;
-}
-
-.section h2 
-{
-    font-family: 'Playfair Display', serif;
-    color: #d4af37;
-    margin-bottom: 30px;
-}
-
-/* CARDS */
-.card 
-{
-    background: #0a0a0a;
-    padding: 25px;
-    margin: 20px auto;
-    border-radius: 12px;
-    max-width: 650px;
-    border: 1px solid #1f1f1f;
-    transition: 0.3s;
-}
-
-.card:hover 
-{
-    border: 1px solid #d4af37;
-    transform: scale(1.03);
-}
-
-/* BUTTON */
-.btn 
-{
-    margin-top: 30px;
-    padding: 12px 25px;
-    background: transparent;
-    border: 1px solid #d4af37;
-    color: #d4af37;
-    border-radius: 8px;
-    cursor: pointer;
-    transition: 0.3s;
-}
-
-.btn:hover 
-{
-    background: #d4af37;
-    color: black;
-}
-
-/* SIDEBAR (UPDATED) */
+/* SIDEBAR */
 .sidebar
 {
     width: 0;
@@ -186,57 +78,40 @@ body > *
     top: 0;
     background: #0a0a0a;
     overflow-x: hidden;
-    transition: 0.3s ease;
+    transition: 0.3s;
     padding-top: 80px;
-    z-index: 1000;
-    border-right: 1px solid rgba(255,255,255,0.05);
+    z-index: 1002;
 }
 
-.sidebar.open
-{
-    width: 260px;
-}
-
-.sidebar-content
-{
-    padding: 0 30px;
-}
-
-.menu-label
-{
-    margin-top: 25px;
-    font-size: 10px;
-    letter-spacing: 2px;
-    color: #d4af37;
-    opacity: 0.6;
-}
+.sidebar.open { width: 260px; }
 
 .sidebar a
 {
     display: block;
-    padding: 14px 0;
-    color: #777;
+    padding: 14px 25px;
+    color: #888;
     text-decoration: none;
-    transition: 0.2s;
-    cursor: pointer;
 }
 
-.sidebar a:hover
+.sidebar a:hover { color: var(--gold); }
+
+.menu-label
 {
-    color: #d4af37;
-    padding-left: 6px;
+    padding: 20px 25px 5px;
+    font-size: 10px;
+    color: var(--gold);
+    letter-spacing: 2px;
 }
 
-/* overlay */
 .overlay
 {
     position: fixed;
     inset: 0;
-    background: rgba(0,0,0,0.4);
+    background: rgba(0,0,0,0.5);
     opacity: 0;
     pointer-events: none;
     transition: 0.3s;
-    z-index: 900;
+    z-index: 1000;
 }
 
 .overlay.show
@@ -245,177 +120,121 @@ body > *
     pointer-events: all;
 }
 
-/* fade */
-.fade-up 
-{
-    opacity: 0;
-    transform: translateY(30px);
-    animation: fadeUp 1s ease forwards;
-}
-
-.fade-up.delay 
-{
-    animation-delay: 0.4s;
-}
-
-.fade-up.delay2 
-{
-    animation-delay: 0.8s;
-}
-
-@keyframes fadeUp 
-{
-    to 
-    {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
-
-/* footer */
-.footer 
+/* CONTENT */
+.hero
 {
     text-align: center;
-    padding: 20px;
-    font-size: 12px;
-    color: #6b7280;
+    padding: 120px 20px 80px;
 }
 
-/* scrollbar */
-::-webkit-scrollbar 
+.hero h1
 {
-    width: 6px;
+    font-family: 'Playfair Display', serif;
+    color: var(--gold);
+    font-size: 42px;
 }
 
-::-webkit-scrollbar-track 
+.hero p
 {
-    background: #000;
+    max-width: 750px;
+    margin: auto;
+    color: #aaa;
 }
 
-::-webkit-scrollbar-thumb 
+/* CARDS */
+.section
 {
-    background: #d4af37;
+    padding: 50px 20px;
+    text-align: center;
 }
 
-html 
+.card
 {
-    scrollbar-width: thin;
-    scrollbar-color: #d4af37 #000;
+    max-width: 650px;
+    margin: 20px auto;
+    padding: 25px;
+    background: #0a0a0a;
+    border: 1px solid #1f1f1f;
+}
+
+/* BUTTON */
+.btn
+{
+    margin-top: 30px;
+    padding: 12px 25px;
+    border: 1px solid var(--gold);
+    background: transparent;
+    color: var(--gold);
+    cursor: pointer;
+}
+
+.btn:hover
+{
+    background: var(--gold);
+    color: black;
 }
 
 </style>
+
 </head>
 
 <body>
 
-<!-- sidebar overlay -->
-<div class="overlay" id="overlay" onclick="toggleMenu()"></div>
+<div class="overlay" onclick="toggleMenu()"></div>
 
 <!-- SIDEBAR -->
 <div id="sidebar" class="sidebar">
 
-    <div class="sidebar-content">
+    <div class="menu-label">Advanced Tools</div>
+    <a href="calc.html">Wealth Calculators</a>
+    <a href="clock.html">Market Clock</a>
 
-        <div class="menu-label">Advanced Tools</div>
-        <a onclick="go('calc.html')">Wealth Calculators</a>
-        <a onclick="go('clock.html')">Market Clock</a>
+    <div class="menu-label">Our Firm</div>
+    <a href="aboutus.html">About Us</a>
+    <a href="vision.html">Vision</a>
 
-        <div class="menu-label">Our Firm</div>
-        <a onclick="go('aboutus.html')">About Us</a>
-        <a onclick="go('vision.html')">Our Vision</a>
+    <div class="menu-label">Research</div>
+    <a href="researchportal.html">Research Portal</a>
 
-        <div class="menu-label">Research</div>
-        <a onclick="go('researchportal.html')">Research Portal</a>
-
-        <div class="menu-label">Access</div>
-        <a onclick="go('contactus.html')">Contact Us</a>
-
-    </div>
+    <div class="menu-label">Access</div>
+    <a href="contactus.html">Contact Us</a>
 
 </div>
 
-<!-- orbs -->
-<div class="gold-orb orb1"></div>
-<div class="gold-orb orb2"></div>
-<div class="gold-orb orb3"></div>
-
-<!-- nav -->
+<!-- NAV -->
 <div class="nav">
 
-    <img src="logo.png" onclick="goHome()">
+    <div onclick="toggleMenu()" class="menu-icon">
+        <span></span>
+        <span></span>
+        <span></span>
+    </div>
+
+    <img src="logo.png" height="35">
 
 </div>
 
-<!-- hero -->
+<!-- CONTENT -->
 <div class="hero">
-
-    <h1 class="fade-up">Who We Are</h1>
-
-    <p class="fade-up delay">
-        gRaviTy Research is built on a simple belief — markets are not random.
-        They operate on structure, behavior, and underlying forces that most people overlook.
-    </p>
-
+    <h1>Who We Are</h1>
+    <p>Markets are structured systems, not randomness.</p>
 </div>
 
-<!-- mission -->
 <div class="section">
-
-    <h2 class="fade-up">Our Mission</h2>
-
-    <div class="card fade-up delay">
-        To simplify financial markets by breaking down complex data into clear structured insights.
-    </div>
-
-    <div class="card fade-up delay2">
-        Turning raw market noise into meaningful understanding.
-    </div>
-
+    <div class="card">We decode market behavior into clarity.</div>
+    <div class="card">We focus on structure, not hype.</div>
 </div>
 
-<!-- approach -->
 <div class="section">
-
-    <h2 class="fade-up">Our Approach</h2>
-
-    <div class="card fade-up delay">
-        We analyze structure, behavior, and probability behind market movements.
-    </div>
-
-    <div class="card fade-up delay2">
-        We ignore hype and focus on logic.
-    </div>
-
-</div>
-
-<!-- button -->
-<div class="section">
-    <button class="btn" onclick="goHome()">← Back to Home</button>
-</div>
-
-<!-- footer -->
-<div class="footer">
-    © 2026 gRaviTy Research
+    <button class="btn" onclick="window.location='index.html'">Back Home</button>
 </div>
 
 <script>
-
-function goHome()
-{
-    window.location.href = "index.html";
-}
-
-function go(page)
-{
-    window.location.href = page;
-}
-
 function toggleMenu()
 {
     document.getElementById("sidebar").classList.toggle("open");
-    document.getElementById("overlay").classList.toggle("show");
+    document.querySelector(".overlay").classList.toggle("show");
 }
-
 </script>
 
 </body>
