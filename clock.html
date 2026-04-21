@@ -1,19 +1,23 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Launch | gRaviTy Research</title>
 
 <style>
+
 @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600&family=Inter:wght@200;300;400;600&display=swap');
 
-:root {
+:root 
+{
     --gold: #d4af37;
     --bg: #050505;
 }
 
-body {
+body 
+{
     margin: 0;
     font-family: 'Inter', sans-serif;
     background: var(--bg);
@@ -21,8 +25,9 @@ body {
     overflow: hidden;
 }
 
-/* SIDEBAR */
-.sidebar {
+/* sidebar */
+.sidebar 
+{
     width: 0;
     height: 100%;
     position: fixed;
@@ -37,9 +42,13 @@ body {
     border-right: 1px solid rgba(212,175,55,0.2);
 }
 
-.sidebar.open { width: 260px; }
+.sidebar.open 
+{ 
+    width: 260px; 
+}
 
-.sidebar a {
+.sidebar a 
+{
     display: block;
     padding: 15px 30px;
     color: #888;
@@ -47,12 +56,14 @@ body {
     transition: 0.3s;
 }
 
-.sidebar a:hover {
+.sidebar a:hover 
+{
     color: var(--gold);
     padding-left: 40px;
 }
 
-.menu-label {
+.menu-label 
+{
     padding: 20px 30px 5px;
     font-size: 10px;
     color: var(--gold);
@@ -60,7 +71,8 @@ body {
     text-transform: uppercase;
 }
 
-.close-btn {
+.close-btn 
+{
     position: absolute;
     top: 20px;
     right: 20px;
@@ -69,8 +81,9 @@ body {
     color: var(--gold);
 }
 
-/* NAV */
-.nav {
+/* nav */
+.nav 
+{
     position: absolute;
     top: 20px;
     width: 100%;
@@ -81,11 +94,13 @@ body {
     z-index: 10;
 }
 
-.menu-icon {
+.menu-icon 
+{
     cursor: pointer;
 }
 
-.menu-icon span {
+.menu-icon span 
+{
     display: block;
     width: 22px;
     height: 2px;
@@ -93,7 +108,8 @@ body {
     margin: 4px 0;
 }
 
-.logo {
+.logo 
+{
     font-family: 'Playfair Display', serif;
     font-size: 20px;
     color: var(--gold);
@@ -101,8 +117,9 @@ body {
     cursor: pointer;
 }
 
-/* ORBS */
-.gold-orb {
+/* orbs */
+.gold-orb 
+{
     position: fixed;
     border-radius: 50%;
     filter: blur(140px);
@@ -111,34 +128,67 @@ body {
     opacity: 0.15;
 }
 
-.orb1 {
+.orb1 
+{
     width: 600px;
     height: 600px;
     background: var(--gold);
     animation: move1 25s infinite linear;
 }
 
-.orb2 {
+.orb2 
+{
     width: 500px;
     height: 500px;
     background: var(--gold);
     animation: move2 30s infinite linear;
 }
 
-@keyframes move1 {
-    0% { top: -10%; left: -10%; }
-    50% { top: 60%; left: 70%; }
-    100% { top: -10%; left: -10%; }
+@keyframes move1 
+{
+    0% 
+    { 
+        top: -10%; 
+        left: -10%; 
+    }
+
+    50% 
+    { 
+        top: 60%; 
+        left: 70%; 
+    }
+
+    100% 
+    { 
+        top: -10%; 
+        left: -10%; 
+    }
 }
 
-@keyframes move2 {
-    0% { bottom: -10%; right: -10%; }
-    50% { bottom: 60%; right: 70%; }
-    100% { bottom: -10%; right: -10%; }
+@keyframes move2 
+{
+    0% 
+    { 
+        bottom: -10%; 
+        right: -10%; 
+    }
+
+    50% 
+    { 
+        bottom: 60%; 
+        right: 70%; 
+    }
+
+    100% 
+    { 
+        bottom: -10%; 
+        right: -10%; 
+    }
 }
 
-/* MAIN */
-.container {
+/* main */
+.container 
+{
     height: 100vh;
     display: flex;
     justify-content: center;
@@ -146,36 +196,42 @@ body {
     flex-direction: column;
 }
 
-.label {
+.label 
+{
     font-size: 11px;
     letter-spacing: 8px;
     color: var(--gold);
     margin-bottom: 30px;
 }
 
-.timer {
+.timer 
+{
     display: flex;
     gap: 30px;
     font-size: 80px;
     color: var(--gold);
 }
 
-.unit {
+.unit 
+{
     text-align: center;
 }
 
-.unit-label {
+.unit-label 
+{
     font-size: 10px;
     color: #555;
 }
 
-/* FOOTER */
-.footer {
+/* footer */
+.footer 
+{
     position: absolute;
     bottom: 30px;
 }
 
-.footer a {
+.footer a 
+{
     color: white;
     text-decoration: none;
     font-size: 10px;
@@ -183,17 +239,20 @@ body {
     padding: 10px 20px;
 }
 
-.footer a:hover {
+.footer a:hover 
+{
     border-color: var(--gold);
     color: var(--gold);
 }
+
 </style>
 </head>
 
 <body>
 
-<!-- SIDEBAR -->
+<!-- sidebar -->
 <div id="sidebar" class="sidebar">
+
     <span class="close-btn" id="closeBtn">&times;</span>
 
     <div class="menu-label">Advanced Tools</div>
@@ -203,10 +262,12 @@ body {
     <div class="menu-label">Our Firm</div>
     <a href="vision.html">Our Vision</a>
     <a href="aboutus.html">About Us</a>
+
 </div>
 
-<!-- NAV -->
+<!-- nav -->
 <div class="nav">
+
     <div class="menu-icon" id="menuBtn">
         <span></span>
         <span></span>
@@ -214,78 +275,97 @@ body {
     </div>
 
     <div class="logo" onclick="goHome()">gRaviTy</div>
+
 </div>
 
+<!-- orbs -->
 <div class="gold-orb orb1"></div>
 <div class="gold-orb orb2"></div>
 
-<!-- MAIN -->
+<!-- main -->
 <div class="container">
+
     <div class="label">Time to Launch</div>
 
     <div class="timer">
+
         <div class="unit">
             <div id="days">00</div>
             <div class="unit-label">Days</div>
         </div>
+
         <div class="unit">
             <div id="hours">00</div>
             <div class="unit-label">Hours</div>
         </div>
+
         <div class="unit">
             <div id="minutes">00</div>
             <div class="unit-label">Minutes</div>
         </div>
+
         <div class="unit">
             <div id="seconds">00</div>
             <div class="unit-label">Seconds</div>
         </div>
+
     </div>
+
 </div>
 
+<!-- footer -->
 <div class="footer">
     <a href="index.html">Return Home</a>
 </div>
 
 <script>
+
+/* elements */
 const sidebar = document.getElementById("sidebar");
 const menuBtn = document.getElementById("menuBtn");
 const closeBtn = document.getElementById("closeBtn");
 
-// OPEN
-menuBtn.addEventListener("click", function(e){
+/* open */
+menuBtn.addEventListener("click", function(e)
+{
     e.stopPropagation();
     sidebar.classList.add("open");
 });
 
-// CLOSE BTN
-closeBtn.addEventListener("click", function(){
+/* close btn */
+closeBtn.addEventListener("click", function()
+{
     sidebar.classList.remove("open");
 });
 
-// PREVENT CLOSE WHEN CLICK INSIDE
-sidebar.addEventListener("click", function(e){
+/* inside click */
+sidebar.addEventListener("click", function(e)
+{
     e.stopPropagation();
 });
 
-// CLICK OUTSIDE CLOSE
-document.addEventListener("click", function(){
+/* outside click */
+document.addEventListener("click", function()
+{
     sidebar.classList.remove("open");
 });
 
-// HOME
-function goHome(){
+/* home */
+function goHome()
+{
     window.location.href = "index.html";
 }
 
-// TIMER
+/* timer */
 const target = new Date("2026-04-25T00:00:00+05:30").getTime();
 
-function updateClock(){
+function updateClock()
+{
     const now = new Date().getTime();
     const diff = target - now;
 
-    if(diff <= 0){
+    if(diff <= 0)
+    {
         document.querySelector(".timer").innerHTML = "LIVE";
         return;
     }
@@ -298,6 +378,7 @@ function updateClock(){
 
 setInterval(updateClock,1000);
 updateClock();
+
 </script>
 
 </body>
