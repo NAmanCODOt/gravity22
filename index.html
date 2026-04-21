@@ -24,13 +24,15 @@ body
     color: white;
 }
 
-/* subtle gradient bg */
+/* subtle depth bg */
 body::before
 {
     content: "";
     position: fixed;
     inset: 0;
-    background: radial-gradient(circle at 50% 20%, rgba(212,175,55,0.06), transparent 50%);
+    background:
+        radial-gradient(circle at 50% 20%, rgba(212,175,55,0.06), transparent 50%),
+        radial-gradient(circle at 80% 80%, rgba(212,175,55,0.03), transparent 60%);
     z-index: 0;
 }
 
@@ -76,11 +78,13 @@ body::before
     color: #777;
     text-decoration: none;
     transition: 0.2s;
+    cursor: pointer;
 }
 
 .sidebar a:hover
 {
     color: var(--gold);
+    transform: translateX(4px);
 }
 
 /* overlay */
@@ -110,6 +114,12 @@ body::before
     padding: 20px 30px;
 }
 
+/* FIXED cursor */
+.menu-icon
+{
+    cursor: pointer;
+}
+
 .menu-icon span
 {
     display: block;
@@ -123,7 +133,7 @@ body::before
 .hero
 {
     text-align: center;
-    padding: 120px 20px 100px;
+    padding: 140px 20px 80px;
     max-width: 800px;
     margin: auto;
 }
@@ -133,15 +143,71 @@ body::before
     font-family: 'Playfair Display', serif;
     font-size: clamp(34px, 6vw, 64px);
     color: var(--gold);
+    letter-spacing: 1px;
     line-height: 1.2;
 }
 
 .hero p
 {
     margin-top: 20px;
-    color: #aaa;
+    color: #8f8f8f;
     font-size: clamp(14px, 2.5vw, 18px);
     line-height: 1.7;
+}
+
+/* divider */
+.divider
+{
+    width: 120px;
+    height: 1px;
+    margin: 40px auto;
+    background: linear-gradient(to right, transparent, var(--gold), transparent);
+    opacity: 0.5;
+}
+
+/* philosophy */
+.philosophy
+{
+    text-align: center;
+    margin-top: 30px;
+    color: #bbb;
+    font-size: 14px;
+    letter-spacing: 1px;
+}
+
+/* credibility */
+.cred
+{
+    text-align: center;
+    margin-top: 25px;
+    font-size: 11px;
+    color: #666;
+    letter-spacing: 2px;
+}
+
+/* features */
+.features
+{
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 40px;
+    max-width: 900px;
+    margin: 120px auto;
+    padding: 0 20px;
+}
+
+.feature
+{
+    text-align: center;
+    color: #aaa;
+}
+
+.feature h3
+{
+    color: var(--gold);
+    font-size: 16px;
+    letter-spacing: 2px;
+    margin-bottom: 10px;
 }
 
 /* button */
@@ -153,40 +219,29 @@ body::before
     background: transparent;
     color: var(--gold);
     cursor: pointer;
-    transition: 0.25s;
+    transition: 0.2s;
 }
 
 .btn:hover
 {
     background: var(--gold);
     color: black;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 20px rgba(212,175,55,0.2);
 }
 
-/* subtle fade-in */
-.fade
+/* scroll reveal */
+.reveal
 {
     opacity: 0;
-    transform: translateY(20px);
-    animation: fadeUp 0.8s ease forwards;
+    transform: translateY(30px);
+    transition: 0.6s ease;
 }
 
-.fade.delay
+.reveal.active
 {
-    animation-delay: 0.2s;
-}
-
-.fade.delay2
-{
-    animation-delay: 0.4s;
-}
-
-@keyframes fadeUp
-{
-    to
-    {
-        opacity: 1;
-        transform: translateY(0);
-    }
+    opacity: 1;
+    transform: translateY(0);
 }
 
 /* layering */
@@ -240,23 +295,53 @@ html
         <span></span>
     </div>
 
-    <img src="logo.png" height="36">
+    <img src="logo.png" height="38">
 
 </div>
 
 <!-- hero -->
 <div class="hero">
 
-    <h1 class="fade">Markets Aren’t Random.</h1>
+    <h1 class="reveal">Markets Aren’t Random.</h1>
 
-    <p class="fade delay">
+    <p class="reveal">
         They move with patterns, logic, and hidden forces.
         We decode them into clarity.
     </p>
 
-    <button class="btn fade delay2" onclick="go('aboutus.html')">
-        Explore
+    <button class="btn reveal" onclick="go('aboutus.html')">
+        Enter
     </button>
+
+    <div class="divider reveal"></div>
+
+    <div class="philosophy reveal">
+        Clarity over noise.
+    </div>
+
+    <div class="cred reveal">
+        RESEARCH-FIRST • NO HYPE • STRUCTURE OVER OPINION
+    </div>
+
+</div>
+
+<!-- features -->
+<div class="features">
+
+    <div class="feature reveal">
+        <h3>STRUCTURE</h3>
+        <p>Markets follow patterns rooted in logic.</p>
+    </div>
+
+    <div class="feature reveal">
+        <h3>BEHAVIOR</h3>
+        <p>Human psychology drives movement.</p>
+    </div>
+
+    <div class="feature reveal">
+        <h3>PROBABILITY</h3>
+        <p>We operate on likelihood, not guesses.</p>
+    </div>
 
 </div>
 
@@ -274,6 +359,21 @@ function go(page)
 {
     window.location.href = page;
 }
+
+/* scroll reveal */
+const reveals = document.querySelectorAll(".reveal");
+
+window.addEventListener("scroll", () =>
+{
+    reveals.forEach(el =>
+    {
+        const top = el.getBoundingClientRect().top;
+        if(top < window.innerHeight - 80)
+        {
+            el.classList.add("active");
+        }
+    });
+});
 
 </script>
 
