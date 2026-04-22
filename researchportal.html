@@ -18,10 +18,10 @@
 
 /* ================= PROTECTION STYLES ================= */
 body {
-    -webkit-user-select: none; /* Safari */
-    -moz-user-select: none;    /* Firefox */
-    -ms-user-select: none;     /* IE10+/Edge */
-    user-select: none;         /* Standard */
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
 }
 
 /* ================= SEAMLESS PAGE TRANSITIONS ================= */
@@ -298,6 +298,37 @@ h1
     color: white;
 }
 
+.term-content {
+    max-height: 300px;
+    overflow-y: auto;
+    margin-bottom: 15px;
+    padding-right: 10px;
+}
+
+/* Chat Input UI */
+.chat-box {
+    display: none; /* Hidden until summary loads */
+    gap: 10px;
+    border-top: 1px solid #222;
+    padding-top: 15px;
+}
+
+.chat-input {
+    flex: 1;
+    background: rgba(255,255,255,0.03);
+    border: 1px solid #333;
+    color: white;
+    padding: 10px 15px;
+    font-family: 'Inter', sans-serif;
+    font-size: 13px;
+    outline: none;
+    transition: 0.3s;
+}
+
+.chat-input:focus {
+    border-color: var(--gold);
+}
+
 /* footer */
 .footer
 {
@@ -306,9 +337,6 @@ h1
     font-size: 12px;
     color: #555;
 }
-
-/* layering */
-body > * { position: relative; z-index: 1; }
 
 /* scrollbar */
 ::-webkit-scrollbar { width: 6px; }
@@ -327,6 +355,7 @@ html
     .cursor-dot { display: none !important; }
     .sidebar.open { width: 100%; }
     h1 { font-size: 30px; }
+    .chat-box { flex-direction: column; }
 }
 
 </style>
@@ -395,16 +424,21 @@ html
                 <button class="btn">Download</button>
             </a>
 
-            <button class="btn btn-ai" onclick="analyzeReport(this, 'Tata Motors structural analysis report for 2026. Key structural levels identified with major resistance zones. High liquidity void present in the upper quadrant. Market positioning remains strong long-term with EV expansion driving forward volume.')">AI Analysis</button>
+            <button class="btn btn-ai" onclick="analyzeReport(this, 'Tata Motors structural analysis report for 2026. Key structural levels identified with major resistance zones. High liquidity void present in the upper quadrant. Market positioning remains strong long-term with EV expansion driving forward volume. P/E ratio is healthy and structural support sits at the 850 zone.')">AI Analysis</button>
 
         </div>
 
         <div class="terminal">
             <div class="term-header">
-                <span>> gRaviTy AI ANALYST v1.5</span>
+                <span>> gRaviTy AI ANALYST v2.0</span>
                 <span class="close-term" onclick="this.closest('.terminal').style.display='none'">[X]</span>
             </div>
             <div class="term-content">Initializing...</div>
+            
+            <div class="chat-box">
+                <input type="text" class="chat-input" placeholder="Ask a question about this report (e.g., What is the support zone?)" onkeypress="handleEnter(event, this)">
+                <button class="btn" onclick="askQuestion(this)">Send</button>
+            </div>
         </div>
 
     </div>
@@ -434,10 +468,10 @@ function toggleMenu()
     document.getElementById("overlay").classList.toggle("show");
 }
 
-/* ================= TOUCH DETECTION (MOBILE FIXES) ================= */
+/* TOUCH DETECTION (MOBILE FIXES) */
 const isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
 
-/* ================= CUSTOM CURSOR LOGIC ================= */
+/* CUSTOM CURSOR LOGIC */
 if (!isTouchDevice) {
     const cursorDot = document.getElementById('cursor-dot');
     window.addEventListener('mousemove', (e) => {
@@ -445,14 +479,14 @@ if (!isTouchDevice) {
         cursorDot.style.top = e.clientY + 'px';
     });
 
-    const interactables = document.querySelectorAll('a, button, .menu-icon, .close-term');
+    const interactables = document.querySelectorAll('a, button, .menu-icon, .close-term, input');
     interactables.forEach(el => {
         el.addEventListener('mouseenter', () => cursorDot.classList.add('hover-state'));
         el.addEventListener('mouseleave', () => cursorDot.classList.remove('hover-state'));
     });
 }
 
-/* ================= SEAMLESS PAGE TRANSITIONS ================= */
+/* SEAMLESS PAGE TRANSITIONS */
 function transitionTo(url) {
     document.body.classList.add('fade-out');
     setTimeout(() => {
@@ -465,7 +499,6 @@ document.addEventListener("DOMContentLoaded", () => {
     links.forEach(link => {
         link.addEventListener('click', function(e) {
             const target = this.getAttribute('href');
-            // Ignore PDF links, external links, and mailto
             if (target && !target.endsWith('.pdf') && !target.startsWith('http') && !target.startsWith('mailto') && target !== '#') {
                 e.preventDefault();
                 transitionTo(target);
@@ -475,51 +508,119 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 window.addEventListener('pageshow', (event) => {
-    if (event.persisted) {
-        document.body.classList.remove('fade-out');
-    }
+    if (event.persisted) document.body.classList.remove('fade-out');
 });
 
-/* ================= AI TERMINAL LOGIC ================= */
+/* ================= AI TERMINAL CHAT LOGIC ================= */
+
+// YOUR GOOGLE APPS SCRIPT URL
+const GAS_URL = "https://script.google.com/macros/s/AKfycbycKRN36WPz1nPVZVfIl9bY3ISWWezB93mwxY8mqBAPQTdQvBe7iWFEEYO7dOjELOFE/exec";
+
 async function analyzeReport(btn, reportContent) {
-    const card = btn.closest('.report-card');
-    const terminal = card.querySelector('.terminal');
-    const content = card.querySelector('.term-content');
+    const terminal = btn.closest('.report-card').querySelector('.terminal');
+    const content = terminal.querySelector('.term-content');
+    const chatBox = terminal.querySelector('.chat-box');
     
-    // Open the terminal
+    // Store the report content in the terminal HTML so the chat box can read it later
+    terminal.setAttribute('data-report', reportContent);
+    
     terminal.style.display = 'block';
-    content.innerHTML = "Accessing Gemini Pro nodes...<br>Decrypting market structure...<br><br>";
+    chatBox.style.display = 'none'; // Hide chat box while generating summary
+    content.innerHTML = "Establishing secure link to gRaviTy AI Node...<br>Generating executive summary...<br><br>";
 
     try {
-        // Call the Netlify Serverless Function
-        const response = await fetch('/.netlify/functions/summarize', {
+        const response = await fetch(GAS_URL, {
             method: 'POST',
-            body: JSON.stringify({ reportText: reportContent })
+            headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+            body: JSON.stringify({ reportText: reportContent, question: "" })
         });
         
         const data = await response.json();
+        const text = data.summary || "No data returned.";
         
         // Typing Effect
         let i = 0;
         content.innerHTML = "";
-        const text = data.summary || "No data returned from AI.";
-        
         function type() {
             if (i < text.length) {
-                // Handle newlines for bullet points
-                if (text.charAt(i) === '\n') {
-                    content.innerHTML += '<br>';
-                } else {
-                    content.innerHTML += text.charAt(i);
-                }
+                content.innerHTML += text.charAt(i) === '\n' ? '<br>' : text.charAt(i);
                 i++;
-                setTimeout(type, 15); // Speed of typing
+                content.scrollTop = content.scrollHeight; // Auto-scroll down
+                setTimeout(type, 15);
+            } else {
+                // Reveal the chat box when done typing
+                chatBox.style.display = 'flex';
             }
         }
         type();
 
     } catch (err) {
-        content.innerHTML = "<span style='color:#ff4d4d'>[SYSTEM ERROR: AI CONNECTION REFUSED]</span><br>Ensure netlify/functions/summarize.js is deployed.";
+        content.innerHTML = "<span style='color:#ff4d4d'>[CONNECTION ERROR]</span><br>Verify Google Apps Script URL or API Key.";
+    }
+}
+
+function handleEnter(e, inputNode) {
+    if (e.key === 'Enter') {
+        askQuestion(inputNode.nextElementSibling);
+    }
+}
+
+async function askQuestion(btn) {
+    const terminal = btn.closest('.terminal');
+    const input = terminal.querySelector('.chat-input');
+    const content = terminal.querySelector('.term-content');
+    const reportContent = terminal.getAttribute('data-report');
+    const questionText = input.value.trim();
+
+    if (!questionText) return;
+
+    // Append user question
+    content.innerHTML += `<br><br><span style="color: #fff">> You: ${questionText}</span><br><span style="color: var(--gold)" id="loading-msg">> gRaviTy AI: Processing...</span><br>`;
+    content.scrollTop = content.scrollHeight;
+    input.value = '';
+    
+    // Temporarily disable input
+    input.disabled = true;
+    btn.disabled = true;
+
+    try {
+        const response = await fetch(GAS_URL, {
+            method: 'POST',
+            headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+            body: JSON.stringify({ reportText: reportContent, question: questionText })
+        });
+        
+        const data = await response.json();
+        const text = data.summary;
+
+        // Remove loading message
+        document.getElementById('loading-msg').remove();
+        
+        // Type answer
+        let i = 0;
+        const answerSpan = document.createElement('span');
+        answerSpan.style.color = 'var(--gold)';
+        answerSpan.innerHTML = '> gRaviTy AI: ';
+        content.appendChild(answerSpan);
+
+        function type() {
+            if (i < text.length) {
+                answerSpan.innerHTML += text.charAt(i) === '\n' ? '<br>' : text.charAt(i);
+                i++;
+                content.scrollTop = content.scrollHeight;
+                setTimeout(type, 15);
+            } else {
+                input.disabled = false;
+                btn.disabled = false;
+                input.focus();
+            }
+        }
+        type();
+
+    } catch (err) {
+        document.getElementById('loading-msg').innerHTML = "<span style='color:#ff4d4d'>[ERROR COMMUNICATING WITH AI NODE]</span>";
+        input.disabled = false;
+        btn.disabled = false;
     }
 }
 
