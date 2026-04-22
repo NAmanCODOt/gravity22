@@ -36,8 +36,9 @@ body::before
     content: "";
     position: fixed;
     inset: 0;
-    background: radial-gradient(circle at 50% 20%, rgba(212,175,55,0.06), transparent 50%),
-                radial-gradient(circle at 50% 80%, rgba(212,175,55,0.04), transparent 60%);
+    background:
+        radial-gradient(circle at 50% 20%, rgba(212,175,55,0.06), transparent 50%),
+        radial-gradient(circle at 50% 80%, rgba(212,175,55,0.04), transparent 60%);
     z-index: 0;
 }
 
@@ -57,15 +58,9 @@ body::before
     border-right: 1px solid rgba(255,255,255,0.05);
 }
 
-.sidebar.open
-{
-    width: 260px;
-}
+.sidebar.open { width: 260px; }
 
-.sidebar-content
-{
-    padding: 0 30px;
-}
+.sidebar-content { padding: 0 30px; }
 
 .menu-label
 {
@@ -126,11 +121,6 @@ body::before
     z-index: 1001;
 }
 
-.menu-icon
-{
-    cursor: pointer;
-}
-
 .menu-icon span
 {
     display: block;
@@ -140,7 +130,7 @@ body::before
     margin: 5px 0;
 }
 
-/* HERO (FIXED — ALWAYS VISIBLE) */
+/* HERO */
 .hero
 {
     text-align: center;
@@ -166,7 +156,6 @@ body::before
     line-height: 1.7;
 }
 
-/* BUTTON */
 .btn
 {
     margin-top: 20px;
@@ -185,12 +174,12 @@ body::before
     color: black;
 }
 
-/* SECTIONS (ONLY BELOW HERO ARE ANIMATED) */
+/* SECTIONS */
 section
 {
     max-width: 900px;
     margin: auto;
-    padding: 60px 20px;
+    padding: 70px 20px;
     text-align: center;
 
     opacity: 0;
@@ -210,6 +199,15 @@ h2
     font-family: 'Playfair Display', serif;
 }
 
+.card
+{
+    background: rgba(255,255,255,0.03);
+    border: 1px solid rgba(255,255,255,0.05);
+    padding: 20px;
+    margin-top: 20px;
+    border-radius: 10px;
+}
+
 /* footer */
 footer
 {
@@ -219,18 +217,6 @@ footer
     border-top: 1px solid #111;
 }
 
-/* layering fix */
-body > *
-{
-    position: relative;
-    z-index: 1;
-}
-
-/* scrollbar */
-::-webkit-scrollbar { width: 6px; }
-::-webkit-scrollbar-track { background: #000; }
-::-webkit-scrollbar-thumb { background: #d4af37; }
-
 </style>
 </head>
 
@@ -238,7 +224,7 @@ body > *
 
 <div class="overlay" id="overlay" onclick="toggleMenu()"></div>
 
-<!-- SIDEBAR (ONLY REAL PAGES) -->
+<!-- SIDEBAR -->
 <div id="sidebar" class="sidebar">
 
     <div class="sidebar-content">
@@ -272,35 +258,54 @@ body > *
 
 </div>
 
-<!-- HERO (FIXED) -->
+<!-- HERO -->
 <div class="hero">
 
     <h1>gRaviTy Insights</h1>
-
     <p>Decoding Markets. Understanding Movement.</p>
 
-    <a class="btn" href="#services">Explore Insights</a>
+    <a class="btn" href="#s1">Explore</a>
 
 </div>
 
-<!-- BELOW HERO ONLY (SCROLL ANIMATED) -->
-<section id="services">
-  <h2>What We Do</h2>
-  <p>Market Analysis • Structure • Behavior • Probability</p>
+<!-- 1. PROBLEM -->
+<section id="s1">
+    <h2>The Problem</h2>
+    <div class="card">
+        Most people see markets as random noise. They react instead of understanding structure.
+    </div>
 </section>
 
+<!-- 2. FRAMEWORK -->
 <section>
-  <h2>Who We Are</h2>
-  <p>We simplify complexity and bring clarity to markets and businesses.</p>
+    <h2>Our Framework</h2>
+    <div class="card">
+        We break markets into three layers: structure, behavior, and probability.
+    </div>
 </section>
 
+<!-- 5. TOOLS -->
 <section>
-  <h2>Research Focus</h2>
-  <p>We study structure, liquidity behavior, and price movement logic.</p>
+    <h2>Tools</h2>
+    <div class="card">
+        Calculators, timing tools, and research modules help decode market conditions.
+    </div>
+</section>
+
+<!-- 6. CTA -->
+<section>
+    <h2>Start Understanding Markets</h2>
+    <div class="card">
+        Stop guessing. Start analyzing structure-based movement logic.
+    </div>
+
+    <button class="btn" onclick="go('researchportal.html')">
+        Enter Research Portal
+    </button>
 </section>
 
 <footer>
-  Contact: gravity.insights07@gmail.com
+    Contact: gravity.insights07@gmail.com
 </footer>
 
 <script>
@@ -316,7 +321,7 @@ function go(page)
     window.location.href = page;
 }
 
-/* scroll animation ONLY for sections (not hero) */
+/* scroll reveal */
 const sections = document.querySelectorAll("section");
 
 window.addEventListener("scroll", () =>
