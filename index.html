@@ -69,6 +69,8 @@ body {
     background: var(--bg);
     color: white;
     overflow-x: hidden;
+    -webkit-font-smoothing: antialiased; 
+    -moz-osx-font-smoothing: grayscale;
 }
 
 p {
@@ -333,8 +335,13 @@ body::before {
     backdrop-filter: blur(12px);         
     -webkit-backdrop-filter: blur(12px); 
     opacity: 0;
-    transform: translateY(40px) scale(0.98);
-    transition: 0.6s ease, border-color 0.3s;
+    
+    transform: translateY(40px) scale(0.98) translateZ(0);
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+    will-change: transform, box-shadow, border-color; 
+    
+    transition: 0.6s ease, border-color 0.3s, box-shadow 0.3s;
     position: relative;
     overflow: hidden; 
 }
@@ -365,18 +372,12 @@ body::before {
 
 .feature.show {
     opacity: 1;
-    transform: translateY(0) scale(1);
+    transform: translateY(0) scale(1) translateZ(0); 
 }
 
 .feature:hover {
     border-color: rgba(212,175,55,0.5);
     box-shadow: 0 0 25px rgba(212,175,55,0.1), 0 0 80px rgba(212,175,55,0.05);
-}
-
-.feature.active {
-    border-color: rgba(212,175,55,0.8);
-    box-shadow: 0 0 40px rgba(212,175,55,0.2), 0 0 120px rgba(212,175,55,0.1);
-    transform: scale(1.05);
 }
 
 .feature h3 {
@@ -403,7 +404,6 @@ body > * {
 
 /* ================= MOBILE RESPONSIVENESS FIXES ================= */
 @media screen and (max-width: 768px) {
-    /* Fix Navigation Layout */
     .nav {
         justify-content: space-between; 
         padding: 15px 20px;
@@ -417,7 +417,6 @@ body > * {
         font-size: 20px;
     }
 
-    /* Fix Hero Spacing & Stacking */
     .hero {
         padding: 140px 20px 60px; 
     }
@@ -428,7 +427,6 @@ body > * {
         gap: 10px;
     }
 
-    /* Full-screen Sidebar for Touch */
     .sidebar.open {
         width: 100%; 
     }
@@ -438,14 +436,13 @@ body > * {
         flex-direction: column;
         align-items: center; 
         padding-top: 20px;
-        font-size: 18px; /* Larger tap targets */
+        font-size: 18px; 
     }
 
     .sidebar a {
         padding: 18px 0;
     }
 
-    /* Disable Custom Cursor on Mobile */
     * {
         cursor: auto !important; 
     }
@@ -454,7 +451,6 @@ body > * {
         display: none !important; 
     }
     
-    /* Adjust Card Spacing */
     .features {
         padding: 40px 20px 80px;
     }
@@ -595,10 +591,8 @@ setTimeout(removePreloader, 2500);
 const isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
 
 /* ================= CUSTOM CURSOR & EFFECTS LOGIC ================= */
-// Only run these intensive mouse-tracking scripts if the user is NOT on a touchscreen
 if (!isTouchDevice) {
     
-    // 1. Custom Cursor
     const cursorDot = document.getElementById('cursor-dot');
     window.addEventListener('mousemove', (e) => {
         cursorDot.style.left = e.clientX + 'px';
@@ -611,7 +605,6 @@ if (!isTouchDevice) {
         el.addEventListener('mouseleave', () => cursorDot.classList.remove('hover-state'));
     });
 
-    // 2. Magnetic Button
     const magBtn = document.getElementById('magnetic-btn');
     if (magBtn) {
         magBtn.addEventListener('mousemove', (e) => {
@@ -629,7 +622,6 @@ if (!isTouchDevice) {
         });
     }
 
-    // 3. Flashlight Effect on Cards
     document.querySelectorAll('.feature').forEach(card => {
         card.addEventListener('mousemove', e => {
             const rect = card.getBoundingClientRect();
@@ -657,7 +649,6 @@ const features = document.querySelectorAll(".feature");
 
 function update() {
     const trigger = window.innerHeight * 0.75;
-    const center = window.innerHeight / 2;
 
     features.forEach((el, i) => {
         const rect = el.getBoundingClientRect();
@@ -666,16 +657,6 @@ function update() {
             setTimeout(() => {
                 el.classList.add("show");
             }, i * 120);
-        }
-
-        const elCenter = rect.top + rect.height / 2;
-        const dist = Math.abs(center - elCenter);
-
-        // Adds the subtle gold glow to the card closest to the middle of the screen
-        if(dist < 120) {
-            el.classList.add("active");
-        } else {
-            el.classList.remove("active");
         }
     });
 }
