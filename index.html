@@ -25,6 +25,55 @@ body {
     user-select: none;         /* Standard */
 }
 
+/* ================= CUSTOM CURSOR ================= */
+* {
+    cursor: none !important; /* Hide default cursor */
+}
+
+.cursor-dot {
+    width: 6px;
+    height: 6px;
+    background: var(--gold);
+    position: fixed;
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 10000;
+    transform: translate(-50%, -50%);
+    box-shadow: 0 0 10px var(--gold);
+}
+
+.cursor-ring {
+    width: 36px;
+    height: 36px;
+    border: 1px solid rgba(212,175,55,0.4);
+    position: fixed;
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 9999;
+    transform: translate(-50%, -50%);
+    transition: width 0.3s ease, height 0.3s ease, background 0.3s ease, border-color 0.3s ease;
+}
+
+.cursor-ring.hover-state {
+    width: 65px;
+    height: 65px;
+    background: rgba(212,175,55,0.08);
+    border-color: transparent;
+}
+
+/* ================= NOISE OVERLAY ================= */
+.noise-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    pointer-events: none;
+    z-index: 998;
+    opacity: 0.05;
+    background-image: url('data:image/svg+xml;utf8,%3Csvg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg"%3E%3Cfilter id="noiseFilter"%3E%3CfeTurbulence type="fractalNoise" baseFrequency="0.85" numOctaves="3" stitchTiles="stitch"/%3E%3C/filter%3E%3Crect width="100%25" height="100%25" filter="url(%23noiseFilter)"/%3E%3C/svg%3E');
+}
+
 /* ================= BASE ================= */
 
 html
@@ -63,7 +112,7 @@ body::before
     position: fixed;
     inset: 0;
     background: var(--bg);
-    z-index: 9999;
+    z-index: 99999;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -180,7 +229,7 @@ body::before
     overflow-x: hidden;
     transition: 0.35s ease;
     padding-top: 80px;
-    z-index: 1000;
+    z-index: 2000;
 }
 
 .sidebar.open
@@ -225,7 +274,7 @@ body::before
     opacity: 0;
     pointer-events: none;
     transition: 0.3s;
-    z-index: 900;
+    z-index: 1500;
 }
 
 .overlay.show
@@ -239,15 +288,21 @@ body::before
 .nav
 {
     display: flex;
-    justify-content: space-between;
     align-items: center;
     padding: 18px 30px;
     position: fixed;
     top: 0;
+    left: 0;
     width: 100%;
+    box-sizing: border-box; /* Prevents overflow from width 100% + padding */
     background: rgba(5,5,5,0.75);
     backdrop-filter: blur(14px);
     z-index: 1001;
+}
+
+.menu-icon {
+    position: relative;
+    z-index: 10; /* Keep above logo */
 }
 
 .menu-icon span
@@ -259,7 +314,7 @@ body::before
     margin: 5px 0;
 }
 
-/* Dynamic Text Logo Enhancement */
+/* Dynamic Text Logo Enhancement - Centered */
 .logo-shimmer {
     font-family: 'Playfair Display', serif;
     font-size: 24px;
@@ -270,28 +325,51 @@ body::before
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     animation: shimmer 3s linear infinite;
-    cursor: pointer;
+    
+    /* Centralizing Magic */
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
 }
 
 @keyframes shimmer {
     to { background-position: 200% center; }
 }
 
-/* ================= HERO ================= */
+/* ================= HERO & CINEMATIC TEXT ================= */
 
 .hero
 {
     text-align: center;
-    padding: 180px 20px 100px;
+    padding: 200px 20px 100px;
     position: relative;
     z-index: 2;
 }
 
-.hero h1
-{
+/* Cinematic Reveal Setup */
+.cinematic-title {
     font-family: 'Playfair Display', serif;
     font-size: clamp(44px, 6vw, 78px);
     color: var(--gold);
+    margin-bottom: 20px;
+    overflow: hidden; /* Clips the sliding text */
+    display: flex;
+    justify-content: center;
+    gap: 15px; /* Space between words */
+}
+
+.cinematic-word {
+    display: inline-block;
+    transform: translateY(120%);
+    opacity: 0;
+    transition: transform 1s cubic-bezier(0.16, 1, 0.3, 1), opacity 1s ease-out;
+}
+
+/* Class added via JS after preloader */
+.cinematic-title.revealed .cinematic-word {
+    transform: translateY(0);
+    opacity: 1;
 }
 
 .hero p
@@ -302,7 +380,7 @@ body::before
     line-height: 1.8;
 }
 
-/* button */
+/* Magnetic Button */
 .btn
 {
     display: inline-block;
@@ -310,16 +388,15 @@ body::before
     border: 1px solid var(--gold);
     color: var(--gold);
     background: transparent;
-    cursor: pointer;
-    transition: 0.25s;
+    transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), background 0.3s, color 0.3s;
     margin-top: 25px;
+    will-change: transform;
 }
 
 .btn:hover
 {
     background: var(--gold);
     color: black;
-    transform: translateY(-3px);
 }
 
 /* ================= FEATURES (INSIGHTS CARDS) ================= */
@@ -334,6 +411,7 @@ body::before
     gap: 25px;
 }
 
+/* Flashlight Spotlight setup */
 .feature
 {
     padding: 20px;
@@ -345,7 +423,31 @@ body::before
 
     opacity: 0;
     transform: translateY(40px) scale(0.98);
-    transition: 0.6s ease;
+    transition: 0.6s ease, border-color 0.3s;
+    position: relative;
+    overflow: hidden; /* Keeps spotlight inside */
+}
+
+/* Spotlight glow inside the card */
+.feature::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(400px circle at var(--mouse-x, 50%) var(--mouse-y, 50%), rgba(212,175,55,0.12), transparent 40%);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    z-index: 0;
+    pointer-events: none;
+}
+
+.feature:hover::before {
+    opacity: 1;
+}
+
+/* Ensure content stays above the spotlight layer */
+.feature > * {
+    position: relative;
+    z-index: 1;
 }
 
 /* Icon spacing */
@@ -360,14 +462,13 @@ body::before
     transform: translateY(0) scale(1);
 }
 
-/* hover glow */
+/* hover edge glow */
 .feature:hover
 {
-    transform: translateY(-8px) scale(1.02);
-    border-color: var(--gold);
+    border-color: rgba(212,175,55,0.5);
     box-shadow:
-        0 0 25px rgba(212,175,55,0.25),
-        0 0 80px rgba(212,175,55,0.08);
+        0 0 25px rgba(212,175,55,0.1),
+        0 0 80px rgba(212,175,55,0.05);
 }
 
 /* center focus active */
@@ -375,8 +476,8 @@ body::before
 {
     border-color: rgba(212,175,55,0.8);
     box-shadow:
-        0 0 40px rgba(212,175,55,0.35),
-        0 0 120px rgba(212,175,55,0.12);
+        0 0 40px rgba(212,175,55,0.2),
+        0 0 120px rgba(212,175,55,0.1);
     transform: scale(1.05);
 }
 
@@ -413,6 +514,11 @@ body > *
 </head>
 
 <body oncontextmenu="return false;">
+
+<div class="noise-overlay"></div>
+
+<div class="cursor-dot" id="cursor-dot"></div>
+<div class="cursor-ring" id="cursor-ring"></div>
 
 <div id="preloader">
     <div class="loader-text">System Initializing...</div>
@@ -459,11 +565,14 @@ body > *
 
 <div class="hero">
 
-<h1>gRaviTy Insights</h1>
+<div class="cinematic-title" id="main-title">
+    <span class="cinematic-word" style="transition-delay: 0.1s;">gRaviTy</span>
+    <span class="cinematic-word" style="transition-delay: 0.3s;">Insights</span>
+</div>
 
 <p>Markets behave like structured systems — not randomness. We decode movement logic, liquidity, and human behavior flow.</p>
 
-<button class="btn" onclick="go('aboutus.html')">Enter System</button>
+<button class="btn" id="magnetic-btn" onclick="go('aboutus.html')">Enter System</button>
 
 </div>
 
@@ -513,9 +622,8 @@ gRaviTy Research • Intelligence System
 
 <script>
 
-/* PROTECTION SCRIPT */
+/* ================= PROTECTION SCRIPT ================= */
 document.onkeydown = function(e) {
-    // Disable F12, Ctrl+Shift+I, Ctrl+Shift+J, Ctrl+U
     if (e.keyCode == 123 || 
         (e.ctrlKey && e.shiftKey && (e.keyCode == 'I'.charCodeAt(0) || e.keyCode == 'J'.charCodeAt(0))) || 
         (e.ctrlKey && e.keyCode == 'U'.charCodeAt(0)) ||
@@ -524,18 +632,86 @@ document.onkeydown = function(e) {
     }
 };
 
-/* PRELOADER SCRIPT */
+/* ================= PRELOADER & CINEMATIC REVEAL ================= */
 window.addEventListener("load", function() {
-    // Wait briefly to let the initializing animation play, then fade out
     setTimeout(() => {
         const preloader = document.getElementById("preloader");
         preloader.style.opacity = "0";
         setTimeout(() => {
             preloader.style.display = "none";
-        }, 600); // Matches the CSS transition time
+            // Trigger Cinematic Reveal
+            document.getElementById("main-title").classList.add("revealed");
+        }, 600); 
     }, 800);
 });
 
+/* ================= CUSTOM CURSOR LOGIC ================= */
+const cursorDot = document.getElementById('cursor-dot');
+const cursorRing = document.getElementById('cursor-ring');
+
+// To smooth the ring
+let mouseX = 0, mouseY = 0;
+let ringX = 0, ringY = 0;
+
+window.addEventListener('mousemove', (e) => {
+    mouseX = e.clientX;
+    mouseY = e.clientY;
+    
+    // Dot follows instantly
+    cursorDot.style.left = mouseX + 'px';
+    cursorDot.style.top = mouseY + 'px';
+});
+
+// Smooth animate the ring
+function animateRing() {
+    ringX += (mouseX - ringX) * 0.15; // The lerp speed
+    ringY += (mouseY - ringY) * 0.15;
+    
+    cursorRing.style.left = ringX + 'px';
+    cursorRing.style.top = ringY + 'px';
+    
+    requestAnimationFrame(animateRing);
+}
+animateRing();
+
+// Add hover states to interactable elements
+const interactables = document.querySelectorAll('a, button, .menu-icon, .feature, .logo-shimmer');
+interactables.forEach(el => {
+    el.addEventListener('mouseenter', () => cursorRing.classList.add('hover-state'));
+    el.addEventListener('mouseleave', () => cursorRing.classList.remove('hover-state'));
+});
+
+/* ================= MAGNETIC BUTTON ================= */
+const magBtn = document.getElementById('magnetic-btn');
+
+magBtn.addEventListener('mousemove', (e) => {
+    const rect = magBtn.getBoundingClientRect();
+    const x = e.clientX - rect.left - rect.width / 2;
+    const y = e.clientY - rect.top - rect.height / 2;
+    
+    magBtn.style.transition = 'none'; // remove transition for smooth tracking
+    magBtn.style.transform = `translate(${x * 0.3}px, ${y * 0.4}px)`; // tweak multipliers for intensity
+});
+
+magBtn.addEventListener('mouseleave', () => {
+    // Return transition for the snap back
+    magBtn.style.transition = 'transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), background 0.3s, color 0.3s';
+    magBtn.style.transform = 'translate(0px, 0px)';
+});
+
+/* ================= FLASHLIGHT EFFECT ON CARDS ================= */
+document.querySelectorAll('.feature').forEach(card => {
+    card.addEventListener('mousemove', e => {
+        const rect = card.getBoundingClientRect();
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
+        
+        card.style.setProperty('--mouse-x', `${x}px`);
+        card.style.setProperty('--mouse-y', `${y}px`);
+    });
+});
+
+/* ================= MENU & NAVIGATION ================= */
 function toggleMenu()
 {
     document.getElementById("sidebar").classList.toggle("open");
@@ -547,7 +723,7 @@ function go(p)
     window.location.href = p;
 }
 
-/* SCROLL + CENTER FOCUS SYSTEM */
+/* ================= SCROLL + CENTER FOCUS SYSTEM ================= */
 const features = document.querySelectorAll(".feature");
 
 function update()
