@@ -16,7 +16,7 @@
     --bg: #050505;
 }
 
-/* SMOOTH SCROLL */
+/* GLOBAL */
 html
 {
     scroll-behavior: smooth;
@@ -28,9 +28,10 @@ body
     font-family: 'Inter', sans-serif;
     background: var(--bg);
     color: white;
+    overflow-x: hidden;
 }
 
-/* subtle gradient bg */
+/* background glow */
 body::before
 {
     content: "";
@@ -41,7 +42,7 @@ body::before
     z-index: 0;
 }
 
-/* sidebar */
+/* ================= SIDEBAR ================= */
 .sidebar
 {
     width: 0;
@@ -51,7 +52,7 @@ body::before
     top: 0;
     background: #0a0a0a;
     overflow-x: hidden;
-    transition: 0.3s ease;
+    transition: 0.35s ease;
     padding-top: 80px;
     z-index: 1000;
     border-right: 1px solid rgba(255,255,255,0.05);
@@ -88,7 +89,7 @@ body::before
 .sidebar a:hover
 {
     color: var(--gold);
-    padding-left: 6px;
+    padding-left: 8px;
 }
 
 /* overlay */
@@ -96,7 +97,7 @@ body::before
 {
     position: fixed;
     inset: 0;
-    background: rgba(0,0,0,0.4);
+    background: rgba(0,0,0,0.45);
     opacity: 0;
     pointer-events: none;
     transition: 0.3s;
@@ -109,20 +110,20 @@ body::before
     pointer-events: all;
 }
 
-/* nav */
+/* ================= NAV ================= */
 .nav
 {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 20px 30px;
+    padding: 18px 30px;
 
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
     background: rgba(5,5,5,0.9);
-    backdrop-filter: blur(8px);
+    backdrop-filter: blur(10px);
     z-index: 1001;
 }
 
@@ -146,7 +147,13 @@ body::before
     transform: translateX(3px);
 }
 
-/* hero */
+.logo
+{
+    height: 36px;
+    cursor: pointer;
+}
+
+/* ================= HERO ================= */
 .hero
 {
     text-align: center;
@@ -161,7 +168,6 @@ body::before
     font-size: clamp(34px, 6vw, 64px);
     color: var(--gold);
     line-height: 1.2;
-    letter-spacing: 1px;
     position: relative;
 }
 
@@ -180,29 +186,21 @@ body::before
 {
     margin-top: 20px;
     color: #8f8f8f;
-    font-size: clamp(14px, 2.5vw, 18px);
+    font-size: 18px;
     line-height: 1.7;
 }
 
-/* divider */
-.divider
-{
-    width: 60%;
-    height: 1px;
-    margin: 40px auto;
-    background: linear-gradient(to right, transparent, rgba(212,175,55,0.4), transparent);
-}
-
-/* button */
+/* ================= BUTTON ================= */
 .btn
 {
-    margin-top: 30px;
-    padding: 12px 26px;
+    margin-top: 18px;
+    padding: 12px 24px;
     border: 1px solid var(--gold);
     background: transparent;
     color: var(--gold);
     cursor: pointer;
     transition: 0.2s;
+    display: inline-block;
 }
 
 .btn:hover
@@ -213,58 +211,72 @@ body::before
     box-shadow: 0 6px 20px rgba(212,175,55,0.2);
 }
 
-/* features */
-.features
+/* ================= SECTIONS ================= */
+section
 {
     max-width: 900px;
     margin: auto;
-    padding: 40px 20px 100px;
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px,1fr));
-    gap: 30px;
+    padding: 60px 20px;
     text-align: center;
-}
 
-.feature
-{
     opacity: 0;
-    transform: translateY(30px);
-    transition: 0.4s ease;
-    padding: 20px;
-    border: 1px solid rgba(255,255,255,0.05);
-    border-radius: 10px;
-    background: rgba(255,255,255,0.02);
+    transform: translateY(40px);
+    transition: 0.6s ease;
 }
 
-/* ✅ GOLD GLOW HOVER (UNIFORM ACROSS SITE STYLE) */
-.feature:hover
-{
-    transform: translateY(-6px);
-    border-color: var(--gold);
-    box-shadow: 0 0 20px rgba(212,175,55,0.25),
-                0 0 60px rgba(212,175,55,0.08);
-}
-
-.feature.show
+/* ACTIVE SCROLL STATE */
+section.show
 {
     opacity: 1;
     transform: translateY(0);
 }
 
-.feature h3
+/* section glow hover */
+section:hover
+{
+    box-shadow: 0 0 25px rgba(212,175,55,0.15);
+    border-radius: 12px;
+}
+
+h2
 {
     color: var(--gold);
-    font-weight: 500;
+    font-family: 'Playfair Display', serif;
     margin-bottom: 10px;
 }
 
-.feature p
+p
 {
     color: #888;
-    font-size: 14px;
 }
 
-/* layering */
+/* ================= NEWSLETTER ================= */
+input
+{
+    margin-top: 15px;
+    padding: 10px;
+    width: 250px;
+    background: transparent;
+    border: 1px solid #333;
+    color: white;
+    outline: none;
+}
+
+input:focus
+{
+    border-color: var(--gold);
+}
+
+/* ================= FOOTER ================= */
+footer
+{
+    text-align: center;
+    padding: 50px 20px;
+    color: #777;
+    border-top: 1px solid #111;
+}
+
+/* layering fix */
 body > *
 {
     position: relative;
@@ -289,7 +301,7 @@ html
 
 <div class="overlay" id="overlay" onclick="toggleMenu()"></div>
 
-<!-- sidebar -->
+<!-- SIDEBAR -->
 <div id="sidebar" class="sidebar">
 
     <div class="sidebar-content">
@@ -312,7 +324,7 @@ html
 
 </div>
 
-<!-- nav -->
+<!-- NAV -->
 <div class="nav">
 
     <div class="menu-icon" onclick="toggleMenu()">
@@ -321,57 +333,47 @@ html
         <span></span>
     </div>
 
-    <img src="logo.png" height="36">
+    <img src="logo.png" class="logo" onclick="go('index.html')">
 
 </div>
 
-<!-- HERO SECTION -->
-<section class="hero">
+<!-- HERO -->
+<section>
   <h1>gRaviTy Insights</h1>
   <p>Decoding Markets. Understanding Movement.</p>
-  <a href="#services" class="btn">Explore Insights</a>
+  <a class="btn" href="#services">Explore Insights</a>
 </section>
 
-
-<!-- SERVICES PREVIEW -->
-<section id="services" class="reveal">
+<section id="services">
   <h2>What We Do</h2>
   <p>Market Analysis • Business Breakdown • Trend Insights</p>
-  <a href="services.html" class="btn">View Services →</a>
+  <a class="btn" href="services.html">View Services →</a>
 </section>
 
-
-<!-- ABOUT PREVIEW -->
-<section class="reveal">
+<section>
   <h2>Who We Are</h2>
   <p>We simplify complexity and bring clarity to markets and businesses.</p>
-  <a href="about.html" class="btn">About Us →</a>
+  <a class="btn" href="about.html">About Us →</a>
 </section>
 
-
-<!-- REPORTS PREVIEW -->
-<section class="reveal">
+<section>
   <h2>Reports</h2>
   <p>Structured insights and deep analysis of market movements.</p>
-  <a href="reports.html" class="btn">View Reports →</a>
+  <a class="btn" href="reports.html">View Reports →</a>
 </section>
 
-
-<!-- NEWSLETTER -->
-<section class="reveal">
+<section>
   <h2>Stay Ahead</h2>
   <p>Get insights directly to your inbox.</p>
-  <input type="email" placeholder="Enter your email">
+  <input type="email" placeholder="Enter email">
+  <br>
   <button class="btn">Subscribe</button>
 </section>
 
-
-<!-- CONTACT -->
 <footer>
   <h3>Contact</h3>
-  <p>Email: gravity.insights07@gmail.com</p>
-  <p>Instagram: @gravity.insights</p>
-  <a href="contact.html" class="btn">Contact Us →</a>
+  <p>gravity.insights07@gmail.com</p>
+  <p>@gravity.insights</p>
 </footer>
 
 <script>
@@ -387,15 +389,16 @@ function go(page)
     window.location.href = page;
 }
 
-const features = document.querySelectorAll(".feature");
+/* SCROLL REVEAL FIXED */
+const sections = document.querySelectorAll("section");
 
 window.addEventListener("scroll", () =>
 {
-    features.forEach(el =>
+    sections.forEach(el =>
     {
         const rect = el.getBoundingClientRect();
 
-        if(rect.top < window.innerHeight - 50)
+        if(rect.top < window.innerHeight - 100)
         {
             el.classList.add("show");
         }
