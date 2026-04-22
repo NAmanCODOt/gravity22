@@ -361,8 +361,8 @@
     </div>
 
     <script>
-        // ================= YOUR GAS DEPLOYMENT URL =================
-        const GAS_URL = "https://script.google.com/macros/s/AKfycbyNfb0K6JZQSKaSbChxJcVf0_X_UJVG109YUsSQfaFJSxZbx1Prko5U6CI8f6k3uf5y/exec";
+        // ================= YOUR GAS DEPLOYMENT URL (V2) =================
+        const GAS_URL = "https://script.google.com/macros/s/AKfycbwZ10QRtq35KG8pN7r0fGGD_docjQaThL0mFhlDEKPAaeWwSIhRPwczK6YBvaeysEfn/exec";
 
         // ================= SIDEBAR MENU LOGIC =================
         const menuBtn = document.getElementById('menuBtn');
@@ -405,7 +405,6 @@
             document.querySelectorAll('a[href]').forEach(link => {
                 link.addEventListener('click', function(e) {
                     const target = this.getAttribute('href');
-                    // Ensure links bypass the transition if they are external, pdf downloads, or empty links
                     if (target && !target.endsWith('.pdf') && !target.startsWith('http') && !target.startsWith('mailto') && target !== '#') {
                         e.preventDefault();
                         transitionTo(target);
@@ -425,28 +424,33 @@
             const chatBox = terminal.querySelector('.chat-box');
             
             terminal.style.display = 'block';
-            chatBox.style.display = 'none'; // Hide until summary is complete
-            terminal.setAttribute('data-report', content); // Store report text for context
+            chatBox.style.display = 'none'; 
+            terminal.setAttribute('data-report', content); 
             
             termContent.innerHTML = "Establishing secure link to gRaviTy AI Node...<br>Decrypting structural market data...<br><br>";
             
             try {
                 const res = await fetch(GAS_URL, {
                     method: 'POST',
-                    headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+                    mode: 'cors', // Crucial for crossing domains from GitHub to Google
+                    redirect: 'follow', // Ensures redirects by Google are handled
+                    headers: { 'Content-Type': 'text/plain;charset=utf-8' }, // text/plain prevents preflight CORS issues
                     body: JSON.stringify({ reportText: content, question: "" })
                 });
                 
+                if (!res.ok) {
+                    throw new Error(`HTTP error! status: ${res.status}`);
+                }
+
                 const data = await res.json();
                 termContent.innerHTML = "";
                 
-                // Typing effect callback unhides the chatbox
                 typeText(termContent, data.summary || "No data received.", () => {
                     chatBox.style.display = 'flex';
                 });
                 
             } catch (e) {
-                termContent.innerHTML = "<span style='color:#ff4d4d'>[SYSTEM ERROR: AI CONNECTION REFUSED]</span><br>Ensure Google Apps Script deployment is correct and unrestricted.";
+                termContent.innerHTML = `<span style='color:#ff4d4d'>[SYSTEM ERROR: AI CONNECTION REFUSED]</span><br>Details: ${e.message}<br>Ensure Google Apps Script deployment is correct and unrestricted.`;
                 console.error("Fetch error: ", e);
             }
         }
@@ -459,18 +463,18 @@
             
             if(!question) return;
 
-            // Display user message and loading state
             termContent.innerHTML += `<br><br><span style="color:#fff">> USER: ${question}</span><br><span style="color:var(--gold)" id="loading-msg">> gRaviTy AI: Processing algorithm...</span>`;
             termContent.scrollTop = termContent.scrollHeight;
             input.value = "";
             
-            // Disable inputs while fetching
             input.disabled = true;
             btn.disabled = true;
             
             try {
                 const res = await fetch(GAS_URL, {
                     method: 'POST',
+                    mode: 'cors',
+                    redirect: 'follow',
                     headers: { 'Content-Type': 'text/plain;charset=utf-8' },
                     body: JSON.stringify({ 
                         reportText: terminal.getAttribute('data-report'), 
@@ -478,12 +482,14 @@
                     })
                 });
                 
+                if (!res.ok) {
+                    throw new Error(`HTTP error! status: ${res.status}`);
+                }
+
                 const data = await res.json();
                 
-                // Remove loading message
                 document.getElementById('loading-msg').remove();
                 
-                // Type the AI's response
                 const answerSpan = document.createElement('span');
                 answerSpan.style.color = 'var(--gold)';
                 answerSpan.innerHTML = '> gRaviTy AI: ';
@@ -496,8 +502,10 @@
                 }, termContent);
                 
             } catch (e) {
-                document.getElementById('loading-msg').remove();
-                termContent.innerHTML += "<br><span style='color:#ff4d4d'>[ERROR COMMUNICATING WITH AI NODE]</span>";
+                if(document.getElementById('loading-msg')) {
+                    document.getElementById('loading-msg').remove();
+                }
+                termContent.innerHTML += `<br><span style='color:#ff4d4d'>[ERROR COMMUNICATING WITH AI NODE: ${e.message}]</span>`;
                 input.disabled = false;
                 btn.disabled = false;
             }
