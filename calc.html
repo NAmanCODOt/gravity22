@@ -160,12 +160,22 @@ body
     margin: 5px 0;
 }
 
+.logo-text 
+{
+    font-family: 'Playfair Display', serif;
+    font-size: 22px;
+    font-weight: 600;
+    color: var(--gold);
+    letter-spacing: 3px;
+    text-decoration: none;
+}
+
 /* container */
 .container 
 {
     max-width: 600px;
     margin: auto;
-    padding: 40px 20px;
+    padding: 40px 20px 80px 20px; /* Added extra padding to bottom since button is gone */
 }
 
 h1 
@@ -237,24 +247,6 @@ input.error
     font-weight: 600;
 }
 
-/* button */
-.btn 
-{
-    margin-top: 40px;
-    padding: 12px 24px;
-    border: 1px solid var(--gold);
-    background: transparent;
-    color: var(--gold);
-    cursor: pointer;
-    transition: 0.3s;
-}
-
-.btn:hover 
-{
-    background: var(--gold);
-    color: black;
-}
-
 /* ================= MOBILE RESPONSIVENESS ================= */
 @media screen and (max-width: 768px) {
     * {
@@ -311,13 +303,7 @@ input.error
         <span></span>
     </div>
 
-    <div 
-        style="color: var(--gold); font-size: 22px; font-weight: bold; cursor: pointer;" 
-        onclick="goHome()"
-        class="logo-text"
-    >
-        gRaviTy
-    </div>
+    <a href="index.html" class="logo-text">gRaviTy</a>
 
 </div>
 
@@ -379,8 +365,6 @@ input.error
 
     </div>
 
-    <button class="btn" onclick="goHome()">← Back Home</button>
-
 </div>
 
 <script>
@@ -406,7 +390,7 @@ if (!isTouchDevice) {
         cursorDot.style.top = e.clientY + 'px';
     });
 
-    const interactables = document.querySelectorAll('a, button, input, .menu-icon, .close-btn, .logo-text');
+    const interactables = document.querySelectorAll('a, button, input, .menu-icon, .close-btn');
     interactables.forEach(el => {
         el.addEventListener('mouseenter', () => cursorDot.classList.add('hover-state'));
         el.addEventListener('mouseleave', () => cursorDot.classList.remove('hover-state'));
@@ -462,11 +446,6 @@ window.addEventListener('pageshow', (event) => {
         document.body.classList.remove('fade-out');
     }
 });
-
-function goHome() 
-{
-    transitionTo('index.html');
-}
 
 /* ================= CALCULATOR ENGINE & ANIMATION ================= */
 
