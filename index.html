@@ -41,7 +41,7 @@ body::before
     z-index: 0;
 }
 
-/* ================= SIDEBAR ================= */
+/* SIDEBAR */
 .sidebar
 {
     width: 0;
@@ -109,7 +109,7 @@ body::before
     pointer-events: all;
 }
 
-/* ================= NAV ================= */
+/* NAV */
 .nav
 {
     display: flex;
@@ -140,13 +140,15 @@ body::before
     margin: 5px 0;
 }
 
-/* ================= HERO FIXED ================= */
+/* HERO (FIXED — ALWAYS VISIBLE) */
 .hero
 {
     text-align: center;
-    padding: 180px 20px 80px;
-    max-width: 900px;
+    padding: 160px 20px 80px;
+    max-width: 800px;
     margin: auto;
+    position: relative;
+    z-index: 2;
 }
 
 .hero h1
@@ -154,21 +156,20 @@ body::before
     font-family: 'Playfair Display', serif;
     font-size: clamp(34px, 6vw, 64px);
     color: var(--gold);
-    margin: 0;
 }
 
 .hero p
 {
     margin-top: 20px;
-    color: #9a9a9a;
+    color: #8f8f8f;
     font-size: 18px;
-    line-height: 1.6;
+    line-height: 1.7;
 }
 
-/* button */
+/* BUTTON */
 .btn
 {
-    margin-top: 22px;
+    margin-top: 20px;
     padding: 12px 24px;
     border: 1px solid var(--gold);
     background: transparent;
@@ -182,72 +183,38 @@ body::before
 {
     background: var(--gold);
     color: black;
-    transform: translateY(-2px);
 }
 
-/* ================= SECTIONS FIXED ================= */
+/* SECTIONS (ONLY BELOW HERO ARE ANIMATED) */
 section
 {
     max-width: 900px;
     margin: auto;
-    padding: 70px 20px;
+    padding: 60px 20px;
     text-align: center;
 
     opacity: 0;
-    transform: translateY(30px);
+    transform: translateY(40px);
     transition: 0.6s ease;
 }
 
-/* IMPORTANT FIX: hero should NOT be hidden */
-.hero
-{
-    opacity: 1 !important;
-    transform: none !important;
-}
-
-/* reveal */
 section.show
 {
     opacity: 1;
     transform: translateY(0);
 }
 
-/* headings */
 h2
 {
     color: var(--gold);
-    margin-bottom: 10px;
     font-family: 'Playfair Display', serif;
-}
-
-/* text */
-p
-{
-    color: #888;
-}
-
-/* input */
-input
-{
-    margin-top: 15px;
-    padding: 10px;
-    width: 240px;
-    background: transparent;
-    border: 1px solid #333;
-    color: white;
-    outline: none;
-}
-
-input:focus
-{
-    border-color: var(--gold);
 }
 
 /* footer */
 footer
 {
     text-align: center;
-    padding: 60px 20px;
+    padding: 50px 20px;
     color: #777;
     border-top: 1px solid #111;
 }
@@ -271,7 +238,7 @@ body > *
 
 <div class="overlay" id="overlay" onclick="toggleMenu()"></div>
 
-<!-- SIDEBAR -->
+<!-- SIDEBAR (ONLY REAL PAGES) -->
 <div id="sidebar" class="sidebar">
 
     <div class="sidebar-content">
@@ -298,52 +265,42 @@ body > *
 <div class="nav">
 
     <div class="menu-icon" onclick="toggleMenu()">
-        <span></span>
-        <span></span>
-        <span></span>
+        <span></span><span></span><span></span>
     </div>
 
     <img src="logo.png" height="36" onclick="go('index.html')">
 
 </div>
 
-<!-- HERO (NOW FIXED AND VISIBLE) -->
-<section class="hero show">
-  <h1>gRaviTy Insights</h1>
-  <p>Decoding Markets. Understanding Movement.</p>
-  <a class="btn" href="#services">Explore Insights</a>
-</section>
+<!-- HERO (FIXED) -->
+<div class="hero">
 
+    <h1>gRaviTy Insights</h1>
+
+    <p>Decoding Markets. Understanding Movement.</p>
+
+    <a class="btn" href="#services">Explore Insights</a>
+
+</div>
+
+<!-- BELOW HERO ONLY (SCROLL ANIMATED) -->
 <section id="services">
   <h2>What We Do</h2>
-  <p>Market Analysis • Business Breakdown • Trend Insights</p>
-  <a class="btn" href="services.html">View Services →</a>
+  <p>Market Analysis • Structure • Behavior • Probability</p>
 </section>
 
 <section>
   <h2>Who We Are</h2>
   <p>We simplify complexity and bring clarity to markets and businesses.</p>
-  <a class="btn" href="about.html">About Us →</a>
 </section>
 
 <section>
-  <h2>Reports</h2>
-  <p>Structured insights and deep analysis of market movements.</p>
-  <a class="btn" href="reports.html">View Reports →</a>
-</section>
-
-<section>
-  <h2>Stay Ahead</h2>
-  <p>Get insights directly to your inbox.</p>
-  <input type="email" placeholder="Enter email">
-  <br>
-  <button class="btn">Subscribe</button>
+  <h2>Research Focus</h2>
+  <p>We study structure, liquidity behavior, and price movement logic.</p>
 </section>
 
 <footer>
-  <h3>Contact</h3>
-  <p>gravity.insights07@gmail.com</p>
-  <p>@gravity.insights</p>
+  Contact: gravity.insights07@gmail.com
 </footer>
 
 <script>
@@ -359,10 +316,10 @@ function go(page)
     window.location.href = page;
 }
 
-/* FIXED REVEAL LOGIC */
-const sections = document.querySelectorAll("section:not(.hero)");
+/* scroll animation ONLY for sections (not hero) */
+const sections = document.querySelectorAll("section");
 
-function reveal()
+window.addEventListener("scroll", () =>
 {
     sections.forEach(el =>
     {
@@ -373,10 +330,7 @@ function reveal()
             el.classList.add("show");
         }
     });
-}
-
-window.addEventListener("scroll", reveal);
-reveal();
+});
 
 </script>
 
