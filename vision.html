@@ -1,4 +1,4 @@
-    <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
 
@@ -21,6 +21,16 @@ body {
     -moz-user-select: none;    /* Firefox */
     -ms-user-select: none;     /* IE10+/Edge */
     user-select: none;         /* Standard */
+}
+
+/* ================= SEAMLESS PAGE TRANSITIONS ================= */
+body {
+    opacity: 1;
+    transition: opacity 0.4s ease-in-out;
+}
+
+body.fade-out {
+    opacity: 0;
 }
 
 /* ================= CUSTOM CURSOR ================= */
@@ -429,9 +439,36 @@ function toggleMenu()
     document.getElementById("sidebar").classList.toggle("open");
 }
 
+/* ================= SEAMLESS PAGE TRANSITIONS ================= */
+function transitionTo(url) {
+    document.body.classList.add('fade-out');
+    setTimeout(() => {
+        window.location.href = url;
+    }, 400);
+}
+
+document.addEventListener("DOMContentLoaded", () => {
+    const links = document.querySelectorAll('a[href]');
+    links.forEach(link => {
+        link.addEventListener('click', function(e) {
+            const target = this.getAttribute('href');
+            if (target && !target.startsWith('http') && !target.startsWith('mailto')) {
+                e.preventDefault();
+                transitionTo(target);
+            }
+        });
+    });
+});
+
+window.addEventListener('pageshow', (event) => {
+    if (event.persisted) {
+        document.body.classList.remove('fade-out');
+    }
+});
+
 function goHome()
 {
-    window.location.href = "index.html";
+    transitionTo('index.html');
 }
 
 </script>
