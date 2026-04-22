@@ -41,12 +41,16 @@ body.fade-out {
     height: 6px;
     background: var(--gold);
     position: fixed;
+    top: 0;
+    left: 0;
     border-radius: 50%;
     pointer-events: none;
     z-index: 10000;
-    transform: translate(-50%, -50%);
+    /* translate(-50%, -50%) centers it. Hardware accelerated via JS */
+    transform: translate(-50%, -50%); 
     box-shadow: 0 0 15px var(--gold);
-    transition: width 0.3s ease, height 0.3s ease, box-shadow 0.3s ease;
+    transition: width 0.3s ease, height 0.3s ease, box-shadow 0.3s ease, background 0.3s ease, border 0.3s ease;
+    will-change: transform, width, height;
 }
 
 .cursor-dot.hover-state {
@@ -125,7 +129,7 @@ body {
     cursor: pointer;
 }
 
-/* orbs */
+/* orbs (HARDWARE ACCELERATED FOR PC SMOOTHNESS) */
 .gold-orb {
     position: fixed;
     border-radius: 50%;
@@ -133,13 +137,30 @@ body {
     pointer-events: none;
     z-index: 1;
     opacity: 0.12;
+    will-change: transform;
 }
 
-.orb1 { width: 700px; height: 700px; background: var(--gold); animation: move1 28s infinite linear; }
-.orb2 { width: 600px; height: 600px; background: #fff; animation: move2 35s infinite linear; }
+.orb1 { 
+    width: 700px; height: 700px; background: var(--gold); 
+    top: -15%; left: -15%;
+    animation: move1 28s infinite linear; 
+}
+.orb2 { 
+    width: 600px; height: 600px; background: #fff; 
+    bottom: -15%; right: -15%;
+    animation: move2 35s infinite linear; 
+}
 
-@keyframes move1 { 0% { top: -15%; left: -15%; } 50% { top: 65%; left: 75%; } 100% { top: -15%; left: -15%; } }
-@keyframes move2 { 0% { bottom: -15%; right: -15%; } 50% { bottom: 65%; right: 75%; } 100% { bottom: -15%; right: -15%; } }
+@keyframes move1 { 
+    0% { transform: translate3d(0, 0, 0); } 
+    50% { transform: translate3d(90vw, 80vh, 0); } 
+    100% { transform: translate3d(0, 0, 0); } 
+}
+@keyframes move2 { 
+    0% { transform: translate3d(0, 0, 0); } 
+    50% { transform: translate3d(-90vw, -80vh, 0); } 
+    100% { transform: translate3d(0, 0, 0); } 
+}
 
 /* main container */
 .container {
@@ -165,7 +186,7 @@ body {
     text-align: center;
 }
 
-/* ================= TIMER STYLING (REFINED) ================= */
+/* ================= TIMER STYLING ================= */
 .timer {
     display: flex;
     align-items: center;
@@ -270,7 +291,6 @@ body {
         margin-bottom: 30px;
     }
 
-    /* Convert to a neat 2x2 grid for mobile */
     .timer {
         display: grid;
         grid-template-columns: repeat(2, 1fr);
@@ -306,7 +326,6 @@ body {
     }
 }
 
-/* Extra small devices */
 @media screen and (max-width: 380px) {
     .timer { gap: 10px; }
     .unit-box { padding: 15px 5px; }
@@ -384,13 +403,14 @@ document.onkeydown = function(e) {
 /* TOUCH DETECTION */
 const isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
 
-/* CUSTOM CURSOR */
+/* CUSTOM CURSOR - GPU ACCELERATED */
 if (!isTouchDevice) {
     const cursorDot = document.getElementById('cursor-dot');
     window.addEventListener('mousemove', (e) => {
-        cursorDot.style.left = e.clientX + 'px';
-        cursorDot.style.top = e.clientY + 'px';
+        // Using translate3d forces the browser to use GPU acceleration, eliminating lag.
+        cursorDot.style.transform = `translate3d(${e.clientX}px, ${e.clientY}px, 0) translate(-50%, -50%)`;
     });
+    
     document.querySelectorAll('a, button, .menu-icon, .logo, .unit-box').forEach(el => {
         el.addEventListener('mouseenter', () => cursorDot.classList.add('hover-state'));
         el.addEventListener('mouseleave', () => cursorDot.classList.remove('hover-state'));
@@ -427,8 +447,8 @@ window.addEventListener('pageshow', (event) => {
 
 function goHome() { transitionTo('index.html'); }
 
-/* TIMER LOGIC */
-const target = new Date("2026-05-30T00:00:00+05:30").getTime();
+/* TIMER LOGIC - UPDATED TO APRIL 25, 2026 */
+const target = new Date("2026-04-25T00:00:00+05:30").getTime();
 
 function updateClock() {
     const now = new Date().getTime();
