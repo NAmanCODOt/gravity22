@@ -24,6 +24,30 @@ body {
     user-select: none;         /* Standard */
 }
 
+/* ================= CUSTOM CURSOR ================= */
+* {
+    cursor: none !important;
+}
+
+.cursor-dot {
+    width: 6px;
+    height: 6px;
+    background: var(--gold);
+    position: fixed;
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 10000;
+    transform: translate(-50%, -50%);
+    box-shadow: 0 0 10px var(--gold);
+    transition: width 0.2s ease, height 0.2s ease, box-shadow 0.2s ease;
+}
+
+.cursor-dot.hover-state {
+    width: 12px;
+    height: 12px;
+    box-shadow: 0 0 15px var(--gold);
+}
+
 body 
 {
     margin: 0;
@@ -212,10 +236,30 @@ input:focus
     color: black;
 }
 
+/* ================= MOBILE RESPONSIVENESS ================= */
+@media screen and (max-width: 768px) {
+    /* Disable Custom Cursor on Mobile */
+    * {
+        cursor: auto !important; 
+    }
+    .cursor-dot {
+        display: none !important; 
+    }
+    
+    .sidebar.open {
+        width: 100%; 
+    }
+    .nav {
+        padding: 15px 20px;
+    }
+}
+
 </style>
 </head>
 
 <body oncontextmenu="return false;">
+
+<div class="cursor-dot" id="cursor-dot"></div>
 
 <div id="sidebar" class="sidebar">
 
@@ -252,6 +296,7 @@ input:focus
     <div 
         style="color: var(--gold); font-size: 22px; font-weight: bold; cursor: pointer;" 
         onclick="goHome()"
+        class="logo-text"
     >
         gRaviTy
     </div>
@@ -332,6 +377,25 @@ document.onkeydown = function(e) {
     }
 };
 
+/* ================= TOUCH DETECTION (MOBILE FIXES) ================= */
+const isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
+
+/* ================= CUSTOM CURSOR LOGIC ================= */
+if (!isTouchDevice) {
+    const cursorDot = document.getElementById('cursor-dot');
+    window.addEventListener('mousemove', (e) => {
+        cursorDot.style.left = e.clientX + 'px';
+        cursorDot.style.top = e.clientY + 'px';
+    });
+
+    const interactables = document.querySelectorAll('a, button, input, .menu-icon, .close-btn, .logo-text');
+    interactables.forEach(el => {
+        el.addEventListener('mouseenter', () => cursorDot.classList.add('hover-state'));
+        el.addEventListener('mouseleave', () => cursorDot.classList.remove('hover-state'));
+    });
+}
+
+/* ================= MENU LOGIC ================= */
 function openMenu(event) 
 {
     event.stopPropagation(); 
