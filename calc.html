@@ -16,6 +16,14 @@
     --bg: #050505;
 }
 
+/* ================= PROTECTION STYLES ================= */
+body {
+    -webkit-user-select: none; /* Safari */
+    -moz-user-select: none;    /* Firefox */
+    -ms-user-select: none;     /* IE10+/Edge */
+    user-select: none;         /* Standard */
+}
+
 body 
 {
     margin: 0;
@@ -207,9 +215,8 @@ input:focus
 </style>
 </head>
 
-<body>
+<body oncontextmenu="return false;">
 
-<!-- sidebar -->
 <div id="sidebar" class="sidebar">
 
     <span class="close-btn" onclick="closeMenu()">&times;</span>
@@ -234,7 +241,6 @@ input:focus
 
 </div>
 
-<!-- nav -->
 <div class="nav">
 
     <div class="menu-icon" onclick="openMenu(event)">
@@ -252,7 +258,6 @@ input:focus
 
 </div>
 
-<!-- content -->
 <div class="container">
 
     <h1>Wealth Calculators</h1>
@@ -317,6 +322,16 @@ input:focus
 
 <script>
 
+/* PROTECTION SCRIPT */
+document.onkeydown = function(e) {
+    if (e.keyCode == 123 || 
+        (e.ctrlKey && e.shiftKey && (e.keyCode == 'I'.charCodeAt(0) || e.keyCode == 'J'.charCodeAt(0))) || 
+        (e.ctrlKey && e.keyCode == 'U'.charCodeAt(0)) ||
+        (e.ctrlKey && e.keyCode == 'C'.charCodeAt(0))) {
+        return false;
+    }
+};
+
 function openMenu(event) 
 {
     event.stopPropagation(); 
@@ -344,10 +359,10 @@ function goHome()
     window.location.href = "index.html";
 }
 
-/* calculations unchanged */
-function calcWealth(){/* unchanged */}
-function calcSIP(){/* unchanged */}
-function calcInflation(){/* unchanged */}
+/* calculations unchanged placeholders - ensure your actual logic is here */
+function calcWealth(){/* calculation logic */}
+function calcSIP(){/* calculation logic */}
+function calcInflation(){/* calculation logic */}
 
 calcWealth();
 calcSIP();
