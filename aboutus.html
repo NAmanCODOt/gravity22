@@ -10,6 +10,14 @@
 
 @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600&family=Inter:wght@300;400&display=swap');
 
+/* ================= PROTECTION STYLES ================= */
+body {
+    -webkit-user-select: none; /* Safari */
+    -moz-user-select: none;    /* Firefox */
+    -ms-user-select: none;     /* IE10+/Edge */
+    user-select: none;         /* Standard */
+}
+
 body 
 {
     margin: 0;
@@ -186,14 +194,12 @@ body
 </style>
 </head>
 
-<body>
+<body oncontextmenu="return false;">
 
-<!-- ORBS -->
 <div class="gold-orb orb1"></div>
 <div class="gold-orb orb2"></div>
 <div class="gold-orb orb3"></div>
 
-<!-- NAV -->
 <div class="nav">
 
     <div class="menu-icon" onclick="toggleMenu()">
@@ -206,7 +212,6 @@ body
 
 </div>
 
-<!-- SIDEBAR -->
 <div id="sidebar" class="sidebar">
 
     <div class="sidebar-content">
@@ -229,7 +234,6 @@ body
 
 </div>
 
-<!-- HERO -->
 <div class="hero">
 
     <h1>Who We Are</h1>
@@ -240,7 +244,6 @@ body
 
 </div>
 
-<!-- STORY -->
 <div class="section">
 
     <h2>Our Origin</h2>
@@ -255,7 +258,6 @@ body
 
 </div>
 
-<!-- PHILOSOPHY -->
 <div class="section">
 
     <h2>Our Philosophy</h2>
@@ -274,7 +276,6 @@ body
 
 </div>
 
-<!-- EDGE -->
 <div class="section">
 
     <h2>Our Edge</h2>
@@ -293,7 +294,6 @@ body
 
 </div>
 
-<!-- VISION -->
 <div class="section">
 
     <h2>Where We Are Going</h2>
@@ -312,12 +312,21 @@ body
 
 </div>
 
-<!-- FOOTER -->
 <div class="footer">
     © 2026 gRaviTy Research
 </div>
 
 <script>
+
+/* PROTECTION SCRIPT */
+document.onkeydown = function(e) {
+    if (e.keyCode == 123 || 
+        (e.ctrlKey && e.shiftKey && (e.keyCode == 'I'.charCodeAt(0) || e.keyCode == 'J'.charCodeAt(0))) || 
+        (e.ctrlKey && e.keyCode == 'U'.charCodeAt(0)) ||
+        (e.ctrlKey && e.keyCode == 'C'.charCodeAt(0))) {
+        return false;
+    }
+};
 
 function toggleMenu()
 {
