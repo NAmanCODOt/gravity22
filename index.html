@@ -16,7 +16,6 @@
     --bg: #050505;
 }
 
-/* SMOOTH SCROLL */
 html
 {
     scroll-behavior: smooth;
@@ -30,7 +29,7 @@ body
     color: white;
 }
 
-/* subtle gradient bg */
+/* background glow */
 body::before
 {
     content: "";
@@ -126,69 +125,7 @@ body::before
     z-index: 1001;
 }
 
-/* =========================
-   PREMIUM SVG LOGO STYLE
-========================= */
-.logo
-{
-    font-family: 'Playfair Display', serif;
-    font-size: 22px;
-    letter-spacing: 3px;
-    color: var(--gold);
-    cursor: pointer;
-    position: relative;
-    display: inline-block;
-    transition: 0.3s;
-    text-shadow: 0 0 10px rgba(212,175,55,0.2);
-}
-
-/* glow animation */
-.logo::before
-{
-    content: "gRaviTy";
-    position: absolute;
-    top: 0;
-    left: 0;
-    color: var(--gold);
-    filter: blur(10px);
-    opacity: 0.3;
-    animation: pulse 3s infinite ease-in-out;
-}
-
-/* shimmer sweep */
-.logo::after
-{
-    content: "";
-    position: absolute;
-    top: 0;
-    left: -100%;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(120deg, transparent, rgba(255,215,0,0.3), transparent);
-    animation: shine 5s infinite;
-}
-
-@keyframes pulse
-{
-    0%,100% { transform: scale(1); opacity: 0.3; }
-    50% { transform: scale(1.05); opacity: 0.6; }
-}
-
-@keyframes shine
-{
-    0% { left: -100%; }
-    50% { left: 100%; }
-    100% { left: 100%; }
-}
-
-/* hover effect */
-.logo:hover
-{
-    transform: translateY(-2px);
-    text-shadow: 0 0 20px rgba(212,175,55,0.5);
-}
-
-/* menu icon */
+/* MENU ICON */
 .menu-icon
 {
     cursor: pointer;
@@ -201,15 +138,58 @@ body::before
     height: 2px;
     background: var(--gold);
     margin: 5px 0;
-    transition: 0.2s;
 }
 
-.menu-icon:hover span
+/* =========================
+   PREMIUM SVG LOGO STYLE
+========================= */
+
+.logo
 {
-    transform: translateX(3px);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    cursor: pointer;
+    user-select: none;
+    transition: 0.3s ease;
 }
 
-/* HERO SECTION */
+/* hover glow */
+.logo:hover
+{
+    transform: scale(1.03);
+    filter: drop-shadow(0 0 10px rgba(212,175,55,0.6))
+            drop-shadow(0 0 25px rgba(212,175,55,0.2));
+}
+
+/* animated float */
+.logo svg
+{
+    width: 38px;
+    height: 38px;
+    fill: none;
+    stroke: var(--gold);
+    stroke-width: 2;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    animation: float 4s ease-in-out infinite;
+}
+
+@keyframes float
+{
+    0%,100% { transform: translateY(0px); }
+    50% { transform: translateY(-3px); }
+}
+
+.logo-text
+{
+    font-family: 'Playfair Display', serif;
+    font-size: 20px;
+    letter-spacing: 2px;
+    color: var(--gold);
+}
+
+/* HERO */
 .hero
 {
     text-align: center;
@@ -229,28 +209,9 @@ body::before
 {
     margin-top: 20px;
     color: #8f8f8f;
-    font-size: 18px;
 }
 
-/* button */
-.btn
-{
-    margin-top: 30px;
-    padding: 12px 26px;
-    border: 1px solid var(--gold);
-    background: transparent;
-    color: var(--gold);
-    cursor: pointer;
-    transition: 0.2s;
-}
-
-.btn:hover
-{
-    background: var(--gold);
-    color: black;
-}
-
-/* features */
+/* FEATURES */
 .features
 {
     max-width: 900px;
@@ -263,18 +224,32 @@ body::before
 
 .feature
 {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: 0.4s ease;
+
     padding: 20px;
-    border: 1px solid rgba(255,255,255,0.05);
     border-radius: 10px;
+    border: 1px solid rgba(255,255,255,0.05);
     background: rgba(255,255,255,0.02);
-    transition: 0.3s;
 }
 
 .feature:hover
 {
     border-color: var(--gold);
-    box-shadow: 0 0 25px rgba(212,175,55,0.2);
+    box-shadow: 0 0 20px rgba(212,175,55,0.25);
     transform: translateY(-6px);
+}
+
+.feature.show
+{
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.feature h3
+{
+    color: var(--gold);
 }
 
 /* layering */
@@ -284,6 +259,11 @@ body > *
     z-index: 1;
 }
 
+/* scrollbar */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: #000; }
+::-webkit-scrollbar-thumb { background: #d4af37; }
+
 </style>
 </head>
 
@@ -291,7 +271,7 @@ body > *
 
 <div class="overlay" id="overlay" onclick="toggleMenu()"></div>
 
-<!-- sidebar -->
+<!-- SIDEBAR -->
 <div id="sidebar" class="sidebar">
 
     <div class="sidebar-content">
@@ -304,9 +284,6 @@ body > *
         <a onclick="go('aboutus.html')">About Us</a>
         <a onclick="go('vision.html')">Our Vision</a>
 
-        <div class="menu-label">Research</div>
-        <a onclick="go('researchportal.html')">Research Portal</a>
-
         <div class="menu-label">Access</div>
         <a onclick="go('contactus.html')">Contact Us</a>
 
@@ -314,7 +291,7 @@ body > *
 
 </div>
 
-<!-- nav -->
+<!-- NAV -->
 <div class="nav">
 
     <div class="menu-icon" onclick="toggleMenu()">
@@ -323,18 +300,25 @@ body > *
         <span></span>
     </div>
 
-    <!-- PREMIUM LOGO -->
+    <!-- PREMIUM SVG LOGO (NO IMAGE FILE) -->
     <div class="logo" onclick="go('index.html')">
-        gRaviTy
+
+        <svg viewBox="0 0 24 24">
+            <path d="M12 2 L20 7 L20 17 L12 22 L4 17 L4 7 Z"></path>
+            <path d="M12 2 L12 22"></path>
+            <path d="M4 7 L20 17"></path>
+        </svg>
+
+        <div class="logo-text">gRaviTy</div>
+
     </div>
 
 </div>
 
 <!-- HERO -->
 <section class="hero">
-  <h1>gRaviTy Insights</h1>
-  <p>Decoding Markets. Understanding Movement.</p>
-  <a href="#services" class="btn">Explore Insights</a>
+  <h1>Markets Aren’t Random.</h1>
+  <p>They move with patterns, logic, and hidden forces.</p>
 </section>
 
 <!-- FEATURES -->
@@ -369,6 +353,20 @@ function go(page)
 {
     window.location.href = page;
 }
+
+const features = document.querySelectorAll(".feature");
+
+window.addEventListener("scroll", () =>
+{
+    features.forEach(el =>
+    {
+        const rect = el.getBoundingClientRect();
+        if(rect.top < window.innerHeight - 50)
+        {
+            el.classList.add("show");
+        }
+    });
+});
 
 </script>
 
