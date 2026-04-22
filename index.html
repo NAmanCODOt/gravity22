@@ -17,6 +17,14 @@
     --bg: #050505;
 }
 
+/* ================= PROTECTION STYLES ================= */
+body {
+    -webkit-user-select: none; /* Safari */
+    -moz-user-select: none;    /* Firefox */
+    -ms-user-select: none;     /* IE10+/Edge */
+    user-select: none;         /* Standard */
+}
+
 /* ================= BASE ================= */
 
 html
@@ -323,17 +331,14 @@ body > *
 
 </head>
 
-<body>
+<body oncontextmenu="return false;">
 
-<!-- ORBS -->
 <div class="orb orb1"></div>
 <div class="orb orb2"></div>
 <div class="orb orb3"></div>
 
-<!-- OVERLAY -->
 <div class="overlay" id="overlay" onclick="toggleMenu()"></div>
 
-<!-- SIDEBAR -->
 <div id="sidebar" class="sidebar">
 
 <div class="sidebar-content">
@@ -356,7 +361,6 @@ body > *
 
 </div>
 
-<!-- NAV -->
 <div class="nav">
 
 <div class="menu-icon" onclick="toggleMenu()">
@@ -367,7 +371,6 @@ body > *
 
 </div>
 
-<!-- HERO -->
 <div class="hero">
 
 <h1>gRaviTy Insights</h1>
@@ -378,7 +381,6 @@ body > *
 
 </div>
 
-<!-- INSIGHTS CARDS -->
 <div class="features">
 
 <div class="feature">
@@ -413,12 +415,22 @@ body > *
 
 </div>
 
-<!-- FOOTER -->
 <footer>
 gRaviTy Research • Intelligence System
 </footer>
 
 <script>
+
+/* PROTECTION SCRIPT */
+document.onkeydown = function(e) {
+    // Disable F12, Ctrl+Shift+I, Ctrl+Shift+J, Ctrl+U
+    if (e.keyCode == 123 || 
+        (e.ctrlKey && e.shiftKey && (e.keyCode == 'I'.charCodeAt(0) || e.keyCode == 'J'.charCodeAt(0))) || 
+        (e.ctrlKey && e.keyCode == 'U'.charCodeAt(0)) ||
+        (e.ctrlKey && e.keyCode == 'C'.charCodeAt(0))) {
+        return false;
+    }
+};
 
 function toggleMenu()
 {
