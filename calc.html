@@ -8,7 +8,7 @@
 
 <style>
 
-@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600&family=Inter:wght@300;400&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Inter:wght@300;400;500;600&display=swap');
 
 :root 
 {
@@ -68,106 +68,110 @@ body 
     overflow-x: hidden;
 }
 
-/* sidebar */
-.sidebar 
-{
+/* ================= SIDEBAR ================= */
+.sidebar {
     width: 0;
     height: 100%;
     position: fixed;
     left: 0;
     top: 0;
     background: #0a0a0a;
-    box-shadow: 2px 0 15px rgba(0,0,0,0.5);
-    transition: 0.4s ease-in-out;
+    overflow-x: hidden;
+    transition: 0.35s ease;
     padding-top: 80px;
     z-index: 2000;
-    overflow-x: hidden;
 }
 
-.sidebar.open 
-{ 
-    width: 280px; 
-    border-right: 1px solid var(--gold);
+.sidebar.open {
+    width: 270px;
 }
 
-.sidebar-content 
-{ 
-    min-width: 280px;
-    padding: 0 30px; 
+.sidebar-content {
+    padding: 0 30px;
 }
 
-.menu-label 
-{
+.menu-label {
     margin-top: 25px;
     font-size: 10px;
     letter-spacing: 2px;
     color: var(--gold);
-    text-transform: uppercase;
-    opacity: 0.7;
 }
 
-.sidebar a 
-{
+.sidebar a {
     display: block;
     padding: 14px 0;
     color: #888;
     text-decoration: none;
-    transition: 0.25s;
+    transition: 0.2s;
 }
 
-.sidebar a:hover 
-{
+.sidebar a:hover {
     color: var(--gold);
-    padding-left: 10px;
+    transform: translateX(6px);
 }
 
-/* close */
-.close-btn 
-{
-    position: absolute;
-    top: 20px;
-    right: 20px;
-    font-size: 28px;
-    cursor: pointer;
-    color: var(--gold);
+.overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.55);
+    opacity: 0;
+    pointer-events: none;
+    transition: 0.3s;
+    z-index: 1500;
 }
 
-/* nav */
-.nav 
-{
+.overlay.show {
+    opacity: 1;
+    pointer-events: all;
+}
+
+/* ================= NAV ================= */
+.nav {
     display: flex;
-    justify-content: space-between;
     align-items: center;
-    padding: 20px 40px;
-    position: sticky;
+    padding: 18px 30px;
+    position: fixed;
     top: 0;
-    background: var(--bg);
-    z-index: 100;
+    left: 0;
+    width: 100%;
+    box-sizing: border-box; 
+    background: rgba(5,5,5,0.75);
+    backdrop-filter: blur(14px);
+    z-index: 1001;
 }
 
-.menu-icon 
-{
-    cursor: pointer;
-    z-index: 101;
+.menu-icon {
+    position: relative;
+    z-index: 10; 
 }
 
-.menu-icon span 
-{
+.menu-icon span {
     display: block;
-    width: 25px;
+    width: 22px;
     height: 2px;
     background: var(--gold);
     margin: 5px 0;
 }
 
-.logo-text 
-{
+.logo-shimmer {
     font-family: 'Playfair Display', serif;
-    font-size: 22px;
-    font-weight: 600;
+    font-size: 24px;
+    font-weight: 700;
+    background: linear-gradient(90deg, var(--gold) 0%, #fff 40%, var(--gold) 80%);
+    background-size: 200% auto;
     color: var(--gold);
-    letter-spacing: 3px;
-    text-decoration: none;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: shimmer 3s linear infinite;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    cursor: pointer;
+}
+
+@keyframes shimmer {
+    to { background-position: 200% center; }
 }
 
 /* container */
@@ -175,7 +179,7 @@ body 
 {
     max-width: 600px;
     margin: auto;
-    padding: 40px 20px 80px 20px; /* Added extra padding to bottom since button is gone */
+    padding: 120px 20px 80px 20px; /* Adjusted top padding to clear fixed nav */
 }
 
 .home-btn
@@ -269,18 +273,41 @@ input.error 
 
 /* ================= MOBILE RESPONSIVENESS ================= */
 @media screen and (max-width: 768px) {
-    * {
-        cursor: auto !important; 
-    }
-    .cursor-dot {
-        display: none !important; 
+    .nav {
+        justify-content: space-between; 
+        padding: 15px 20px;
     }
     
+    .logo-shimmer {
+        position: relative; 
+        left: auto;
+        top: auto;
+        transform: none;
+        font-size: 20px;
+    }
+
     .sidebar.open {
         width: 100%; 
     }
-    .nav {
-        padding: 15px 20px;
+    
+    .sidebar-content {
+        display: flex;
+        flex-direction: column;
+        align-items: center; 
+        padding-top: 20px;
+        font-size: 18px; 
+    }
+
+    .sidebar a {
+        padding: 18px 0;
+    }
+
+    * {
+        cursor: auto !important; 
+    }
+    
+    .cursor-dot {
+        display: none !important; 
     }
 }
 
@@ -291,40 +318,31 @@ input.error 
 
 <div class="cursor-dot" id="cursor-dot"></div>
 
+<div class="overlay" id="overlay" onclick="toggleMenu()"></div>
+
 <div id="sidebar" class="sidebar">
-
-    <span class="close-btn" onclick="closeMenu()">&times;</span>
-
     <div class="sidebar-content">
+        <div class="menu-label">Tools</div>
+        <a onclick="go('calc.html')" style="cursor: pointer;">Wealth Calculators</a>
+        <a onclick="go('clock.html')" style="cursor: pointer;">Market Clock</a>
 
-        <div class="menu-label">Advanced Tools</div>
-        <a href="calc.html">Wealth Calculators</a>
-        <a href="clock.html">Market Clock</a>
+        <div class="menu-label">Firm</div>
+        <a onclick="go('aboutus.html')" style="cursor: pointer;">About Us</a>
+        <a onclick="go('vision.html')" style="cursor: pointer;">Our Vision</a>
 
         <div class="menu-label">Research</div>
-        <a href="researchportal.html">Research Portal</a>
-
-        <div class="menu-label">Our Firm</div>
-        <a href="aboutus.html">About Us</a>
-        <a href="vision.html">Our Vision</a>
+        <a onclick="go('researchportal.html')" style="cursor: pointer;">Research Portal</a>
 
         <div class="menu-label">Access</div>
-        <a href="contactus.html">Contact Us</a>
-
+        <a onclick="go('contactus.html')" style="cursor: pointer;">Contact</a>
     </div>
-
 </div>
 
 <div class="nav">
-
-    <div class="menu-icon" onclick="openMenu(event)">
-        <span></span>
-        <span></span>
-        <span></span>
+    <div class="menu-icon" onclick="toggleMenu()" style="cursor: pointer;">
+        <span></span><span></span><span></span>
     </div>
-
-    <a href="index.html" class="logo-text">gRaviTy</a>
-
+    <div class="logo-shimmer" onclick="go('index.html')">gRaviTy</div>
 </div>
 
 <div class="container">
@@ -412,7 +430,7 @@ if (!isTouchDevice) {
         cursorDot.style.top = e.clientY + 'px';
     });
 
-    const interactables = document.querySelectorAll('a, button, input, .menu-icon, .close-btn');
+    const interactables = document.querySelectorAll('a, button, input, .menu-icon, .logo-shimmer');
     interactables.forEach(el => {
         el.addEventListener('mouseenter', () => cursorDot.classList.add('hover-state'));
         el.addEventListener('mouseleave', () => cursorDot.classList.remove('hover-state'));
@@ -420,27 +438,14 @@ if (!isTouchDevice) {
 }
 
 /* ================= MENU LOGIC ================= */
-function openMenu(event) 
-{
-    event.stopPropagation(); 
-    document.getElementById("sidebar").classList.add("open");
+function toggleMenu() {
+    document.getElementById("sidebar").classList.toggle("open");
+    document.getElementById("overlay").classList.toggle("show");
 }
 
-function closeMenu() 
-{
-    document.getElementById("sidebar").classList.remove("open");
+function go(p) {
+    transitionTo(p);
 }
-
-document.addEventListener("click", function(e) 
-{
-    const sb = document.getElementById("sidebar");
-    const menuIcon = document.querySelector(".menu-icon");
-
-    if (!sb.contains(e.target) && !menuIcon.contains(e.target)) 
-    {
-        closeMenu();
-    }
-});
 
 /* ================= SEAMLESS PAGE TRANSITIONS ================= */
 function transitionTo(url) {
