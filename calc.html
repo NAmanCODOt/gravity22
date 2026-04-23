@@ -10,258 +10,278 @@
 
 @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600&family=Inter:wght@300;400&display=swap');
 
-:root 
+:root 
 {
-    --gold: #d4af37;
-    --bg: #050505;
-    --error: #ff4d4d; /* Soft red for defensive UX */
+    --gold: #d4af37;
+    --bg: #050505;
+    --error: #ff4d4d; /* Soft red for defensive UX */
 }
 
 /* ================= PROTECTION STYLES ================= */
 body {
-    -webkit-user-select: none; /* Safari */
-    -moz-user-select: none;    /* Firefox */
-    -ms-user-select: none;     /* IE10+/Edge */
-    user-select: none;         /* Standard */
+    -webkit-user-select: none; /* Safari */
+    -moz-user-select: none;    /* Firefox */
+    -ms-user-select: none;     /* IE10+/Edge */
+    user-select: none;         /* Standard */
 }
 
 /* ================= SEAMLESS PAGE TRANSITIONS ================= */
 body {
-    opacity: 1;
-    transition: opacity 0.4s ease-in-out;
+    opacity: 1;
+    transition: opacity 0.4s ease-in-out;
 }
 
 body.fade-out {
-    opacity: 0;
+    opacity: 0;
 }
 
 /* ================= CUSTOM CURSOR ================= */
 * {
-    cursor: none !important;
+    cursor: none !important;
 }
 
 .cursor-dot {
-    width: 6px;
-    height: 6px;
-    background: var(--gold);
-    position: fixed;
-    border-radius: 50%;
-    pointer-events: none;
-    z-index: 10000;
-    transform: translate(-50%, -50%);
-    box-shadow: 0 0 10px var(--gold);
-    transition: width 0.2s ease, height 0.2s ease, box-shadow 0.2s ease;
+    width: 6px;
+    height: 6px;
+    background: var(--gold);
+    position: fixed;
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 10000;
+    transform: translate(-50%, -50%);
+    box-shadow: 0 0 10px var(--gold);
+    transition: width 0.2s ease, height 0.2s ease, box-shadow 0.2s ease;
 }
 
 .cursor-dot.hover-state {
-    width: 12px;
-    height: 12px;
-    box-shadow: 0 0 15px var(--gold);
+    width: 12px;
+    height: 12px;
+    box-shadow: 0 0 15px var(--gold);
 }
 
-body 
+body 
 {
-    margin: 0;
-    font-family: 'Inter', sans-serif;
-    background: var(--bg);
-    color: white;
-    overflow-x: hidden;
+    margin: 0;
+    font-family: 'Inter', sans-serif;
+    background: var(--bg);
+    color: white;
+    overflow-x: hidden;
 }
 
 /* sidebar */
-.sidebar 
+.sidebar 
 {
-    width: 0;
-    height: 100%;
-    position: fixed;
-    left: 0;
-    top: 0;
-    background: #0a0a0a;
-    box-shadow: 2px 0 15px rgba(0,0,0,0.5);
-    transition: 0.4s ease-in-out;
-    padding-top: 80px;
-    z-index: 2000;
-    overflow-x: hidden;
+    width: 0;
+    height: 100%;
+    position: fixed;
+    left: 0;
+    top: 0;
+    background: #0a0a0a;
+    box-shadow: 2px 0 15px rgba(0,0,0,0.5);
+    transition: 0.4s ease-in-out;
+    padding-top: 80px;
+    z-index: 2000;
+    overflow-x: hidden;
 }
 
-.sidebar.open 
-{ 
-    width: 280px; 
-    border-right: 1px solid var(--gold);
+.sidebar.open 
+{ 
+    width: 280px; 
+    border-right: 1px solid var(--gold);
 }
 
-.sidebar-content 
-{ 
-    min-width: 280px;
-    padding: 0 30px; 
+.sidebar-content 
+{ 
+    min-width: 280px;
+    padding: 0 30px; 
 }
 
-.menu-label 
+.menu-label 
 {
-    margin-top: 25px;
-    font-size: 10px;
-    letter-spacing: 2px;
-    color: var(--gold);
-    text-transform: uppercase;
-    opacity: 0.7;
+    margin-top: 25px;
+    font-size: 10px;
+    letter-spacing: 2px;
+    color: var(--gold);
+    text-transform: uppercase;
+    opacity: 0.7;
 }
 
-.sidebar a 
+.sidebar a 
 {
-    display: block;
-    padding: 14px 0;
-    color: #888;
-    text-decoration: none;
-    transition: 0.25s;
+    display: block;
+    padding: 14px 0;
+    color: #888;
+    text-decoration: none;
+    transition: 0.25s;
 }
 
-.sidebar a:hover 
+.sidebar a:hover 
 {
-    color: var(--gold);
-    padding-left: 10px;
+    color: var(--gold);
+    padding-left: 10px;
 }
 
 /* close */
-.close-btn 
+.close-btn 
 {
-    position: absolute;
-    top: 20px;
-    right: 20px;
-    font-size: 28px;
-    cursor: pointer;
-    color: var(--gold);
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    font-size: 28px;
+    cursor: pointer;
+    color: var(--gold);
 }
 
 /* nav */
-.nav 
+.nav 
 {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 20px 40px;
-    position: sticky;
-    top: 0;
-    background: var(--bg);
-    z-index: 100;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 40px;
+    position: sticky;
+    top: 0;
+    background: var(--bg);
+    z-index: 100;
 }
 
-.menu-icon 
+.menu-icon 
 {
-    cursor: pointer;
-    z-index: 101;
+    cursor: pointer;
+    z-index: 101;
 }
 
-.menu-icon span 
+.menu-icon span 
 {
-    display: block;
-    width: 25px;
-    height: 2px;
-    background: var(--gold);
-    margin: 5px 0;
+    display: block;
+    width: 25px;
+    height: 2px;
+    background: var(--gold);
+    margin: 5px 0;
 }
 
-.logo-text 
+.logo-text 
 {
-    font-family: 'Playfair Display', serif;
-    font-size: 22px;
-    font-weight: 600;
-    color: var(--gold);
-    letter-spacing: 3px;
-    text-decoration: none;
+    font-family: 'Playfair Display', serif;
+    font-size: 22px;
+    font-weight: 600;
+    color: var(--gold);
+    letter-spacing: 3px;
+    text-decoration: none;
 }
 
 /* container */
-.container 
+.container 
 {
-    max-width: 600px;
-    margin: auto;
-    padding: 40px 20px 80px 20px; /* Added extra padding to bottom since button is gone */
+    max-width: 600px;
+    margin: auto;
+    padding: 40px 20px 80px 20px; /* Added extra padding to bottom since button is gone */
 }
 
-h1 
+.home-btn
 {
-    font-family: 'Playfair Display', serif;
-    color: var(--gold);
-    text-align: center;
-    font-size: 2.5rem;
+    display: inline-block;
+    padding: 8px 16px;
+    border: 1px solid var(--gold);
+    color: var(--gold);
+    text-decoration: none;
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    transition: 0.3s ease;
+    margin-bottom: 20px;
+}
+
+.home-btn:hover
+{
+    background: var(--gold);
+    color: var(--bg);
+}
+
+h1 
+{
+    font-family: 'Playfair Display', serif;
+    color: var(--gold);
+    text-align: center;
+    font-size: 2.5rem;
 }
 
 /* card */
-.card 
+.card 
 {
-    background: rgba(255,255,255,0.03);
-    border: 1px solid #222;
-    padding: 25px;
-    margin-top: 30px;
+    background: rgba(255,255,255,0.03);
+    border: 1px solid #222;
+    padding: 25px;
+    margin-top: 30px;
 }
 
-.card h3 
+.card h3 
 {
-    margin-top: 0;
-    font-weight: 400;
-    color: #eee;
+    margin-top: 0;
+    font-weight: 400;
+    color: #eee;
 }
 
 /* form */
-label 
+label 
 {
-    display: block;
-    font-size: 10px;
-    color: #666;
-    margin-top: 10px;
-    text-transform: uppercase;
+    display: block;
+    font-size: 10px;
+    color: #666;
+    margin-top: 10px;
+    text-transform: uppercase;
 }
 
-input 
+input 
 {
-    width: 100%;
-    background: transparent;
-    border: none;
-    border-bottom: 1px solid #333;
-    color: var(--gold);
-    padding: 8px 0;
-    margin-bottom: 5px;
-    font-size: 18px;
-    outline: none;
-    transition: 0.3s ease;
+    width: 100%;
+    background: transparent;
+    border: none;
+    border-bottom: 1px solid #333;
+    color: var(--gold);
+    padding: 8px 0;
+    margin-bottom: 5px;
+    font-size: 18px;
+    outline: none;
+    transition: 0.3s ease;
 }
 
-input:focus 
+input:focus 
 {
-    border-bottom: 1px solid var(--gold);
+    border-bottom: 1px solid var(--gold);
 }
 
 /* Defensive UX Error State */
-input.error 
+input.error 
 {
-    border-bottom: 1px solid var(--error) !important;
-    color: var(--error) !important;
+    border-bottom: 1px solid var(--error) !important;
+    color: var(--error) !important;
 }
 
 /* result */
-.result 
+.result 
 {
-    font-size: 24px;
-    color: var(--gold);
-    margin-top: 15px;
-    font-weight: 600;
+    font-size: 24px;
+    color: var(--gold);
+    margin-top: 15px;
+    font-weight: 600;
 }
 
 /* ================= MOBILE RESPONSIVENESS ================= */
 @media screen and (max-width: 768px) {
-    * {
-        cursor: auto !important; 
-    }
-    .cursor-dot {
-        display: none !important; 
-    }
-    
-    .sidebar.open {
-        width: 100%; 
-    }
-    .nav {
-        padding: 15px 20px;
-    }
+    * {
+        cursor: auto !important; 
+    }
+    .cursor-dot {
+        display: none !important; 
+    }
+    
+    .sidebar.open {
+        width: 100%; 
+    }
+    .nav {
+        padding: 15px 20px;
+    }
 }
 
 </style>
@@ -273,97 +293,99 @@ input.error
 
 <div id="sidebar" class="sidebar">
 
-    <span class="close-btn" onclick="closeMenu()">&times;</span>
+    <span class="close-btn" onclick="closeMenu()">&times;</span>
 
-    <div class="sidebar-content">
+    <div class="sidebar-content">
 
-        <div class="menu-label">Advanced Tools</div>
-        <a href="calc.html">Wealth Calculators</a>
-        <a href="clock.html">Market Clock</a>
+        <div class="menu-label">Advanced Tools</div>
+        <a href="calc.html">Wealth Calculators</a>
+        <a href="clock.html">Market Clock</a>
 
-        <div class="menu-label">Research</div>
-        <a href="researchportal.html">Research Portal</a>
+        <div class="menu-label">Research</div>
+        <a href="researchportal.html">Research Portal</a>
 
-        <div class="menu-label">Our Firm</div>
-        <a href="aboutus.html">About Us</a>
-        <a href="vision.html">Our Vision</a>
+        <div class="menu-label">Our Firm</div>
+        <a href="aboutus.html">About Us</a>
+        <a href="vision.html">Our Vision</a>
 
-        <div class="menu-label">Access</div>
-        <a href="contactus.html">Contact Us</a>
+        <div class="menu-label">Access</div>
+        <a href="contactus.html">Contact Us</a>
 
-    </div>
+    </div>
 
 </div>
 
 <div class="nav">
 
-    <div class="menu-icon" onclick="openMenu(event)">
-        <span></span>
-        <span></span>
-        <span></span>
-    </div>
+    <div class="menu-icon" onclick="openMenu(event)">
+        <span></span>
+        <span></span>
+        <span></span>
+    </div>
 
-    <a href="index.html" class="logo-text">gRaviTy</a>
+    <a href="index.html" class="logo-text">gRaviTy</a>
 
 </div>
 
 <div class="container">
 
-    <h1>Wealth Calculators</h1>
+    <a href="index.html" class="home-btn">Home</a>
 
-    <div class="card">
+    <h1>Wealth Calculators</h1>
 
-        <h3>Wealth Projection</h3>
+    <div class="card">
 
-        <label>Initial Investment (P)</label>
-        <input id="p" type="number" value="100000" oninput="calcWealth()">
+        <h3>Wealth Projection</h3>
 
-        <label>Monthly Addition (M)</label>
-        <input id="m" type="number" value="10000" oninput="calcWealth()">
+        <label>Initial Investment (P)</label>
+        <input id="p" type="number" value="100000" oninput="calcWealth()">
 
-        <label>Annual Return (%)</label>
-        <input id="r" type="number" value="12" oninput="calcWealth()">
+        <label>Monthly Addition (M)</label>
+        <input id="m" type="number" value="10000" oninput="calcWealth()">
 
-        <label>Duration (Years)</label>
-        <input id="y" type="number" value="10" oninput="calcWealth()">
+        <label>Annual Return (%)</label>
+        <input id="r" type="number" value="12" oninput="calcWealth()">
 
-        <div id="res1" class="result" data-val="0">₹ 0</div>
+        <label>Duration (Years)</label>
+        <input id="y" type="number" value="10" oninput="calcWealth()">
 
-    </div>
+        <div id="res1" class="result" data-val="0">₹ 0</div>
 
-    <div class="card">
+    </div>
 
-        <h3>SIP Calculator</h3>
+    <div class="card">
 
-        <label>Monthly SIP Amount</label>
-        <input id="sip" type="number" value="5000" oninput="calcSIP()">
+        <h3>SIP Calculator</h3>
 
-        <label>Expected Return (%)</label>
-        <input id="sipr" type="number" value="12" oninput="calcSIP()">
+        <label>Monthly SIP Amount</label>
+        <input id="sip" type="number" value="5000" oninput="calcSIP()">
 
-        <label>Time Period (Years)</label>
-        <input id="sipy" type="number" value="10" oninput="calcSIP()">
+        <label>Expected Return (%)</label>
+        <input id="sipr" type="number" value="12" oninput="calcSIP()">
 
-        <div id="res2" class="result" data-val="0">₹ 0</div>
+        <label>Time Period (Years)</label>
+        <input id="sipy" type="number" value="10" oninput="calcSIP()">
 
-    </div>
+        <div id="res2" class="result" data-val="0">₹ 0</div>
 
-    <div class="card">
+    </div>
 
-        <h3>Inflation Adjuster</h3>
+    <div class="card">
 
-        <label>Current Cost</label>
-        <input id="fv" type="number" value="1000000" oninput="calcInflation()">
+        <h3>Inflation Adjuster</h3>
 
-        <label>Inflation Rate (%)</label>
-        <input id="inf" type="number" value="6" oninput="calcInflation()">
+        <label>Current Cost</label>
+        <input id="fv" type="number" value="1000000" oninput="calcInflation()">
 
-        <label>Time Horizon (Years)</label>
-        <input id="infy" type="number" value="10" oninput="calcInflation()">
+        <label>Inflation Rate (%)</label>
+        <input id="inf" type="number" value="6" oninput="calcInflation()">
 
-        <div id="res3" class="result" data-val="0">₹ 0</div>
+        <label>Time Horizon (Years)</label>
+        <input id="infy" type="number" value="10" oninput="calcInflation()">
 
-    </div>
+        <div id="res3" class="result" data-val="0">₹ 0</div>
+
+    </div>
 
 </div>
 
@@ -371,12 +393,12 @@ input.error
 
 /* PROTECTION SCRIPT */
 document.onkeydown = function(e) {
-    if (e.keyCode == 123 || 
-        (e.ctrlKey && e.shiftKey && (e.keyCode == 'I'.charCodeAt(0) || e.keyCode == 'J'.charCodeAt(0))) || 
-        (e.ctrlKey && e.keyCode == 'U'.charCodeAt(0)) ||
-        (e.ctrlKey && e.keyCode == 'C'.charCodeAt(0))) {
-        return false;
-    }
+    if (e.keyCode == 123 || 
+        (e.ctrlKey && e.shiftKey && (e.keyCode == 'I'.charCodeAt(0) || e.keyCode == 'J'.charCodeAt(0))) || 
+        (e.ctrlKey && e.keyCode == 'U'.charCodeAt(0)) ||
+        (e.ctrlKey && e.keyCode == 'C'.charCodeAt(0))) {
+        return false;
+    }
 };
 
 /* ================= TOUCH DETECTION (MOBILE FIXES) ================= */
@@ -384,76 +406,76 @@ const isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
 
 /* ================= CUSTOM CURSOR LOGIC ================= */
 if (!isTouchDevice) {
-    const cursorDot = document.getElementById('cursor-dot');
-    window.addEventListener('mousemove', (e) => {
-        cursorDot.style.left = e.clientX + 'px';
-        cursorDot.style.top = e.clientY + 'px';
-    });
+    const cursorDot = document.getElementById('cursor-dot');
+    window.addEventListener('mousemove', (e) => {
+        cursorDot.style.left = e.clientX + 'px';
+        cursorDot.style.top = e.clientY + 'px';
+    });
 
-    const interactables = document.querySelectorAll('a, button, input, .menu-icon, .close-btn');
-    interactables.forEach(el => {
-        el.addEventListener('mouseenter', () => cursorDot.classList.add('hover-state'));
-        el.addEventListener('mouseleave', () => cursorDot.classList.remove('hover-state'));
-    });
+    const interactables = document.querySelectorAll('a, button, input, .menu-icon, .close-btn');
+    interactables.forEach(el => {
+        el.addEventListener('mouseenter', () => cursorDot.classList.add('hover-state'));
+        el.addEventListener('mouseleave', () => cursorDot.classList.remove('hover-state'));
+    });
 }
 
 /* ================= MENU LOGIC ================= */
-function openMenu(event) 
+function openMenu(event) 
 {
-    event.stopPropagation(); 
-    document.getElementById("sidebar").classList.add("open");
+    event.stopPropagation(); 
+    document.getElementById("sidebar").classList.add("open");
 }
 
-function closeMenu() 
+function closeMenu() 
 {
-    document.getElementById("sidebar").classList.remove("open");
+    document.getElementById("sidebar").classList.remove("open");
 }
 
-document.addEventListener("click", function(e) 
+document.addEventListener("click", function(e) 
 {
-    const sb = document.getElementById("sidebar");
-    const menuIcon = document.querySelector(".menu-icon");
+    const sb = document.getElementById("sidebar");
+    const menuIcon = document.querySelector(".menu-icon");
 
-    if (!sb.contains(e.target) && !menuIcon.contains(e.target)) 
-    {
-        closeMenu();
-    }
+    if (!sb.contains(e.target) && !menuIcon.contains(e.target)) 
+    {
+        closeMenu();
+    }
 });
 
 /* ================= SEAMLESS PAGE TRANSITIONS ================= */
 function transitionTo(url) {
-    document.body.classList.add('fade-out');
-    setTimeout(() => {
-        window.location.href = url;
-    }, 400);
+    document.body.classList.add('fade-out');
+    setTimeout(() => {
+        window.location.href = url;
+    }, 400);
 }
 
 document.addEventListener("DOMContentLoaded", () => {
-    const links = document.querySelectorAll('a[href]');
-    links.forEach(link => {
-        link.addEventListener('click', function(e) {
-            const target = this.getAttribute('href');
-            if (target && !target.startsWith('http') && !target.startsWith('mailto')) {
-                e.preventDefault();
-                transitionTo(target);
-            }
-        });
-    });
+    const links = document.querySelectorAll('a[href]');
+    links.forEach(link => {
+        link.addEventListener('click', function(e) {
+            const target = this.getAttribute('href');
+            if (target && !target.startsWith('http') && !target.startsWith('mailto')) {
+                e.preventDefault();
+                transitionTo(target);
+            }
+        });
+    });
 });
 
 window.addEventListener('pageshow', (event) => {
-    if (event.persisted) {
-        document.body.classList.remove('fade-out');
-    }
+    if (event.persisted) {
+        document.body.classList.remove('fade-out');
+    }
 });
 
 /* ================= CALCULATOR ENGINE & ANIMATION ================= */
 
 // Indian Currency Formatter
 const formatter = new Intl.NumberFormat('en-IN', {
-    style: 'currency',
-    currency: 'INR',
-    maximumFractionDigits: 0
+    style: 'currency',
+    currency: 'INR',
+    maximumFractionDigits: 0
 });
 
 // Animation Storage
@@ -461,108 +483,108 @@ const animationState = {};
 
 // Smooth "Thinking" Counter Animation
 function animateValue(objId, endVal) {
-    const obj = document.getElementById(objId);
-    let startVal = parseFloat(obj.getAttribute("data-val")) || 0;
-    
-    if (startVal === endVal) return;
-    
-    obj.setAttribute("data-val", endVal);
-    let startTime = null;
-    const duration = 500; // 0.5s animation
+    const obj = document.getElementById(objId);
+    let startVal = parseFloat(obj.getAttribute("data-val")) || 0;
+    
+    if (startVal === endVal) return;
+    
+    obj.setAttribute("data-val", endVal);
+    let startTime = null;
+    const duration = 500; // 0.5s animation
 
-    if (animationState[objId]) cancelAnimationFrame(animationState[objId]);
+    if (animationState[objId]) cancelAnimationFrame(animationState[objId]);
 
-    const step = (timestamp) => {
-        if (!startTime) startTime = timestamp;
-        const progress = Math.min((timestamp - startTime) / duration, 1);
-        
-        // Ease-out effect (starts fast, slows down at end)
-        const easeOut = progress * (2 - progress);
-        const currentVal = startVal + (endVal - startVal) * easeOut;
+    const step = (timestamp) => {
+        if (!startTime) startTime = timestamp;
+        const progress = Math.min((timestamp - startTime) / duration, 1);
+        
+        // Ease-out effect (starts fast, slows down at end)
+        const easeOut = progress * (2 - progress);
+        const currentVal = startVal + (endVal - startVal) * easeOut;
 
-        obj.innerHTML = formatter.format(currentVal);
+        obj.innerHTML = formatter.format(currentVal);
 
-        if (progress < 1) {
-            animationState[objId] = requestAnimationFrame(step);
-        } else {
-            obj.innerHTML = formatter.format(endVal);
-        }
-    };
-    animationState[objId] = requestAnimationFrame(step);
+        if (progress < 1) {
+            animationState[objId] = requestAnimationFrame(step);
+        } else {
+            obj.innerHTML = formatter.format(endVal);
+        }
+    };
+    animationState[objId] = requestAnimationFrame(step);
 }
 
 // Defensive Validation
 function getValidFloat(id) {
-    const el = document.getElementById(id);
-    const val = parseFloat(el.value);
-    
-    if (isNaN(val) || val < 0) {
-        el.classList.add('error');
-        return null; // Signals invalid input
-    } else {
-        el.classList.remove('error');
-        return val;
-    }
+    const el = document.getElementById(id);
+    const val = parseFloat(el.value);
+    
+    if (isNaN(val) || val < 0) {
+        el.classList.add('error');
+        return null; // Signals invalid input
+    } else {
+        el.classList.remove('error');
+        return val;
+    }
 }
 
 /* 1. Wealth Projection Logic */
 function calcWealth() {
-    let p = getValidFloat('p');
-    let m = getValidFloat('m');
-    let r = getValidFloat('r');
-    let y = getValidFloat('y');
+    let p = getValidFloat('p');
+    let m = getValidFloat('m');
+    let r = getValidFloat('r');
+    let y = getValidFloat('y');
 
-    if (p === null || m === null || r === null || y === null) {
-        animateValue('res1', 0); return;
-    }
+    if (p === null || m === null || r === null || y === null) {
+        animateValue('res1', 0); return;
+    }
 
-    let i = r / 12 / 100;
-    let n = y * 12;
-    let fv = p * Math.pow(1 + i, n);
-    
-    if (i > 0) {
-        fv += m * ((Math.pow(1 + i, n) - 1) / i) * (1 + i);
-    } else {
-        fv += m * n;
-    }
-    animateValue('res1', Math.round(fv));
+    let i = r / 12 / 100;
+    let n = y * 12;
+    let fv = p * Math.pow(1 + i, n);
+    
+    if (i > 0) {
+        fv += m * ((Math.pow(1 + i, n) - 1) / i) * (1 + i);
+    } else {
+        fv += m * n;
+    }
+    animateValue('res1', Math.round(fv));
 }
 
 /* 2. SIP Calculator Logic */
 function calcSIP() {
-    let sip = getValidFloat('sip');
-    let r = getValidFloat('sipr');
-    let y = getValidFloat('sipy');
+    let sip = getValidFloat('sip');
+    let r = getValidFloat('sipr');
+    let y = getValidFloat('sipy');
 
-    if (sip === null || r === null || y === null) {
-        animateValue('res2', 0); return;
-    }
+    if (sip === null || r === null || y === null) {
+        animateValue('res2', 0); return;
+    }
 
-    let i = r / 12 / 100;
-    let n = y * 12;
-    let fv = 0;
-    
-    if (i > 0) {
-        fv = sip * ((Math.pow(1 + i, n) - 1) / i) * (1 + i);
-    } else {
-        fv = sip * n;
-    }
-    animateValue('res2', Math.round(fv));
+    let i = r / 12 / 100;
+    let n = y * 12;
+    let fv = 0;
+    
+    if (i > 0) {
+        fv = sip * ((Math.pow(1 + i, n) - 1) / i) * (1 + i);
+    } else {
+        fv = sip * n;
+    }
+    animateValue('res2', Math.round(fv));
 }
 
 /* 3. Inflation Adjuster Logic */
 function calcInflation() {
-    let fv = getValidFloat('fv');
-    let inf = getValidFloat('inf');
-    let y = getValidFloat('infy');
+    let fv = getValidFloat('fv');
+    let inf = getValidFloat('inf');
+    let y = getValidFloat('infy');
 
-    if (fv === null || inf === null || y === null) {
-        animateValue('res3', 0); return;
-    }
+    if (fv === null || inf === null || y === null) {
+        animateValue('res3', 0); return;
+    }
 
-    let r = inf / 100;
-    let cost = fv * Math.pow(1 + r, y);
-    animateValue('res3', Math.round(cost));
+    let r = inf / 100;
+    let cost = fv * Math.pow(1 + r, y);
+    animateValue('res3', Math.round(cost));
 }
 
 // Initial Calculations on Load
