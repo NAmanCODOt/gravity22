@@ -455,24 +455,7 @@
             transform: translateY(0) scale(1); 
         }
 
-        .feature h3 {
-            margin-top: 0;
-            color: var(--gold);
-        }
-
-        footer {
-            text-align: center;
-            padding: 60px 20px;
-            color: #777;
-            border-top: 1px solid #111;
-        }
-
-        ::-webkit-scrollbar { width: 6px; }
-        ::-webkit-scrollbar-track { background: #000; }
-        ::-webkit-scrollbar-thumb { background: var(--gold); }
-
-        /* ================= PROTECTIVE HOVER QUERY ================= */
-        /* Only apply hover interactions on devices with a mouse/trackpad */
+        /* ================= DESKTOP HOVER PROTECTIONS ================= */
         @media (hover: hover) and (pointer: fine) {
             .sidebar a:hover {
                 color: var(--gold);
@@ -492,6 +475,39 @@
                 border-color: rgba(212,175,55,0.5);
                 box-shadow: 0 0 25px rgba(212,175,55,0.1), 0 0 80px rgba(212,175,55,0.05);
             }
+        }
+
+        .feature h3 {
+            margin-top: 0;
+            color: var(--gold);
+        }
+
+        footer {
+            text-align: center;
+            padding: 60px 20px;
+            color: #777;
+            border-top: 1px solid #111;
+        }
+
+        /* ================= COLD AF SCROLLBAR ================= */
+        ::-webkit-scrollbar {
+            width: 10px;
+        }
+        
+        ::-webkit-scrollbar-track {
+            background: var(--bg);
+        }
+        
+        ::-webkit-scrollbar-thumb {
+            background: #0a0a0a; /* Dark thumb */
+            border: 1px solid var(--gold); /* Gold bordered */
+            border-radius: 0px; /* Sharp corners = Cold */
+            box-shadow: inset 0 0 5px rgba(212, 175, 55, 0.2);
+        }
+        
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--gold); /* Fills on hover */
+            box-shadow: 0 0 15px var(--gold); /* Sexy glow */
         }
 
         /* ================= MOBILE RESPONSIVENESS ================= */
