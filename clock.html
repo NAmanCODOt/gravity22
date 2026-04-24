@@ -567,16 +567,27 @@ window.addEventListener('pageshow', (event) => {
 });
 
 /* ================= TIMER LOGIC ================= */
-const target = new Date("2026-04-25T00:00:00+05:30").getTime();
+// Phase 1: April 25 Launch Window
+const phase1Target = new Date("2026-04-25T00:00:00+05:30").getTime(); 
+// Phase 2: May 30 Pan-India Launch
+const phase2Target = new Date("2026-05-30T00:00:00+05:30").getTime(); 
 
 function updateClock() {
     const now = new Date().getTime();
-    const diff = target - now;
+    let currentTarget;
 
-    if(diff <= 0) {
+    // Determine which countdown phase we are in
+    if (now < phase1Target) {
+        currentTarget = phase1Target;
+    } else if (now < phase2Target) {
+        currentTarget = phase2Target;
+    } else {
+        // Both dates have passed
         document.querySelector(".timer").innerHTML = "<div class='unit-value' style='letter-spacing: 10px;'>SYSTEM LIVE</div>";
         return;
     }
+
+    const diff = currentTarget - now;
 
     const d = Math.floor(diff / (1000 * 60 * 60 * 24));
     const h = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
