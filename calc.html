@@ -16,7 +16,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600&family=Inter:wght@300;400&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Inter:wght@300;400&display=swap');
 
 :root {
     --gold: #d4af37;
@@ -172,13 +172,13 @@ body.fade-out {
 /* ================= NAV & MENU ICON ================= */
 .nav {
     display: flex;
-    justify-content: space-between;
     align-items: center;
     padding: 20px 40px;
     position: fixed;
     width: 100%;
     box-sizing: border-box;
     top: 0;
+    left: 0;
     background: rgba(5,5,5,0.85);
     backdrop-filter: blur(12px);
     z-index: 2500; 
@@ -212,11 +212,15 @@ body.fade-out {
 
 .logo-text {
     font-family: 'Playfair Display', serif;
-    font-size: 22px;
-    font-weight: 600;
+    font-size: 24px;
+    font-weight: 700;
     color: var(--gold);
     letter-spacing: 3px;
     text-decoration: none;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
 }
 
 /* ================= CONTAINER & CARDS ================= */
@@ -324,10 +328,9 @@ input.error {
     height: 60px;
     margin-top: 25px;
     overflow: visible;
-    cursor: none; /* Keep cursor hidden over the chart */
+    cursor: none; 
 }
 
-/* Prevent stroke distortion on resize */
 .chart-container path,
 .chart-container line,
 .chart-container circle {
@@ -413,9 +416,10 @@ input.error {
     .cursor-dot { display: none !important; }
     
     .sidebar { width: 85%; }
-    .nav { padding: 15px 20px; }
+    .nav { justify-content: space-between; padding: 15px 20px; }
+    .logo-text { position: relative; left: auto; top: auto; transform: none; font-size: 20px; }
     .container { margin-top: 80px; }
-    .chart-tooltip { display: none !important; } /* Hide hover tooltip on touch devices */
+    .chart-tooltip { display: none !important; }
 }
 
 </style>
@@ -431,6 +435,9 @@ input.error {
 
 <div id="sidebar" class="sidebar">
     <div class="sidebar-content">
+
+        <div class="menu-label">System</div>
+        <a href="index.html">Home</a>
 
         <div class="menu-label">Advanced Tools</div>
         <a href="calc.html" class="active-link"><span class="active-dot"></span>Wealth Calculators</a>
