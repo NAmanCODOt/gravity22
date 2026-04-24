@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>System Error | gRaviTy Research</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Inter:wght@300;400;500&display=swap');
+
+:root {
+    --gold: #d4af37;
+    --bg: #050505;
+}
+
+body {
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    margin: 0;
+    font-family: 'Inter', sans-serif;
+    background: var(--bg);
+    color: white;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    overflow: hidden;
+}
+
+/* ================= CUSTOM CURSOR ================= */
+* { cursor: none !important; }
+
+.cursor-dot {
+    width: 6px;
+    height: 6px;
+    background: var(--gold);
+    position: fixed;
+    top: 0;
+    left: 0;
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 10000;
+    transform: translate(-50%, -50%);
+    box-shadow: 0 0 10px var(--gold);
+    transition: width 0.2s ease, height 0.2s ease, box-shadow 0.2s ease;
+    will-change: transform;
+}
+
+.cursor-dot.hover-state {
+    width: 12px;
+    height: 12px;
+    box-shadow: 0 0 15px var(--gold);
+}
+
+/* ================= BACKGROUND GLOW ================= */
+body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    background: radial-gradient(circle at 50% 50%, rgba(212,175,55,0.05), transparent 60%);
+    z-index: 0;
+    pointer-events: none;
+}
+
+/* ================= 404 CONTENT ================= */
+.error-container {
+    position: relative;
+    z-index: 1;
+    padding: 0 20px;
+}
+
+h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(80px, 15vw, 150px);
+    color: var(--gold);
+    margin: 0;
+    line-height: 1;
+    letter-spacing: -2px;
+    text-shadow: 0 0 40px rgba(212, 175, 55, 0.2);
+}
+
+h2 {
+    font-family: 'Inter', sans-serif;
+    font-size: 14px;
+    letter-spacing: 8px;
+    text-transform: uppercase;
+    color: #ff4d4d; /* Soft red to indicate system error */
+    margin-top: 10px;
+    margin-bottom: 20px;
+}
+
+p {
+    color: #888;
+    font-size: 16px;
+    max-width: 400px;
+    margin: 0 auto 40px;
+    line-height: 1.6;
+}
+
+/* ================= RETURN BUTTON ================= */
+.btn {
+    display: inline-block;
+    padding: 14px 32px;
+    border: 1px solid var(--gold);
+    color: var(--gold);
+    background: transparent;
+    font-size: 12px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    transition: 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+    cursor: pointer;
+    text-decoration: none;
+}
+
+.btn:hover {
+    background: var(--gold);
+    color: black;
+    box-shadow: 0 0 20px rgba(212, 175, 55, 0.3);
+    transform: translateY(-3px);
+}
+
+@media screen and (max-width: 768px) {
+    * { cursor: auto !important; }
+    .cursor-dot { display: none !important; }
+}
+</style>
+</head>
+
+<body oncontextmenu="return false;">
+
+<div class="cursor-dot" id="cursor-dot"></div>
+
+<div class="error-container">
+    <h1>404</h1>
+    <h2>System Error</h2>
+    <p>Data node not found or connection severed. The requested index does not exist within the gRaviTy ecosystem.</p>
+    <a href="index.html" class="btn">Return to Main Terminal</a>
+</div>
+
+<script>
+/* ================= CUSTOM CURSOR LOGIC ================= */
+const isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
+
+if (!isTouchDevice) {
+    const cursorDot = document.getElementById('cursor-dot');
+    window.addEventListener('mousemove', (e) => {
+        cursorDot.style.transform = `translate3d(${e.clientX}px, ${e.clientY}px, 0) translate(-50%, -50%)`;
+    });
+
+    const interactables = document.querySelectorAll('a, .btn');
+    interactables.forEach(el => {
+        el.addEventListener('mouseenter', () => cursorDot.classList.add('hover-state'));
+        el.addEventListener('mouseleave', () => cursorDot.classList.remove('hover-state'));
+    });
+}
+
+/* ================= KEYBOARD SHORTCUT PROTECTION ================= */
+document.addEventListener('keydown', function(e) {
+    if (e.keyCode == 123 || 
+        (e.ctrlKey && e.shiftKey && (e.keyCode == 'I'.charCodeAt(0) || e.keyCode == 'J'.charCodeAt(0))) || 
+        (e.ctrlKey && e.keyCode == 'U'.charCodeAt(0)) ||
+        (e.ctrlKey && e.keyCode == 'C'.charCodeAt(0))) {
+        e.preventDefault();
+        return false;
+    }
+});
+</script>
+
+</body>
+</html>
