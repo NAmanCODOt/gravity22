@@ -1,34 +1,36 @@
-<!DOCTYPE html>
+    <!DOCTYPE html>
 <html lang="en">
 <head>
-
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Wealth Tools | gRaviTy Research</title>
 
 <style>
-
 @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600&family=Inter:wght@300;400&display=swap');
 
-:root 
-{
+:root {
     --gold: #d4af37;
     --bg: #050505;
-    --error: #ff4d4d; /* Soft red for defensive UX */
+    --error: #ff4d4d;
 }
 
 /* ================= PROTECTION STYLES ================= */
 body {
-    -webkit-user-select: none; /* Safari */
-    -moz-user-select: none;    /* Firefox */
-    -ms-user-select: none;     /* IE10+/Edge */
-    user-select: none;         /* Standard */
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
 }
 
 /* ================= SEAMLESS PAGE TRANSITIONS ================= */
 body {
     opacity: 1;
     transition: opacity 0.4s ease-in-out;
+    margin: 0;
+    font-family: 'Inter', sans-serif;
+    background: var(--bg);
+    color: white;
+    overflow-x: hidden;
 }
 
 body.fade-out {
@@ -59,109 +61,130 @@ body.fade-out {
     box-shadow: 0 0 15px var(--gold);
 }
 
-body 
-{
-    margin: 0;
-    font-family: 'Inter', sans-serif;
-    background: var(--bg);
-    color: white;
-    overflow-x: hidden;
+/* ================= OVERLAY ================= */
+.overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.65);
+    backdrop-filter: blur(4px);
+    opacity: 0;
+    pointer-events: none;
+    transition: 0.4s ease;
+    z-index: 1500;
 }
 
-/* sidebar */
-.sidebar 
-{
-    width: 0;
+.overlay.show {
+    opacity: 1;
+    pointer-events: all;
+}
+
+/* ================= SIDEBAR ================= */
+.sidebar {
+    width: 280px;
     height: 100%;
     position: fixed;
     left: 0;
     top: 0;
     background: #0a0a0a;
-    box-shadow: 2px 0 15px rgba(0,0,0,0.5);
-    transition: 0.4s ease-in-out;
-    padding-top: 80px;
+    box-shadow: 2px 0 25px rgba(0,0,0,0.8);
+    transform: translateX(-100%);
+    transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    padding-top: 100px;
     z-index: 2000;
     overflow-x: hidden;
+    border-right: 1px solid rgba(212, 175, 55, 0.2);
 }
 
-.sidebar.open 
-{ 
-    width: 280px; 
-    border-right: 1px solid var(--gold);
+.sidebar.open { 
+    transform: translateX(0);
 }
 
-.sidebar-content 
-{ 
-    min-width: 280px;
+.sidebar-content { 
     padding: 0 30px; 
 }
 
-.menu-label 
-{
+.menu-label {
     margin-top: 25px;
     font-size: 10px;
     letter-spacing: 2px;
     color: var(--gold);
     text-transform: uppercase;
     opacity: 0.7;
+    margin-bottom: 5px;
 }
 
-.sidebar a 
-{
-    display: block;
-    padding: 14px 0;
+.sidebar a {
+    display: flex;
+    align-items: center;
+    padding: 12px 0;
     color: #888;
     text-decoration: none;
     transition: 0.25s;
+    font-size: 15px;
 }
 
-.sidebar a:hover 
-{
+.sidebar a:hover {
     color: var(--gold);
-    padding-left: 10px;
+    transform: translateX(6px);
 }
 
-/* close */
-.close-btn 
-{
-    position: absolute;
-    top: 20px;
-    right: 20px;
-    font-size: 28px;
-    cursor: pointer;
+/* --- ACTIVE LINK STYLES --- */
+.sidebar a.active-link {
     color: var(--gold);
 }
 
-/* nav */
-.nav 
-{
+.active-dot {
+    display: inline-block;
+    width: 6px;
+    height: 6px;
+    background-color: var(--gold);
+    border-radius: 50%;
+    margin-right: 12px;
+    box-shadow: 0 0 8px var(--gold);
+}
+
+/* ================= NAV & MENU ICON ================= */
+.nav {
     display: flex;
     justify-content: space-between;
     align-items: center;
     padding: 20px 40px;
-    position: sticky;
+    position: fixed;
+    width: 100%;
+    box-sizing: border-box;
     top: 0;
-    background: var(--bg);
-    z-index: 100;
+    background: rgba(5,5,5,0.85);
+    backdrop-filter: blur(12px);
+    z-index: 2500; /* Kept above sidebar for the close animation */
+    border-bottom: 1px solid rgba(255,255,255,0.05);
 }
 
-.menu-icon 
-{
+.menu-icon {
     cursor: pointer;
-    z-index: 101;
+    position: relative;
+    z-index: 2501;
+    width: 30px;
+    height: 24px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
 }
 
-.menu-icon span 
-{
+.menu-icon span {
     display: block;
-    width: 25px;
+    width: 26px;
     height: 2px;
     background: var(--gold);
-    margin: 5px 0;
+    margin: 3px 0;
+    transition: 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+    transform-origin: left center;
 }
 
-.logo-text 
-{
+.menu-icon.active span:nth-child(1) { transform: rotate(45deg); width: 28px; }
+.menu-icon.active span:nth-child(2) { opacity: 0; width: 0; }
+.menu-icon.active span:nth-child(3) { transform: rotate(-45deg); width: 28px; }
+
+.logo-text {
     font-family: 'Playfair Display', serif;
     font-size: 22px;
     font-weight: 600;
@@ -170,17 +193,16 @@ body
     text-decoration: none;
 }
 
-/* container */
-.container 
-{
+/* ================= CONTAINER & CARDS ================= */
+.container {
     max-width: 600px;
-    margin: auto;
-    padding: 40px 20px 80px 20px;
+    margin: 100px auto 80px auto;
+    padding: 0 20px;
+    position: relative;
+    z-index: 10;
 }
 
-/* ================= PREMIUM HOME BUTTON ================= */
-.home-btn
-{
+.home-btn {
     display: inline-flex;
     align-items: center;
     padding: 10px 24px;
@@ -204,8 +226,7 @@ body
     transition: transform 0.4s ease;
 }
 
-.home-btn:hover
-{
+.home-btn:hover {
     background: var(--gold);
     color: var(--bg);
     border-color: var(--gold);
@@ -217,90 +238,84 @@ body
     transform: translateX(-4px);
 }
 
-h1 
-{
+h1 {
     font-family: 'Playfair Display', serif;
     color: var(--gold);
     text-align: center;
     font-size: 2.5rem;
+    margin-bottom: 40px;
 }
 
-/* card */
-.card 
-{
-    background: rgba(255,255,255,0.03);
-    border: 1px solid #222;
-    padding: 25px;
+.card {
+    background: rgba(255,255,255,0.02);
+    border: 1px solid rgba(255,255,255,0.05);
+    padding: 30px;
     margin-top: 30px;
+    border-radius: 8px;
+    transition: border-color 0.3s ease;
 }
 
-.card h3 
-{
+.card:hover {
+    border-color: rgba(212, 175, 55, 0.3);
+}
+
+.card h3 {
     margin-top: 0;
     font-weight: 400;
     color: #eee;
+    font-family: 'Playfair Display', serif;
+    font-size: 1.4rem;
+    margin-bottom: 25px;
 }
 
-/* form */
-label 
-{
+label {
     display: block;
     font-size: 10px;
-    color: #666;
-    margin-top: 10px;
+    color: #888;
+    margin-top: 15px;
     text-transform: uppercase;
+    letter-spacing: 1px;
 }
 
-input 
-{
+input {
     width: 100%;
     background: transparent;
     border: none;
     border-bottom: 1px solid #333;
     color: var(--gold);
-    padding: 8px 0;
+    padding: 10px 0;
     margin-bottom: 5px;
     font-size: 18px;
     outline: none;
     transition: 0.3s ease;
+    font-family: 'Inter', sans-serif;
 }
 
-input:focus 
-{
+input:focus {
     border-bottom: 1px solid var(--gold);
 }
 
-/* Defensive UX Error State */
-input.error 
-{
+input.error {
     border-bottom: 1px solid var(--error) !important;
     color: var(--error) !important;
 }
 
-/* result */
-.result 
-{
-    font-size: 24px;
+.result {
+    font-size: 28px;
     color: var(--gold);
-    margin-top: 15px;
+    margin-top: 25px;
     font-weight: 600;
+    font-family: 'Playfair Display', serif;
 }
 
 /* ================= MOBILE RESPONSIVENESS ================= */
 @media screen and (max-width: 768px) {
-    * {
-        cursor: auto !important; 
-    }
-    .cursor-dot {
-        display: none !important; 
-    }
+    * { cursor: auto !important; }
+    .cursor-dot { display: none !important; }
     
-    .sidebar.open {
-        width: 100%; 
-    }
-    .nav {
-        padding: 15px 20px;
-    }
+    .sidebar { width: 85%; }
+    .nav { padding: 15px 20px; }
+    .container { margin-top: 80px; }
 }
 
 </style>
@@ -310,14 +325,13 @@ input.error
 
 <div class="cursor-dot" id="cursor-dot"></div>
 
+<div class="overlay" id="overlay" onclick="toggleMenu()"></div>
+
 <div id="sidebar" class="sidebar">
-
-    <span class="close-btn" onclick="closeMenu()">&times;</span>
-
     <div class="sidebar-content">
 
         <div class="menu-label">Advanced Tools</div>
-        <a href="calc.html">Wealth Calculators</a>
+        <a href="calc.html" class="active-link"><span class="active-dot"></span>Wealth Calculators</a>
         <a href="clock.html">Market Clock</a>
 
         <div class="menu-label">Research</div>
@@ -331,19 +345,15 @@ input.error
         <a href="contactus.html">Contact Us</a>
 
     </div>
-
 </div>
 
 <div class="nav">
-
-    <div class="menu-icon" onclick="openMenu(event)">
+    <div class="menu-icon" onclick="toggleMenu()">
         <span></span>
         <span></span>
         <span></span>
     </div>
-
     <a href="index.html" class="logo-text">gRaviTy</a>
-
 </div>
 
 <div class="container">
@@ -353,9 +363,7 @@ input.error
     <h1>Wealth Calculators</h1>
 
     <div class="card">
-
         <h3>Wealth Projection</h3>
-
         <label>Initial Investment (P)</label>
         <input id="p" type="number" value="100000" oninput="calcWealth()">
 
@@ -369,13 +377,10 @@ input.error
         <input id="y" type="number" value="10" oninput="calcWealth()">
 
         <div id="res1" class="result" data-val="0">₹ 0</div>
-
     </div>
 
     <div class="card">
-
         <h3>SIP Calculator</h3>
-
         <label>Monthly SIP Amount</label>
         <input id="sip" type="number" value="5000" oninput="calcSIP()">
 
@@ -386,13 +391,10 @@ input.error
         <input id="sipy" type="number" value="10" oninput="calcSIP()">
 
         <div id="res2" class="result" data-val="0">₹ 0</div>
-
     </div>
 
     <div class="card">
-
         <h3>Inflation Adjuster</h3>
-
         <label>Current Cost</label>
         <input id="fv" type="number" value="1000000" oninput="calcInflation()">
 
@@ -403,22 +405,29 @@ input.error
         <input id="infy" type="number" value="10" oninput="calcInflation()">
 
         <div id="res3" class="result" data-val="0">₹ 0</div>
-
     </div>
 
 </div>
 
 <script>
 
-/* PROTECTION SCRIPT */
-document.onkeydown = function(e) {
+/* ================= KEYBOARD SHORTCUT PROTECTION ================= */
+document.addEventListener('keydown', function(e) {
+    // Escape key closes menu
+    if (e.key === "Escape" && document.getElementById("sidebar").classList.contains("open")) {
+        toggleMenu();
+        return;
+    }
+    
+    // Dev tools protection
     if (e.keyCode == 123 || 
         (e.ctrlKey && e.shiftKey && (e.keyCode == 'I'.charCodeAt(0) || e.keyCode == 'J'.charCodeAt(0))) || 
         (e.ctrlKey && e.keyCode == 'U'.charCodeAt(0)) ||
         (e.ctrlKey && e.keyCode == 'C'.charCodeAt(0))) {
+        e.preventDefault();
         return false;
     }
-};
+});
 
 /* ================= TOUCH DETECTION (MOBILE FIXES) ================= */
 const isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
@@ -431,35 +440,27 @@ if (!isTouchDevice) {
         cursorDot.style.top = e.clientY + 'px';
     });
 
-    const interactables = document.querySelectorAll('a, button, input, .menu-icon, .close-btn');
+    const interactables = document.querySelectorAll('a, button, input, .menu-icon');
     interactables.forEach(el => {
         el.addEventListener('mouseenter', () => cursorDot.classList.add('hover-state'));
         el.addEventListener('mouseleave', () => cursorDot.classList.remove('hover-state'));
     });
 }
 
-/* ================= MENU LOGIC ================= */
-function openMenu(event) 
-{
-    event.stopPropagation(); 
-    document.getElementById("sidebar").classList.add("open");
-}
-
-function closeMenu() 
-{
-    document.getElementById("sidebar").classList.remove("open");
-}
-
-document.addEventListener("click", function(e) 
-{
-    const sb = document.getElementById("sidebar");
+/* ================= MENU LOGIC (UPDATED WITH OVERLAY) ================= */
+function toggleMenu() {
+    const sidebar = document.getElementById("sidebar");
+    const overlay = document.getElementById("overlay");
     const menuIcon = document.querySelector(".menu-icon");
+    const body = document.body;
 
-    if (!sb.contains(e.target) && !menuIcon.contains(e.target)) 
-    {
-        closeMenu();
-    }
-});
+    const isOpen = sidebar.classList.toggle("open");
+    overlay.classList.toggle("show");
+    menuIcon.classList.toggle("active");
+
+    // Prevent background scrolling when menu is open
+    body.style.overflow = isOpen ? "hidden" : "";
+}
 
 /* ================= SEAMLESS PAGE TRANSITIONS ================= */
 function transitionTo(url) {
@@ -490,17 +491,14 @@ window.addEventListener('pageshow', (event) => {
 
 /* ================= CALCULATOR ENGINE & ANIMATION ================= */
 
-// Indian Currency Formatter
 const formatter = new Intl.NumberFormat('en-IN', {
     style: 'currency',
     currency: 'INR',
     maximumFractionDigits: 0
 });
 
-// Animation Storage
 const animationState = {};
 
-// Smooth "Thinking" Counter Animation
 function animateValue(objId, endVal) {
     const obj = document.getElementById(objId);
     let startVal = parseFloat(obj.getAttribute("data-val")) || 0;
@@ -509,7 +507,7 @@ function animateValue(objId, endVal) {
     
     obj.setAttribute("data-val", endVal);
     let startTime = null;
-    const duration = 500; // 0.5s animation
+    const duration = 500; 
 
     if (animationState[objId]) cancelAnimationFrame(animationState[objId]);
 
@@ -517,7 +515,6 @@ function animateValue(objId, endVal) {
         if (!startTime) startTime = timestamp;
         const progress = Math.min((timestamp - startTime) / duration, 1);
         
-        // Ease-out effect (starts fast, slows down at end)
         const easeOut = progress * (2 - progress);
         const currentVal = startVal + (endVal - startVal) * easeOut;
 
@@ -532,21 +529,19 @@ function animateValue(objId, endVal) {
     animationState[objId] = requestAnimationFrame(step);
 }
 
-// Defensive Validation
 function getValidFloat(id) {
     const el = document.getElementById(id);
     const val = parseFloat(el.value);
     
     if (isNaN(val) || val < 0) {
         el.classList.add('error');
-        return null; // Signals invalid input
+        return null;
     } else {
         el.classList.remove('error');
         return val;
     }
 }
 
-/* 1. Wealth Projection Logic */
 function calcWealth() {
     let p = getValidFloat('p');
     let m = getValidFloat('m');
@@ -569,7 +564,6 @@ function calcWealth() {
     animateValue('res1', Math.round(fv));
 }
 
-/* 2. SIP Calculator Logic */
 function calcSIP() {
     let sip = getValidFloat('sip');
     let r = getValidFloat('sipr');
@@ -591,7 +585,6 @@ function calcSIP() {
     animateValue('res2', Math.round(fv));
 }
 
-/* 3. Inflation Adjuster Logic */
 function calcInflation() {
     let fv = getValidFloat('fv');
     let inf = getValidFloat('inf');
