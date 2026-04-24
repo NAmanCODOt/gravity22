@@ -1,592 +1,505 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Research Portal | gRaviTy Research</title>
 
-    <style>
-        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600&family=Inter:wght@300;400;500&display=swap');
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>About Us | gRaviTy Research</title>
 
-        :root {
-            --gold: #d4af37;
-            --bg: #050505;
-            --gold-dim: rgba(212, 175, 55, 0.3);
-        }
+<style>
 
-        /* ================= PROTECTION STYLES ================= */
-        body {
-            -webkit-user-select: none;
-            -moz-user-select: none;
-            -ms-user-select: none;
-            user-select: none;
-            margin: 0;
-            font-family: 'Inter', sans-serif;
-            background: var(--bg);
-            color: white;
-            overflow-x: hidden;
-            opacity: 1;
-            transition: opacity 0.4s ease-in-out;
-        }
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600&family=Inter:wght@300;400&display=swap');
 
-        body.fade-out {
-            opacity: 0;
-        }
+:root {
+    --gold: #d4af37;
+    --bg: #050505;
+    --gold-dim: rgba(212, 175, 55, 0.3);
+}
 
-        /* ================= CUSTOM CURSOR (GPU ACCELERATED) ================= */
-        * { cursor: none !important; }
-        
-        .cursor-dot {
-            width: 6px;
-            height: 6px;
-            background: var(--gold);
-            position: fixed;
-            top: 0;
-            left: 0;
-            border-radius: 50%;
-            pointer-events: none;
-            z-index: 10000;
-            transform: translate(-50%, -50%);
-            box-shadow: 0 0 10px var(--gold);
-            transition: width 0.2s ease, height 0.2s ease, box-shadow 0.2s ease;
-            will-change: transform;
-        }
-        
-        .cursor-dot.hover-state {
-            width: 12px;
-            height: 12px;
-            box-shadow: 0 0 15px var(--gold);
-        }
+/* ================= PROTECTION STYLES ================= */
+body {
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
 
-        /* ================= BACKGROUND GLOW ================= */
-        body::before {
-            content: "";
-            position: fixed;
-            inset: 0;
-            background: radial-gradient(circle at 30% 20%, rgba(212,175,55,0.06), transparent 50%),
-                        radial-gradient(circle at 70% 80%, rgba(212,175,55,0.04), transparent 60%);
-            z-index: 0;
-        }
+/* ================= SEAMLESS PAGE TRANSITIONS ================= */
+body {
+    opacity: 1;
+    transition: opacity 0.4s ease-in-out;
+}
 
-        /* ================= NAVIGATION ================= */
-        .nav {
-            position: fixed;
-            top: 0;
-            width: 100%;
-            padding: 25px 40px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            background: rgba(5,5,5,0.9);
-            backdrop-filter: blur(8px);
-            z-index: 1002;
-            box-sizing: border-box;
-        }
+body.fade-out {
+    opacity: 0;
+}
 
-        .nav-left {
-            display: flex;
-            align-items: center;
-            gap: 25px;
-        }
+/* ================= CUSTOM CURSOR (GPU ACCELERATED) ================= */
+* { cursor: none !important; }
 
-        /* PREMIUM HAMBURGER TO X ANIMATION */
-        .menu-icon {
-            position: relative;
-            z-index: 1005;
-            cursor: pointer;
-        }
+.cursor-dot {
+    width: 6px;
+    height: 6px;
+    background: var(--gold);
+    position: fixed;
+    top: 0;
+    left: 0;
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 10000;
+    transform: translate(-50%, -50%);
+    box-shadow: 0 0 10px var(--gold);
+    transition: width 0.2s ease, height 0.2s ease, box-shadow 0.2s ease;
+    will-change: transform;
+}
 
-        .menu-icon span {
-            display: block;
-            width: 22px;
-            height: 1px;
-            background: var(--gold);
-            margin: 6px 0;
-            transition: 0.3s cubic-bezier(0.165, 0.84, 0.44, 1);
-            transform-origin: left center;
-        }
+.cursor-dot.hover-state {
+    width: 12px;
+    height: 12px;
+    box-shadow: 0 0 15px var(--gold);
+}
 
-        .menu-icon.active span:nth-child(1) { transform: rotate(45deg); width: 24px; }
-        .menu-icon.active span:nth-child(2) { opacity: 0; }
-        .menu-icon.active span:nth-child(3) { transform: rotate(-45deg); width: 24px; }
+body {
+    margin: 0;
+    font-family: 'Inter', sans-serif;
+    background: var(--bg);
+    color: white;
+    overflow-x: hidden;
+}
 
-        /* TEXT HOME BUTTON */
-        .home-btn {
-            color: var(--gold);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: 0.3s;
-            text-decoration: none;
-            border: 1px solid var(--gold);
-            padding: 8px 16px;
-            font-family: 'Inter', sans-serif;
-            font-size: 11px;
-            letter-spacing: 2px;
-            text-transform: uppercase;
-            opacity: 0.8;
-        }
+/* ================= BACKGROUND ORBS ================= */
+.gold-orb {
+    position: fixed;
+    border-radius: 50%;
+    filter: blur(70px);
+    pointer-events: none;
+    z-index: 0;
+    will-change: transform;
+}
 
-        .home-btn:hover {
-            opacity: 1;
-            background: rgba(212, 175, 55, 0.1);
-            box-shadow: 0 0 10px rgba(212, 175, 55, 0.2);
-        }
+.orb1 { width: 320px; height: 320px; background: rgba(212,175,55,0.25); animation: move1 18s linear infinite; }
+.orb2 { width: 260px; height: 260px; background: rgba(212,175,55,0.2); animation: move2 25s linear infinite; }
+.orb3 { width: 200px; height: 200px; background: rgba(212,175,55,0.15); animation: move3 30s linear infinite; }
 
-        .logo {
-            font-family: 'Playfair Display', serif;
-            font-size: 22px;
-            font-weight: 600;
-            color: var(--gold);
-            letter-spacing: 3px;
-            text-decoration: none;
-            cursor: pointer;
-        }
+@keyframes move1 { 0%{transform: translate(10vw, 10vh);} 50%{transform: translate(80vw, 70vh);} 100%{transform: translate(10vw, 10vh);} }
+@keyframes move2 { 0%{transform: translate(80vw, 80vh);} 50%{transform: translate(10vw, 20vh);} 100%{transform: translate(80vw, 80vh);} }
+@keyframes move3 { 0%{transform: translate(0vw, 50vh);} 50%{transform: translate(90vw, 10vh);} 100%{transform: translate(0vw, 50vh);} }
 
-        /* ================= SIDEBAR & OVERLAY ================= */
-        .overlay {
-            position: fixed;
-            inset: 0;
-            background: rgba(0,0,0,0.6);
-            opacity: 0;
-            pointer-events: none;
-            transition: 0.3s;
-            z-index: 1000;
-        }
+/* ================= NAV & STANDALONE HOME BUTTON ================= */
+.nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 25px 40px;
+    position: fixed;
+    width: 100%;
+    top: 0;
+    left: 0;
+    background: rgba(0,0,0,0.85);
+    backdrop-filter: blur(8px);
+    z-index: 1002;
+    box-sizing: border-box;
+}
 
-        .overlay.show {
-            opacity: 1;
-            pointer-events: all;
-        }
+.nav-left {
+    display: flex;
+    align-items: center;
+    gap: 30px;
+}
 
-        .sidebar {
-            width: 0;
-            height: 100%;
-            position: fixed;
-            left: 0;
-            top: 0;
-            background: rgba(3, 3, 3, 0.98);
-            backdrop-filter: blur(20px);
-            transition: 0.35s cubic-bezier(0.4, 0, 0.2, 1);
-            padding-top: 100px;
-            z-index: 1001;
-            border-right: 1px solid var(--gold-dim);
-            overflow-x: hidden;
-        }
-        
-        .sidebar.open { width: 280px; }
-        .sidebar-content { min-width: 260px; padding: 0 30px; }
-        
-        .menu-label {
-            margin-top: 25px;
-            font-size: 10px;
-            letter-spacing: 2px;
-            color: var(--gold);
-            opacity: 0.6;
-            text-transform: uppercase;
-        }
-        
-        .sidebar a {
-            display: block;
-            position: relative;
-            padding: 14px 0;
-            color: #777;
-            text-decoration: none;
-            transition: 0.25s;
-            font-size: 14px;
-        }
-        
-        .sidebar a:hover {
-            color: var(--gold);
-            transform: translateX(6px);
-        }
+.home-btn {
+    display: inline-flex;
+    align-items: center;
+    padding: 8px 20px;
+    background: rgba(212, 175, 55, 0.04);
+    border: 1px solid rgba(212, 175, 55, 0.3);
+    color: var(--gold);
+    text-decoration: none;
+    font-size: 10px;
+    font-weight: 400;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+    backdrop-filter: blur(4px);
+}
 
-        .sidebar a.active {
-            color: var(--gold);
-            padding-left: 12px;
-        }
+.home-btn::before {
+    content: '←';
+    margin-right: 8px;
+    font-size: 12px;
+    transition: transform 0.4s ease;
+}
 
-        .sidebar a.active::before {
-            content: '';
-            position: absolute;
-            left: -4px;
-            top: 50%;
-            transform: translateY(-50%);
-            width: 4px;
-            height: 4px;
-            background: var(--gold);
-            border-radius: 50%;
-            box-shadow: 0 0 8px var(--gold);
-        }
+.home-btn:hover {
+    background: var(--gold);
+    color: #000;
+    border-color: var(--gold);
+    transform: translateY(-2px);
+}
 
-        /* ================= MAIN CONTAINER ================= */
-        .container {
-            padding: 140px 20px 60px;
-            max-width: 900px;
-            margin: auto;
-            position: relative;
-            z-index: 1;
-        }
+.home-btn:hover::before {
+    transform: translateX(-3px);
+}
 
-        h1 {
-            text-align: center;
-            font-family: 'Playfair Display', serif;
-            color: var(--gold);
-            font-size: clamp(32px, 5vw, 48px);
-            margin-bottom: 50px;
-        }
+/* Premium Hamburger Animation */
+.menu-icon {
+    position: relative;
+    z-index: 1005;
+    cursor: pointer;
+}
 
-        /* ================= REPORT CARD ================= */
-        .report-card {
-            background: rgba(255, 255, 255, 0.02);
-            border: 1px solid rgba(255, 255, 255, 0.08);
-            padding: 35px;
-            transition: 0.4s ease;
-            border-radius: 8px;
-        }
-        
-        .report-card:hover {
-            border-color: var(--gold);
-            transform: translateY(-5px);
-        }
-        
-        .report-title {
-            font-size: 22px;
-            color: var(--gold);
-            margin-bottom: 15px;
-            font-family: 'Playfair Display', serif;
-        }
-        
-        .report-desc {
-            color: #888;
-            font-size: 15px;
-            line-height: 1.7;
-            margin-bottom: 30px;
-        }
+.menu-icon span {
+    display: block;
+    width: 22px;
+    height: 1px;
+    background: var(--gold);
+    margin: 6px 0;
+    transition: 0.3s cubic-bezier(0.165, 0.84, 0.44, 1);
+    transform-origin: left center;
+}
 
-        /* ================= BUTTONS ================= */
-        .actions {
-            display: flex;
-            gap: 15px;
-            flex-wrap: wrap;
-            align-items: center;
-        }
-        
-        .btn {
-            padding: 12px 25px;
-            border: 1px solid var(--gold);
-            background: transparent;
-            color: var(--gold);
-            font-family: 'Inter', sans-serif;
-            font-size: 12px;
-            letter-spacing: 2px;
-            text-transform: uppercase;
-            cursor: pointer;
-            transition: 0.3s;
-            text-decoration: none;
-            display: inline-block;
-            text-align: center;
-        }
-        
-        .btn:hover {
-            background: var(--gold);
-            color: black;
-            box-shadow: 0 0 15px rgba(212, 175, 55, 0.3);
-        }
+.menu-icon.active span:nth-child(1) { transform: rotate(45deg); width: 24px; }
+.menu-icon.active span:nth-child(2) { opacity: 0; }
+.menu-icon.active span:nth-child(3) { transform: rotate(-45deg); width: 24px; }
 
-        /* ================= AI TERMINAL ================= */
-        .terminal {
-            display: none;
-            margin-top: 30px;
-            padding: 25px;
-            background: #080808;
-            border-left: 2px solid var(--gold);
-            font-family: 'Courier New', monospace;
-            font-size: 14px;
-            line-height: 1.6;
-        }
+.logo {
+    font-family: 'Playfair Display', serif;
+    font-size: 22px;
+    font-weight: 600;
+    color: var(--gold);
+    letter-spacing: 3px;
+    text-decoration: none;
+    cursor: pointer;
+}
 
-        /* NORMAL CURSOR ALLOWED INSIDE TERMINAL FOR SCROLLING */
-        .terminal * {
-            cursor: auto !important; 
-        }
-        
-        .term-header {
-            color: var(--gold);
-            margin-bottom: 15px;
-            border-bottom: 1px solid #222;
-            padding-bottom: 10px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-        
-        .term-content {
-            max-height: 350px;
-            overflow-y: auto;
-            padding-bottom: 15px;
-            padding-right: 15px;
-            color: #ccc;
-        }
-        
-        .chat-box {
-            display: none;
-            margin-top: 15px;
-            border-top: 1px solid #222;
-            padding-top: 20px;
-            gap: 10px;
-        }
-        
-        .chat-input {
-            flex: 1;
-            background: #111;
-            border: 1px solid #333;
-            color: white;
-            padding: 12px;
-            font-family: 'Inter', sans-serif;
-            outline: none;
-            transition: 0.3s;
-        }
-        
-        .chat-input:focus {
-            border-color: var(--gold);
-        }
+/* ================= SIDEBAR & OVERLAY ================= */
+.overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.6);
+    opacity: 0;
+    pointer-events: none;
+    transition: 0.3s;
+    z-index: 1000;
+}
 
-        /* Custom Scrollbar for Terminal */
-        ::-webkit-scrollbar { width: 8px; }
-        ::-webkit-scrollbar-track { background: #050505; }
-        ::-webkit-scrollbar-thumb { background: #d4af37; border-radius: 4px; }
-        ::-webkit-scrollbar-thumb:hover { background: #fff; }
+.overlay.show {
+    opacity: 1;
+    pointer-events: all;
+}
 
-        .footer {
-            text-align: center;
-            padding: 60px;
-            color: #444;
-            font-size: 11px;
-            letter-spacing: 2px;
-            position: relative;
-            z-index: 1;
-        }
+.sidebar {
+    width: 0;
+    height: 100%;
+    position: fixed;
+    left: 0;
+    top: 0;
+    background: #0a0a0a;
+    overflow-x: hidden;
+    transition: 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+    padding-top: 100px;
+    z-index: 1001;
+    border-right: 1px solid var(--gold-dim);
+}
 
-        @media screen and (max-width: 768px) {
-            * { cursor: auto !important; }
-            .cursor-dot { display: none !important; }
-            .sidebar.open { width: 100%; }
-            .actions { flex-direction: column; width: 100%; }
-            .btn { width: 100%; box-sizing: border-box; }
-            .chat-box { flex-direction: column; }
-            .nav { padding: 20px; }
-        }
-    </style>
+.sidebar.open {
+    width: 260px;
+}
+
+.sidebar-content {
+    min-width: 260px;
+    padding: 0 30px; 
+}
+
+.menu-label {
+    margin-top: 25px;
+    font-size: 10px;
+    letter-spacing: 2px;
+    color: var(--gold);
+    opacity: 0.6;
+    text-transform: uppercase;
+}
+
+.sidebar a {
+    display: block;
+    position: relative;
+    padding: 14px 0;
+    color: #777;
+    text-decoration: none;
+    transition: 0.25s;
+    font-size: 14px;
+}
+
+.sidebar a:hover {
+    color: var(--gold);
+    transform: translateX(6px);
+}
+
+/* "You Are Here" Active Indicator */
+.sidebar a.active {
+    color: var(--gold);
+    padding-left: 12px;
+}
+
+.sidebar a.active::before {
+    content: '';
+    position: absolute;
+    left: -4px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 4px;
+    height: 4px;
+    background: var(--gold);
+    border-radius: 50%;
+    box-shadow: 0 0 8px var(--gold);
+}
+
+/* ================= CONTENT ================= */
+.hero {
+    text-align: center;
+    padding: 180px 20px 60px;
+    position: relative;
+    z-index: 1;
+}
+
+.hero h1 {
+    font-family: 'Playfair Display';
+    font-size: 48px;
+    color: var(--gold);
+    margin-bottom: 20px;
+}
+
+.hero p {
+    max-width: 800px;
+    margin: 0 auto;
+    color: #9ca3af;
+    font-size: 18px;
+    line-height: 1.7;
+}
+
+.section {
+    padding: 40px 20px;
+    text-align: center;
+    position: relative;
+    z-index: 1;
+}
+
+.section h2 {
+    font-family: 'Playfair Display';
+    color: var(--gold);
+    margin-bottom: 40px;
+    font-size: 28px;
+}
+
+.card {
+    background: #0a0a0a;
+    padding: 30px;
+    margin: 20px auto;
+    max-width: 700px;
+    border: 1px solid #1f1f1f;
+    border-radius: 4px;
+    color: #cfcfcf;
+    line-height: 1.7;
+    transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+    will-change: transform;
+}
+
+.card:hover {
+    border-color: var(--gold);
+    transform: translateY(-4px);
+    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+}
+
+.long-text {
+    max-width: 800px;
+    margin: 0 auto;
+    color: #aaa;
+    line-height: 1.8;
+    font-size: 16px;
+}
+
+.footer {
+    text-align: center;
+    padding: 80px 20px 40px;
+    color: #666;
+    font-size: 11px;
+    position: relative;
+    z-index: 1;
+    letter-spacing: 1px;
+}
+
+/* ================= MOBILE RESPONSIVENESS ================= */
+@media screen and (max-width: 768px) {
+    * { cursor: auto !important; }
+    .cursor-dot { display: none !important; }
+    .sidebar.open { width: 100%; }
+    .hero h1 { font-size: 36px; }
+    .nav { padding: 20px; }
+    .nav-left { gap: 15px; }
+}
+</style>
 </head>
+
 <body oncontextmenu="return false;">
 
-    <div class="cursor-dot" id="cursor-dot"></div>
-    
-    <div class="overlay" id="overlay" onclick="toggleMenu()"></div>
+<div class="cursor-dot" id="cursor-dot"></div>
 
-    <div id="sidebar" class="sidebar">
-        <div class="sidebar-content">
-            <div class="menu-label">System</div>
-            <a href="clock.html">Market Clock</a>
+<div class="overlay" id="overlay" onclick="toggleMenu()"></div>
 
-            <div class="menu-label">Advanced Tools</div>
-            <a href="calc.html">Wealth Calculators</a>
+<div class="gold-orb orb1"></div>
+<div class="gold-orb orb2"></div>
+<div class="gold-orb orb3"></div>
 
-            <div class="menu-label">Our Firm</div>
-            <a href="aboutus.html">About Us</a>
-            <a href="vision.html">Our Vision</a>
-
-            <div class="menu-label">Access</div>
-            <a href="contactus.html">Contact Us</a>
-
-            <div class="menu-label">Research</div>
-            <a href="researchportal.html" class="active">Research Portal</a>
+<div class="nav">
+    <div class="nav-left">
+        <div class="menu-icon" onclick="toggleMenu()">
+            <span></span>
+            <span></span>
+            <span></span>
         </div>
+        <a href="index.html" class="home-btn">Home</a>
     </div>
+    <a href="index.html" class="logo">gRaviTy</a>
+</div>
 
-    <div class="nav">
-        <div class="nav-left">
-            <div class="menu-icon" id="menuBtn" onclick="toggleMenu()">
-                <span></span>
-                <span></span>
-                <span></span>
-            </div>
-            <a href="index.html" class="home-btn">&larr; HOME</a>
-        </div>
-        <a href="index.html" class="logo">gRaviTy</a>
+<div id="sidebar" class="sidebar">
+    <div class="sidebar-content">
+        <div class="menu-label">System</div>
+        <a href="clock.html">Market Clock</a>
+
+        <div class="menu-label">Advanced Tools</div>
+        <a href="calc.html">Wealth Calculators</a>
+
+        <div class="menu-label">Our Firm</div>
+        <a href="aboutus.html" class="active">About Us</a>
+        <a href="vision.html">Our Vision</a>
+
+        <div class="menu-label">Access</div>
+        <a href="contactus.html">Contact Us</a>
+
+        <div class="menu-label">Research</div>
+        <a href="researchportal.html">Research Portal</a>
     </div>
+</div>
 
-    <div class="container">
-        <h1>Research Reports</h1>
+<div class="hero">
+    <h1>Who We Are</h1>
+    <p>
+        gRaviTy Research is not built on opinions. It is built on structure, repetition, and behavioral logic inside markets.
+    </p>
+</div>
 
-        <div class="report-card">
-            <div class="report-title">Tata Motors — 2026 Depth Analysis</div>
-            <div class="report-desc">
-                A high-conviction structural breakdown. We analyze the 2026 expansion cycle, EV dominance, 
-                and key institutional liquidity zones for the upcoming fiscal years.
-            </div>
-            
-            <div class="actions">
-                <a href="tatamotors2026depthanalysis.pdf" target="_blank" class="btn">View Report</a>
-                <a href="tatamotors2026depthanalysis.pdf" download class="btn">Download</a>
-                
-                <button class="btn" onclick="window.analyzeReport(this, 'Tata Motors Depth Analysis 2026. Focus: EV segment growth, JLR margin recovery, and structural support at 850. Major resistance at 1150. Outlook: Bullish above structural pivots. Institutional holding remains strong.')">AI Analysis</button>
-            </div>
-
-            <div class="terminal">
-                <div class="term-header">
-                    <span>> gRaviTy AI ANALYST v2.0 [LIVE LINK ACTIVE]</span>
-                    <div>
-                        <span style="color: #ff4d4d; font-size: 11px; letter-spacing: 1px; margin-right: 15px; cursor: pointer; transition: 0.3s;" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='#ff4d4d'" onclick="window.endChat(this)">[END CHAT]</span>
-                        <span style="color: #555; cursor: pointer; transition: 0.3s;" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='#555'" onclick="this.closest('.terminal').style.display='none'">[X]</span>
-                    </div>
-                </div>
-                <div class="term-content">Initializing neural link...</div>
-                
-                <div class="chat-box">
-                    <input type="text" class="chat-input" placeholder="Ask about the report or live market data..." onkeypress="if(event.key==='Enter') window.askQuestion(this.nextElementSibling)">
-                    <button class="btn" onclick="window.askQuestion(this)">Send</button>
-                </div>
-            </div>
-        </div>
+<div class="section">
+    <h2>Our Origin</h2>
+    <div class="card">
+        We started with a simple observation — markets move in patterns that most people fail to notice.
     </div>
-
-    <div class="footer">
-        © 2026 gRaviTy RESEARCH — ALL RIGHTS RESERVED
+    <div class="card">
+        What looks like chaos is often structured behavior repeating across timeframes.
     </div>
+</div>
 
-    <script>
-        /* ================= PROTECTION SCRIPT ================= */
-        document.onkeydown = function(e) {
-            if (e.keyCode == 123 || 
-                (e.ctrlKey && e.shiftKey && (e.keyCode == 'I'.charCodeAt(0) || e.keyCode == 'J'.charCodeAt(0))) || 
-                (e.ctrlKey && e.keyCode == 'U'.charCodeAt(0)) ||
-                (e.ctrlKey && e.keyCode == 'C'.charCodeAt(0))) {
-                return false;
+<div class="section">
+    <h2>Our Philosophy</h2>
+    <div class="long-text">
+        We do not believe in predicting markets with certainty. Instead, we study probability clusters, liquidity behavior, and structural zones where decisions repeatedly form.
+        <br><br>
+        Every chart tells a story — but only if you know how to read structure instead of noise.
+        <br><br>
+        The goal is not to guess the market. The goal is to understand what conditions increase probability of movement.
+    </div>
+</div>
+
+<div class="section">
+    <h2>Our Edge</h2>
+    <div class="card">
+        We focus on repeatable frameworks instead of emotional trading decisions.
+    </div>
+    <div class="card">
+        We remove noise, simplify structure, and isolate key decision points.
+    </div>
+    <div class="card">
+        We study behavior, not hype.
+    </div>
+</div>
+
+<div class="section">
+    <h2>Where We Are Going</h2>
+    <div class="long-text">
+        Our goal is to build a complete research ecosystem where market understanding is not reserved for professionals alone.
+        <br><br>
+        We aim to make structured financial thinking accessible, visual, and systematic.
+        <br><br>
+        Over time, gRaviTy Research will expand into deeper analytical models, tools, and frameworks for market interpretation.
+    </div>
+</div>
+
+<div class="footer">
+    © 2026 gRaviTy Research
+</div>
+
+<script>
+/* PROTECTION SCRIPT */
+document.onkeydown = function(e) {
+    if (e.keyCode == 123 || 
+        (e.ctrlKey && e.shiftKey && (e.keyCode == 'I'.charCodeAt(0) || e.keyCode == 'J'.charCodeAt(0))) || 
+        (e.ctrlKey && e.keyCode == 'U'.charCodeAt(0)) ||
+        (e.ctrlKey && e.keyCode == 'C'.charCodeAt(0))) {
+        return false;
+    }
+};
+
+/* ================= TOUCH DETECTION ================= */
+const isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
+
+/* ================= CUSTOM CURSOR (GPU ACCELERATED) ================= */
+if (!isTouchDevice) {
+    const cursorDot = document.getElementById('cursor-dot');
+    window.addEventListener('mousemove', (e) => {
+        cursorDot.style.transform = `translate3d(${e.clientX}px, ${e.clientY}px, 0) translate(-50%, -50%)`;
+    });
+
+    const interactables = document.querySelectorAll('a, .menu-icon, .logo, .card');
+    interactables.forEach(el => {
+        el.addEventListener('mouseenter', () => cursorDot.classList.add('hover-state'));
+        el.addEventListener('mouseleave', () => cursorDot.classList.remove('hover-state'));
+    });
+}
+
+/* ================= MENU LOGIC ================= */
+function toggleMenu() {
+    document.getElementById("sidebar").classList.toggle("open");
+    document.getElementById("overlay").classList.toggle("show");
+    document.querySelector(".menu-icon").classList.toggle("active");
+}
+
+/* ================= SEAMLESS PAGE TRANSITIONS ================= */
+function transitionTo(url) {
+    document.body.classList.add('fade-out');
+    setTimeout(() => {
+        window.location.href = url;
+    }, 400);
+}
+
+document.addEventListener("DOMContentLoaded", () => {
+    const links = document.querySelectorAll('a[href]');
+    links.forEach(link => {
+        link.addEventListener('click', function(e) {
+            const target = this.getAttribute('href');
+            if (target && !target.startsWith('http') && !target.startsWith('mailto')) {
+                e.preventDefault();
+                transitionTo(target);
             }
-        };
-
-        /* ================= TOUCH DETECTION ================= */
-        const isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
-        
-        /* ================= CUSTOM CURSOR (GPU ACCELERATED) ================= */
-        if (!isTouchDevice) {
-            const cursorDot = document.getElementById('cursor-dot');
-            window.addEventListener('mousemove', (e) => {
-                cursorDot.style.transform = `translate3d(${e.clientX}px, ${e.clientY}px, 0) translate(-50%, -50%)`;
-            });
-            
-            const interactables = document.querySelectorAll('a, button, .menu-icon, .logo, input, .report-card');
-            interactables.forEach(el => {
-                el.addEventListener('mouseenter', () => cursorDot.classList.add('hover-state'));
-                el.addEventListener('mouseleave', () => cursorDot.classList.remove('hover-state'));
-            });
-        }
-
-        /* ================= MENU LOGIC WITH OVERLAY ================= */
-        function toggleMenu() {
-            document.getElementById("sidebar").classList.toggle("open");
-            document.getElementById("overlay").classList.toggle("show");
-            document.getElementById("menuBtn").classList.toggle("active");
-        }
-
-        /* ================= SEAMLESS PAGE TRANSITIONS ================= */
-        function transitionTo(url) {
-            document.body.classList.add('fade-out');
-            setTimeout(() => { window.location.href = url; }, 400);
-        }
-
-        document.addEventListener("DOMContentLoaded", () => {
-            document.querySelectorAll('a[href]').forEach(link => {
-                link.addEventListener('click', function(e) {
-                    const target = this.getAttribute('href');
-                    if (target && !target.endsWith('.pdf') && !target.startsWith('http') && !target.startsWith('mailto') && target !== '#') {
-                        e.preventDefault();
-                        transitionTo(target);
-                    }
-                });
-            });
         });
+    });
+});
 
-        window.addEventListener('pageshow', (event) => {
-            if (event.persisted) document.body.classList.remove('fade-out');
-        });
+window.addEventListener('pageshow', (event) => {
+    if (event.persisted) {
+        document.body.classList.remove('fade-out');
+    }
+});
+</script>
 
-        // ================= TYPEWRITER =================
-        window.typeText = function(el, text, callback, scrollContainer = null) {
-            let parsedText = text.replace(/\*\*(.*?)\*\*/g, '<strong style="color:#fff; font-weight:500;">$1</strong>');
-            parsedText = parsedText.replace(/\*(.*?)\*/g, '<em style="color:#e0c870;">$1</em>');
-            
-            let i = 0;
-            let isTag = false;
-            let currentHTML = '';
-            
-            function step() {
-                if(i < parsedText.length) {
-                    let char = parsedText.charAt(i);
-                    if(char === '<') isTag = true;
-                    
-                    currentHTML += (char === '\n' && !isTag) ? '<br>' : char;
-                    i++;
-                    
-                    if(isTag && char === '>') {
-                        isTag = false;
-                        step(); 
-                        return;
-                    }
-                    
-                    el.innerHTML = currentHTML;
-                    if(scrollContainer) scrollContainer.scrollTop = scrollContainer.scrollHeight;
-                    
-                    if(!isTag) {
-                        setTimeout(step, 10);
-                    } else {
-                        step();
-                    }
-                } else if(callback) {
-                    callback();
-                }
-            }
-            step();
-        }
-
-        // ================= END CHAT FUNCTION =================
-        window.endChat = function(btn) {
-            const terminal = btn.closest('.terminal');
-            const termContent = terminal.querySelector('.term-content');
-            const chatBox = terminal.querySelector('.chat-box');
-            
-            termContent.innerHTML += `<br><span style="color:#ff4d4d">> SYSTEM: Session manually terminated. Connection closed.</span><br>`;
-            termContent.scrollTop = termContent.scrollHeight;
-            
-            chatBox.style.display = 'none';
-            terminal.querySelector('.chat-input').value = "";
-        }
-    </script>
-
-    <script type="module">
-        // ================= AI RESTRICTION OVERRIDE =================
-        window.analyzeReport = async function(btn, content) {
-            const terminal = btn.closest('.report-card').querySelector('.terminal');
-            const termContent = terminal.querySelector('.term-content');
-            const chatBox = terminal.querySelector('.chat-box');
-            
-            terminal.style.display = 'block';
-            chatBox.style.display = 'none'; 
-            
-            termContent.innerHTML = "Establishing secure link to gRaviTy AI Node...<br>";
-            
-            // Simulate a slight network delay before showing the restriction message
-            setTimeout(() => {
-                termContent.innerHTML = "";
-                const lockMessage = "ACCESS RESTRICTED: Neural link is currently in synchronization phase. Kindly wait until 30 May 2026 to access gRaviTy AI Analyst v2.0 features.";
-                
-                window.typeText(termContent, lockMessage, () => {
-                    termContent.innerHTML += `<br><br><span style="color:#ff4d4d">> SYSTEM: Connection suspended until launch date.</span>`;
-                });
-            }, 800);
-        };
-    </script>
 </body>
 </html>
