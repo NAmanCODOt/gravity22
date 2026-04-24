@@ -222,7 +222,7 @@ body::before {
     pointer-events: all;
 }
 
-/* ================= NAV ================= */
+/* ================= NAV & HAMBURGER ================= */
 .nav {
     display: flex;
     align-items: center;
@@ -239,7 +239,8 @@ body::before {
 
 .menu-icon {
     position: relative;
-    z-index: 10; 
+    z-index: 1005; 
+    cursor: pointer;
 }
 
 .menu-icon span {
@@ -248,7 +249,13 @@ body::before {
     height: 2px;
     background: var(--gold);
     margin: 5px 0;
+    transition: 0.3s cubic-bezier(0.165, 0.84, 0.44, 1);
+    transform-origin: left center;
 }
+
+.menu-icon.active span:nth-child(1) { transform: rotate(45deg); width: 24px; }
+.menu-icon.active span:nth-child(2) { opacity: 0; }
+.menu-icon.active span:nth-child(3) { transform: rotate(-45deg); width: 24px; }
 
 .logo-shimmer {
     font-family: 'Playfair Display', serif;
@@ -265,6 +272,7 @@ body::before {
     top: 50%;
     transform: translate(-50%, -50%);
     cursor: pointer;
+    text-decoration: none;
 }
 
 @keyframes shimmer {
@@ -320,6 +328,7 @@ body::before {
     margin-top: 25px;
     will-change: transform;
     cursor: pointer;
+    text-decoration: none;
 }
 
 .btn:hover {
@@ -486,27 +495,30 @@ body > * {
 
 <div id="sidebar" class="sidebar">
     <div class="sidebar-content">
+        <div class="menu-label">Navigation</div>
+        <a href="index.html">Home</a>
+
         <div class="menu-label">Tools</div>
-        <a onclick="go('calc.html')" style="cursor: pointer;">Wealth Calculators</a>
-        <a onclick="go('clock.html')" style="cursor: pointer;">Market Clock</a>
+        <a href="calc.html">Wealth Calculators</a>
+        <a href="clock.html">Market Clock</a>
 
         <div class="menu-label">Firm</div>
-        <a onclick="go('aboutus.html')" style="cursor: pointer;">About Us</a>
-        <a onclick="go('vision.html')" style="cursor: pointer;">Our Vision</a>
+        <a href="aboutus.html">About Us</a>
+        <a href="vision.html">Our Vision</a>
 
         <div class="menu-label">Research</div>
-        <a onclick="go('researchportal.html')" style="cursor: pointer;">Research Portal</a>
+        <a href="researchportal.html">Research Portal</a>
 
         <div class="menu-label">Access</div>
-        <a onclick="go('contactus.html')" style="cursor: pointer;">Contact</a>
+        <a href="contactus.html">Contact Us</a>
     </div>
 </div>
 
 <div class="nav">
-    <div class="menu-icon" onclick="toggleMenu()" style="cursor: pointer;">
+    <div class="menu-icon" onclick="toggleMenu()">
         <span></span><span></span><span></span>
     </div>
-    <div class="logo-shimmer" onclick="go('index.html')">gRaviTy</div>
+    <a href="index.html" class="logo-shimmer">gRaviTy</a>
 </div>
 
 <div class="hero">
@@ -517,7 +529,7 @@ body > * {
 
     <p>Markets behave like structured systems — not randomness. We decode movement logic, liquidity, and human behavior flow.</p>
 
-    <button class="btn" id="magnetic-btn" onclick="go('aboutus.html')">Enter System</button>
+    <a href="aboutus.html" class="btn" id="magnetic-btn">Enter System</a>
 </div>
 
 <div class="features">
@@ -647,6 +659,7 @@ if (!isTouchDevice) {
 function toggleMenu() {
     document.getElementById("sidebar").classList.toggle("open");
     document.getElementById("overlay").classList.toggle("show");
+    document.querySelector(".menu-icon").classList.toggle("active");
 }
 
 /* ================= SEAMLESS PAGE TRANSITIONS ================= */
@@ -675,10 +688,6 @@ window.addEventListener('pageshow', (event) => {
         document.body.classList.remove('fade-out');
     }
 });
-
-function go(p) {
-    transitionTo(p);
-}
 
 /* ================= SCROLL LOGIC ================= */
 const features = document.querySelectorAll(".feature");
