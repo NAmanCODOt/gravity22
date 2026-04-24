@@ -1,635 +1,538 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Launch | gRaviTy Research</title>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Contact Us | gRaviTy Research</title>
     <link rel="icon" type="image/png" href="logo.png">
-    <link rel="apple-touch-icon" href="logo.png">
-    <meta name="theme-color" content="#050505">
-    <meta name="msapplication-navbutton-color" content="#050505">
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="apple-touch-icon" href="logo.png">
+<meta name="theme-color" content="#050505">
+<meta name="msapplication-navbutton-color" content="#050505">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<style>
+
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600&family=Inter:wght@300;400&display=swap');
+
+:root {
+    --gold: #d4af37;
+    --bg: #050505;
+    --gold-dim: rgba(212, 175, 55, 0.3);
+}
+
+/* ================= PROTECTION STYLES ================= */
+body {
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+/* ================= SEAMLESS PAGE TRANSITIONS ================= */
+body {
+    opacity: 1;
+    transition: opacity 0.4s ease-in-out;
+    margin: 0;
+    font-family: 'Inter', sans-serif;
+    background: var(--bg);
+    color: white;
+    overflow-x: hidden;
+}
+
+body.fade-out {
+    opacity: 0;
+}
+
+/* ================= CUSTOM CURSOR (GPU ACCELERATED) ================= */
+* { cursor: none !important; }
+
+.cursor-dot {
+    width: 6px;
+    height: 6px;
+    background: var(--gold);
+    position: fixed;
+    top: 0;
+    left: 0;
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 10000;
+    transform: translate(-50%, -50%);
+    box-shadow: 0 0 10px var(--gold);
+    transition: width 0.2s ease, height 0.2s ease, box-shadow 0.2s ease;
+    will-change: transform;
+}
+
+.cursor-dot.hover-state {
+    width: 12px;
+    height: 12px;
+    box-shadow: 0 0 15px var(--gold);
+}
+
+/* background orbs */
+.gold-orb {
+    position: fixed;
+    border-radius: 50%;
+    filter: blur(70px);
+    pointer-events: none;
+    z-index: 0;
+    will-change: transform;
+}
+
+.orb1 { width: 300px; height: 300px; background: rgba(212,175,55,0.25); animation: move1 18s linear infinite; }
+.orb2 { width: 250px; height: 250px; background: rgba(212,175,55,0.2); animation: move2 25s linear infinite; }
+.orb3 { width: 200px; height: 200px; background: rgba(212,175,55,0.15); animation: move3 30s linear infinite; }
+
+@keyframes move1 { 0% { transform: translate(10vw, 10vh); } 50% { transform: translate(80vw, 70vh); } 100% { transform: translate(10vw, 10vh); } }
+@keyframes move2 { 0% { transform: translate(80vw, 80vh); } 50% { transform: translate(10vw, 20vh); } 100% { transform: translate(80vw, 80vh); } }
+@keyframes move3 { 0% { transform: translate(0vw, 50vh); } 50% { transform: translate(90vw, 10vh); } 100% { transform: translate(0vw, 50vh); } }
+
+/* ================= OVERLAY ================= */
+.overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.65);
+    backdrop-filter: blur(4px);
+    opacity: 0;
+    pointer-events: none;
+    transition: 0.4s ease;
+    z-index: 1500;
+}
+
+.overlay.show {
+    opacity: 1;
+    pointer-events: all;
+}
+
+/* ================= SIDEBAR ================= */
+.sidebar {
+    width: 280px;
+    height: 100%;
+    position: fixed;
+    left: 0;
+    top: 0;
+    background: #0a0a0a;
+    box-shadow: 2px 0 25px rgba(0,0,0,0.8);
+    transform: translateX(-100%);
+    transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    padding-top: 100px;
+    z-index: 2000;
+    border-right: 1px solid rgba(212, 175, 55, 0.2);
+    overflow-x: hidden;
+}
+
+.sidebar.open { 
+    transform: translateX(0); 
+}
+
+.sidebar-content { 
+    padding: 0 30px; 
+}
+
+.menu-label {
+    margin-top: 25px;
+    font-size: 10px;
+    letter-spacing: 2px;
+    color: var(--gold);
+    opacity: 0.7;
+    text-transform: uppercase;
+    margin-bottom: 5px;
+}
+
+.sidebar a {
+    display: flex;
+    align-items: center;
+    padding: 12px 0;
+    color: #888;
+    text-decoration: none;
+    font-size: 15px;
+    transition: 0.25s;
+}
+
+.sidebar a:hover {
+    color: var(--gold);
+    transform: translateX(6px);
+}
+
+/* --- ACTIVE LINK STYLES --- */
+.sidebar a.active-link {
+    color: var(--gold);
+}
+
+.active-dot {
+    display: inline-block;
+    width: 6px;
+    height: 6px;
+    background-color: var(--gold);
+    border-radius: 50%;
+    margin-right: 12px;
+    box-shadow: 0 0 8px var(--gold);
+}
+
+/* ================= NAV ================= */
+.nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 40px;
+    position: fixed;
+    width: 100%;
+    top: 0;
+    left: 0;
+    background: rgba(5,5,5,0.85);
+    backdrop-filter: blur(12px);
+    z-index: 2500;
+    box-sizing: border-box;
+    border-bottom: 1px solid rgba(255,255,255,0.05);
+}
+
+.nav-left {
+    display: flex;
+    align-items: center;
+    gap: 25px;
+}
+
+/* Animated Hamburger */
+.menu-icon {
+    cursor: pointer;
+    position: relative;
+    z-index: 2501;
+    width: 30px;
+    height: 24px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.menu-icon span {
+    display: block;
+    width: 26px;
+    height: 2px;
+    background: var(--gold);
+    margin: 3px 0;
+    transition: 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+    transform-origin: left center;
+}
+
+.menu-icon.active span:nth-child(1) { transform: rotate(45deg); width: 28px; }
+.menu-icon.active span:nth-child(2) { opacity: 0; width: 0; }
+.menu-icon.active span:nth-child(3) { transform: rotate(-45deg); width: 28px; }
+
+/* Standalone Home Button */
+.home-btn {
+    display: inline-flex;
+    align-items: center;
+    padding: 10px 20px;
+    background: rgba(212, 175, 55, 0.04);
+    border: 1px solid rgba(212, 175, 55, 0.3);
+    color: var(--gold);
+    text-decoration: none;
+    font-size: 11px;
+    font-weight: 400;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+    backdrop-filter: blur(4px);
+}
+
+.home-btn::before {
+    content: '←';
+    margin-right: 8px;
+    font-size: 14px;
+    transition: transform 0.4s ease;
+}
+
+.home-btn:hover {
+    background: var(--gold);
+    color: #000;
+    border-color: var(--gold);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 15px rgba(212, 175, 55, 0.25);
+}
+
+.home-btn:hover::before { transform: translateX(-3px); }
+
+.logo {
+    font-family: 'Playfair Display', serif;
+    font-size: 22px;
+    color: var(--gold);
+    text-decoration: none;
+    letter-spacing: 3px;
+    font-weight: 600;
+}
+
+/* ================= CONTACT SECTION ================= */
+.contact-container {
+    max-width: 1100px;
+    margin: 140px auto 80px;
+    padding: 0 20px;
+    display: flex;
+    gap: 40px;
+    position: relative;
+    z-index: 1;
+}
+
+.contact-info, .contact-form {
+    background: rgba(10, 10, 10, 0.8);
+    padding: 45px;
+    border-radius: 4px;
+    border: 1px solid #1f1f1f;
+    flex: 1;
+    backdrop-filter: blur(10px);
+}
+
+.contact-info h1, .contact-form h2 {
+    font-family: 'Playfair Display', serif;
+    color: var(--gold);
+    margin-top: 0;
+    margin-bottom: 25px;
+}
+
+.contact-info h1 { font-size: 36px; }
+.contact-form h2 { font-size: 28px; }
+
+.contact-info p.subtitle {
+    color: #9ca3af;
+    font-size: 16px;
+    line-height: 1.7;
+    margin-bottom: 40px;
+}
+
+.info-item { margin-bottom: 35px; }
+
+.info-item h4 {
+    color: #666;
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    margin-bottom: 10px;
+}
+
+.info-item p, .info-item a {
+    color: #cfcfcf;
+    font-size: 18px;
+    text-decoration: none;
+    transition: 0.3s;
+    word-break: break-all;
+}
+
+.info-item a:hover { color: var(--gold); }
+
+/* Form Styling */
+.form-group { margin-bottom: 25px; }
+
+.form-group label {
+    display: block;
+    font-size: 10px;
+    color: #666;
+    margin-bottom: 8px;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+}
+
+.form-group input, .form-group textarea {
+    width: 100%;
+    background: transparent;
+    border: none;
+    border-bottom: 1px solid #333;
+    color: white;
+    padding: 10px 0;
+    font-size: 16px;
+    font-family: 'Inter', sans-serif;
+    outline: none;
+    transition: 0.3s ease;
+    box-sizing: border-box;
+}
+
+.form-group input:focus, .form-group textarea:focus { border-bottom-color: var(--gold); }
+
+.form-group textarea { resize: vertical; min-height: 120px; }
+
+.submit-btn {
+    background: transparent;
+    border: 1px solid var(--gold);
+    color: var(--gold);
+    padding: 15px 30px;
+    font-family: 'Inter', sans-serif;
+    font-size: 13px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: 0.3s;
+    width: 100%;
+    margin-top: 10px;
+    border-radius: 4px;
+}
+
+.submit-btn:hover {
+    background: var(--gold);
+    color: black;
+}
+
+#form-status {
+    margin-top: 20px;
+    font-size: 14px;
+    text-align: center;
+    letter-spacing: 1px;
+    min-height: 20px;
+}
+
+.footer {
+    text-align: center;
+    padding: 60px 20px 40px;
+    font-size: 11px;
+    color: #6b7280;
+    letter-spacing: 1px;
+    position: relative;
+    z-index: 1;
+}
+
+/* ================= MOBILE RESPONSIVENESS ================= */
+@media screen and (max-width: 768px) {
+    * { cursor: auto !important; }
+    .cursor-dot { display: none !important; }
+    .sidebar { width: 85%; }
+    .nav { padding: 15px 20px; }
+    .nav-left { gap: 15px; }
+    .contact-container { flex-direction: column; margin-top: 100px; gap: 20px; }
+    .contact-info, .contact-form { padding: 30px 20px; }
+}
+
+</style>
     <script defer src="https://cloud.umami.is/script.js" data-website-id="73132b12-a822-434c-8854-888438105660"></script>
-    <style>
-        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600&family=Inter:wght@100;200;300;400;500;600&display=swap');
-
-        :root {
-            --gold: #d4af37;
-            --gold-dim: rgba(212, 175, 55, 0.3);
-            --gold-glow: rgba(212, 175, 55, 0.15);
-            --bg: #050505;
-        }
-
-        /* ================= PROTECTION STYLES ================= */
-        body {
-            -webkit-user-select: none;
-            -moz-user-select: none;
-            -ms-user-select: none;
-            user-select: none;
-        }
-
-        /* ================= SEAMLESS PAGE TRANSITIONS ================= */
-        body {
-            opacity: 1;
-            transition: opacity 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-            margin: 0;
-            font-family: 'Inter', sans-serif;
-            background: var(--bg);
-            color: white;
-            overflow-x: hidden;
-            -webkit-font-smoothing: antialiased;
-        }
-
-        body.fade-out {
-            opacity: 0;
-        }
-
-        /* ================= CUSTOM CURSOR ================= */
-        @media (pointer: fine) {
-            * { cursor: none !important; }
-        }
-
-        .cursor-dot {
-            width: 6px;
-            height: 6px;
-            background: var(--gold);
-            position: fixed;
-            top: 0;
-            left: 0;
-            border-radius: 50%;
-            pointer-events: none;
-            z-index: 10000;
-            transform: translate(-50%, -50%); 
-            box-shadow: 0 0 15px var(--gold);
-            transition: width 0.3s ease, height 0.3s ease, box-shadow 0.3s ease, background 0.3s ease, border 0.3s ease;
-            will-change: transform, width, height;
-        }
-
-        .cursor-dot.hover-state {
-            width: 30px;
-            height: 30px;
-            background: rgba(212, 175, 55, 0.05);
-            border: 1px solid var(--gold);
-        }
-
-        /* ================= OVERLAY ================= */
-        .overlay {
-            position: fixed;
-            inset: 0;
-            background: rgba(0,0,0,0.65);
-            backdrop-filter: blur(4px);
-            opacity: 0;
-            pointer-events: none;
-            transition: 0.4s ease;
-            z-index: 1500;
-        }
-
-        .overlay.show {
-            opacity: 1;
-            pointer-events: all;
-        }
-
-        /* ================= SIDEBAR & MENU ================= */
-        .sidebar {
-            width: 280px;
-            height: 100%;
-            position: fixed;
-            left: 0;
-            top: 0;
-            background: #0a0a0a;
-            box-shadow: 2px 0 25px rgba(0,0,0,0.8);
-            transform: translateX(-100%);
-            transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-            padding-top: 100px;
-            z-index: 2000;
-            overflow-x: hidden;
-            border-right: 1px solid rgba(212, 175, 55, 0.2);
-        }
-
-        .sidebar.open {
-            transform: translateX(0);
-        }
-
-        .sidebar-content { 
-            padding: 0 30px; 
-        }
-
-        .menu-label {
-            margin-top: 25px;
-            font-size: 10px;
-            letter-spacing: 2px;
-            color: var(--gold);
-            text-transform: uppercase;
-            opacity: 0.7;
-            margin-bottom: 5px;
-        }
-
-        .sidebar a {
-            display: flex;
-            align-items: center;
-            padding: 12px 0;
-            color: #888;
-            text-decoration: none;
-            transition: 0.25s;
-            font-size: 15px;
-        }
-
-        .sidebar a:hover {
-            color: var(--gold);
-            transform: translateX(6px);
-        }
-
-        .sidebar a.active-link {
-            color: var(--gold);
-        }
-
-        .active-dot {
-            display: inline-block;
-            width: 6px;
-            height: 6px;
-            background-color: var(--gold);
-            border-radius: 50%;
-            margin-right: 12px;
-            box-shadow: 0 0 8px var(--gold);
-        }
-
-        /* ================= NAV & HAMBURGER ================= */
-        .nav {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 20px 40px;
-            z-index: 2500;
-            box-sizing: border-box;
-            background: rgba(5,5,5,0.85);
-            backdrop-filter: blur(12px);
-            border-bottom: 1px solid rgba(255,255,255,0.05);
-        }
-
-        .menu-icon {
-            cursor: pointer;
-            position: relative;
-            z-index: 2501;
-            width: 30px;
-            height: 24px;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-        }
-
-        .menu-icon span {
-            display: block;
-            width: 26px;
-            height: 2px;
-            background: var(--gold);
-            margin: 3px 0;
-            transition: 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
-            transform-origin: left center;
-        }
-
-        .menu-icon.active span:nth-child(1) { transform: rotate(45deg); width: 28px; }
-        .menu-icon.active span:nth-child(2) { opacity: 0; width: 0; }
-        .menu-icon.active span:nth-child(3) { transform: rotate(-45deg); width: 28px; }
-
-        .logo-text {
-            font-family: 'Playfair Display', serif;
-            font-size: 22px;
-            font-weight: 600;
-            color: var(--gold);
-            letter-spacing: 3px;
-            text-decoration: none;
-        }
-
-        /* ================= ORBS (GPU ACCELERATED & CONTAINED) ================= */
-        .orb-container {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100vw;
-            height: 100vh;
-            overflow: hidden;
-            z-index: 1;
-            pointer-events: none;
-        }
-
-        .gold-orb {
-            position: absolute;
-            border-radius: 50%;
-            filter: blur(160px);
-            opacity: 0.12;
-            will-change: transform;
-        }
-
-        .orb1 { 
-            width: 700px; height: 700px; background: var(--gold); 
-            top: -15%; left: -15%;
-            animation: move1 28s infinite linear; 
-        }
-        .orb2 { 
-            width: 600px; height: 600px; background: #fff; 
-            bottom: -15%; right: -15%;
-            animation: move2 35s infinite linear; 
-        }
-
-        @keyframes move1 { 
-            0% { transform: translate3d(0, 0, 0); } 
-            50% { transform: translate3d(90vw, 80vh, 0); } 
-            100% { transform: translate3d(0, 0, 0); } 
-        }
-        @keyframes move2 { 
-            0% { transform: translate3d(0, 0, 0); } 
-            50% { transform: translate3d(-90vw, -80vh, 0); } 
-            100% { transform: translate3d(0, 0, 0); } 
-        }
-
-        /* ================= MAIN CONTAINER ================= */
-        .container {
-            min-height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            flex-direction: column;
-            position: relative;
-            z-index: 2;
-            padding: 100px 20px 40px; /* added top padding for nav */
-            box-sizing: border-box;
-        }
-
-        /* ================= PREMIUM HOME BUTTON ================= */
-        .home-btn {
-            display: inline-flex;
-            align-items: center;
-            padding: 10px 24px;
-            background: rgba(212, 175, 55, 0.04);
-            border: 1px solid rgba(212, 175, 55, 0.3);
-            color: var(--gold);
-            text-decoration: none;
-            font-size: 11px;
-            font-weight: 400;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
-            margin-bottom: 30px;
-            backdrop-filter: blur(4px);
-            cursor: pointer;
-        }
-
-        .home-btn::before {
-            content: '←';
-            margin-right: 10px;
-            font-size: 14px;
-            transition: transform 0.4s ease;
-        }
-
-        .home-btn:hover {
-            background: var(--gold);
-            color: var(--bg);
-            border-color: var(--gold);
-            box-shadow: 0 4px 15px rgba(212, 175, 55, 0.25);
-            transform: translateY(-2px);
-        }
-
-        .home-btn:hover::before {
-            transform: translateX(-4px);
-        }
-
-        .label {
-            font-size: 12px;
-            font-weight: 300;
-            letter-spacing: 10px;
-            color: white;
-            text-transform: uppercase;
-            margin-bottom: 50px;
-            opacity: 0.8;
-            text-align: center;
-        }
-
-        /* ================= TIMER STYLING ================= */
-        .timer {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .unit-box {
-            background: rgba(255, 255, 255, 0.02);
-            border: 1px solid rgba(212, 175, 55, 0.4);
-            backdrop-filter: blur(10px);
-            padding: 35px 25px;
-            border-radius: 4px;
-            min-width: 140px;
-            text-align: center;
-            transition: transform 0.3s ease, border-color 0.3s ease;
-            box-sizing: border-box;
-        }
-
-        .unit-box:hover {
-            border-color: var(--gold);
-            transform: translateY(-5px);
-        }
-
-        .unit-value {
-            font-family: 'Inter', sans-serif;
-            font-size: clamp(45px, 8vw, 85px);
-            color: var(--gold);
-            font-weight: 100;
-            line-height: 1;
-            letter-spacing: -2px;
-        }
-
-        .unit-label {
-            font-size: 10px;
-            color: #888;
-            text-transform: uppercase;
-            letter-spacing: 4px;
-            margin-top: 15px;
-        }
-
-        /* ================= VERTICAL LINES ================= */
-        .separator {
-            width: 1px;
-            height: 100px;
-            background: var(--gold);
-            box-shadow: 0 0 20px var(--gold), 0 0 10px var(--gold);
-            margin: 0 40px;
-            opacity: 0.7;
-            flex-shrink: 0;
-        }
-
-        /* ================= WAITLIST STYLES ================= */
-        .waitlist-container {
-            max-width: 450px;
-            width: 100%;
-            margin: 60px auto 0;
-            text-align: center;
-            background: rgba(255, 255, 255, 0.02);
-            border: 1px solid rgba(212, 175, 55, 0.15);
-            padding: 35px 30px;
-            border-radius: 8px;
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-            transition: border-color 0.4s ease, box-shadow 0.4s ease;
-            box-sizing: border-box;
-        }
-
-        .waitlist-container:hover {
-            border-color: rgba(212, 175, 55, 0.4);
-            box-shadow: 0 0 20px rgba(212, 175, 55, 0.05);
-        }
-
-        .waitlist-title {
-            font-family: 'Playfair Display', serif;
-            color: var(--gold);
-            margin-top: 0;
-            margin-bottom: 10px;
-            font-size: 1.6rem;
-            font-weight: 400;
-        }
-
-        .waitlist-desc {
-            color: #888;
-            font-size: 13px;
-            line-height: 1.5;
-            margin-bottom: 25px;
-            font-family: 'Inter', sans-serif;
-        }
-
-        .waitlist-form {
-            display: flex;
-            flex-direction: column;
-            gap: 15px;
-        }
-
-        .waitlist-input {
-            background: rgba(0, 0, 0, 0.4);
-            border: 1px solid #333;
-            color: white;
-            padding: 14px 15px;
-            border-radius: 4px;
-            font-family: 'Inter', sans-serif;
-            font-size: 14px;
-            outline: none;
-            transition: 0.3s ease;
-            text-align: center;
-        }
-
-        .waitlist-input::placeholder {
-            color: #555;
-            letter-spacing: 0.5px;
-        }
-
-        .waitlist-input:focus {
-            border-color: var(--gold);
-            box-shadow: inset 0 0 10px rgba(212, 175, 55, 0.1);
-        }
-
-        .waitlist-btn {
-            width: 100%;
-            margin-top: 5px;
-            padding: 14px;
-            font-weight: 500;
-            letter-spacing: 1px;
-            text-transform: uppercase;
-            justify-content: center;
-        }
-
-        .waitlist-btn::before {
-            display: none; /* removes the back arrow from the reused home-btn class */
-        }
-
-        /* launch text */
-        .launch-text {
-            margin-top: 40px;
-            text-align: center;
-            width: 100%;
-            font-family: 'Playfair Display', serif;
-            font-size: 16px;
-            letter-spacing: 5px;
-            color: white;
-            padding: 0 20px;
-            box-sizing: border-box;
-        }
-
-        .launch-text span { color: var(--gold); }
-
-        /* ================= MOBILE OPTIMIZATION ================= */
-        @media screen and (max-width: 768px) {
-            * { cursor: auto !important; }
-            .cursor-dot { display: none !important; }
-            .sidebar { width: 85%; }
-            .nav { padding: 15px 20px; }
-            
-            .label {
-                letter-spacing: 6px;
-                margin-bottom: 30px;
-            }
-
-            .timer {
-                display: grid;
-                grid-template-columns: repeat(2, 1fr);
-                gap: 15px;
-                width: 100%;
-                max-width: 340px;
-            }
-            
-            .separator { display: none; } 
-            
-            .unit-box { 
-                min-width: auto; 
-                padding: 20px 10px; 
-            }
-            
-            .unit-value { 
-                font-size: clamp(35px, 10vw, 50px); 
-            }
-
-            .unit-label {
-                letter-spacing: 2px;
-                font-size: 9px;
-            }
-
-            .waitlist-container {
-                margin-top: 40px;
-                padding: 25px 20px;
-            }
-
-            .launch-text { 
-                margin-top: 30px;
-                font-size: 13px; 
-                line-height: 1.6;
-            }
-        }
-
-        @media screen and (max-width: 380px) {
-            .timer { gap: 10px; }
-            .unit-box { padding: 15px 5px; }
-            .unit-value { font-size: 32px; }
-        }
-    </style>
 </head>
+
 <body oncontextmenu="return false;">
 
 <div class="cursor-dot" id="cursor-dot"></div>
 
 <div class="overlay" id="overlay" onclick="toggleMenu()"></div>
 
+<div class="gold-orb orb1"></div>
+<div class="gold-orb orb2"></div>
+<div class="gold-orb orb3"></div>
+
+<div class="nav">
+    <div class="nav-left">
+        <div class="menu-icon" onclick="toggleMenu()">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+        <a href="index.html" class="home-btn">Home</a>
+    </div>
+    <a href="index.html" class="logo">gRaviTy</a>
+</div>
+
 <div id="sidebar" class="sidebar">
     <div class="sidebar-content">
         <div class="menu-label">System</div>
-        <a href="index.html">Home</a>
-        <a href="clock.html" class="active-link"><span class="active-dot"></span>Market Clock</a> 
+        <a href="clock.html">Market Clock</a>
 
         <div class="menu-label">Advanced Tools</div>
         <a href="calc.html">Wealth Calculators</a>
 
         <div class="menu-label">Research</div>
         <a href="researchportal.html">Research Portal</a>
-
+        
         <div class="menu-label">Our Firm</div>
         <a href="aboutus.html">About Us</a>
         <a href="vision.html">Our Vision</a>
 
         <div class="menu-label">Access</div>
-        <a href="contactus.html">Contact Us</a>
+        <a href="contactus.html" class="active-link"><span class="active-dot"></span>Contact Us</a>
     </div>
 </div>
 
-<div class="nav">
-    <div class="menu-icon" onclick="toggleMenu()">
-        <span></span>
-        <span></span>
-        <span></span>
-    </div>
-    <a href="index.html" class="logo-text">gRaviTy</a>
-</div>
+<div class="contact-container">
+    <div class="contact-info">
+        <h1>Get in Touch</h1>
+        <p class="subtitle">
+            Whether you are looking to access our research ecosystem, discuss custom analytical models, or explore collaboration opportunities, our team is ready to connect.
+        </p>
 
-<div class="orb-container">
-    <div class="gold-orb orb1"></div>
-    <div class="gold-orb orb2"></div>
-</div>
+        <div class="info-item">
+            <h4>Email Inquiry</h4>
+            <a href="mailto:gravity.insights07@gmail.com">gravity.insights07@gmail.com</a>
+        </div>
 
-<div class="container">
-    <a href="index.html" class="home-btn">Home</a>
-    <div class="label" id="phase-label">System Launch</div>
-
-    <div class="timer">
-        <div class="unit-box">
-            <div id="days" class="unit-value">00</div>
-            <div class="unit-label">Days</div>
+        <div class="info-item">
+            <h4>INSTAGRAM</h4>
+            <a href="https://www.instagram.com/gravity.insights/" target="_blank">@gravity.insights</a>
         </div>
         
-        <div class="separator"></div>
-
-        <div class="unit-box">
-            <div id="hours" class="unit-value">00</div>
-            <div class="unit-label">Hours</div>
-        </div>
-
-        <div class="separator"></div>
-
-        <div class="unit-box">
-            <div id="minutes" class="unit-value">00</div>
-            <div class="unit-label">Minutes</div>
-        </div>
-
-        <div class="separator"></div>
-
-        <div class="unit-box">
-            <div id="seconds" class="unit-value">00</div>
-            <div class="unit-label">Seconds</div>
+        <div class="info-item">
+            <h4>Headquarters</h4>
+            <p>Goa</p>
         </div>
     </div>
 
-    <div class="waitlist-container">
-        <h3 class="waitlist-title">Phase 1 Access</h3>
-        <p class="waitlist-desc">Join the secure waitlist. Be notified the exact moment the system goes live.</p>
-        
-        <form action="https://formspree.io/f/meevrbpg" method="POST" class="waitlist-form">
-            <input type="email" name="email" placeholder="Enter your email address" required class="waitlist-input">
-            <input type="hidden" name="_subject" value="New Waitlist Signup from Market Clock!">
-            <input type="hidden" name="_next" value="https://gravityinsights.github.io/GRAVITY_RESEARCH/clock.html">
-            <button type="submit" class="home-btn waitlist-btn">Join Waitlist</button>
+    <div class="contact-form">
+        <h2>Send a Message</h2>
+        <form id="contactForm" action="https://formspree.io/f/meevrbpg" method="POST">
+            <div class="form-group">
+                <label for="name">Full Name</label>
+                <input type="text" id="name" name="name" required placeholder="John Doe">
+            </div>
+            <div class="form-group">
+                <label for="email">Institutional Email</label>
+                <input type="email" id="email" name="email" required placeholder="johndoe@institution.com">
+            </div>
+            <div class="form-group">
+                <label for="subject">Inquiry Subject</label>
+                <input type="text" id="subject" name="subject" required placeholder="Research Access / Consulting">
+            </div>
+            <div class="form-group">
+                <label for="message">Message</label>
+                <textarea id="message" name="message" required placeholder="How can gRaviTy Research assist you?"></textarea>
+            </div>
+            <button type="submit" class="submit-btn" id="submitBtn">Submit Inquiry</button>
+            <div id="form-status"></div>
         </form>
     </div>
+</div>
 
-    <div class="launch-text">
-        <span id="target-date-display">...</span>
-    </div>
+<div class="footer">
+    © 2026 gRaviTy Research
 </div>
 
 <script>
-/* ================= MENU CLOSURE ONLY ================= */
+/* ================= KEYBOARD SHORTCUT PROTECTION & ESC MENU CLOSE ================= */
 document.addEventListener('keydown', function(e) {
     if (e.key === "Escape" && document.getElementById("sidebar").classList.contains("open")) {
         toggleMenu();
         return;
     }
+    
+    if (e.keyCode == 123 || 
+        (e.ctrlKey && e.shiftKey && (e.keyCode == 'I'.charCodeAt(0) || e.keyCode == 'J'.charCodeAt(0))) || 
+        (e.ctrlKey && e.keyCode == 'U'.charCodeAt(0)) ||
+        (e.ctrlKey && e.keyCode == 'C'.charCodeAt(0))) {
+        e.preventDefault();
+        return false;
+    }
 });
 
-/* TOUCH DETECTION */
+/* ================= TOUCH DETECTION ================= */
 const isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
 
-/* CUSTOM CURSOR - GPU ACCELERATED */
+/* ================= CUSTOM CURSOR (GPU ACCELERATED) ================= */
 if (!isTouchDevice) {
     const cursorDot = document.getElementById('cursor-dot');
     window.addEventListener('mousemove', (e) => {
         cursorDot.style.transform = `translate3d(${e.clientX}px, ${e.clientY}px, 0) translate(-50%, -50%)`;
     });
-    
-    document.querySelectorAll('a, button, .menu-icon, .logo-text, .unit-box, .close-btn, input').forEach(el => {
+
+    const interactables = document.querySelectorAll('a, .menu-icon, .logo, input, textarea, button');
+    interactables.forEach(el => {
         el.addEventListener('mouseenter', () => cursorDot.classList.add('hover-state'));
         el.addEventListener('mouseleave', () => cursorDot.classList.remove('hover-state'));
     });
 }
 
-/* ================= MENU LOGIC (UPDATED WITH OVERLAY & ANIMATION) ================= */
+/* ================= MENU LOGIC (WITH OVERLAY & SCROLL LOCK) ================= */
 function toggleMenu() {
     const sidebar = document.getElementById("sidebar");
     const overlay = document.getElementById("overlay");
@@ -643,19 +546,22 @@ function toggleMenu() {
     body.style.overflow = isOpen ? "hidden" : "";
 }
 
-/* ================= SEAMLESS PAGE TRANSITIONS (FIXED HASH BUG) ================= */
+/* ================= SEAMLESS PAGE TRANSITIONS ================= */
+function transitionTo(url) {
+    document.body.classList.add('fade-out');
+    setTimeout(() => {
+        window.location.href = url;
+    }, 400);
+}
+
 document.addEventListener("DOMContentLoaded", () => {
-    document.querySelectorAll('a[href]').forEach(link => {
+    const links = document.querySelectorAll('a[href]');
+    links.forEach(link => {
         link.addEventListener('click', function(e) {
-            const targetUrl = this.getAttribute('href');
-            
-            if (targetUrl && !targetUrl.startsWith('http') && !targetUrl.startsWith('mailto') && !targetUrl.startsWith('#')) {
-                e.preventDefault(); 
-                document.body.classList.add('fade-out'); 
-                
-                setTimeout(() => { 
-                    window.location.assign(targetUrl); 
-                }, 400);
+            const target = this.getAttribute('href');
+            if (target && !target.startsWith('http') && !target.startsWith('mailto')) {
+                e.preventDefault();
+                transitionTo(target);
             }
         });
     });
@@ -665,48 +571,40 @@ window.addEventListener('pageshow', (event) => {
     if (event.persisted) document.body.classList.remove('fade-out');
 });
 
-/* ================= DYNAMIC TIMER LOGIC ================= */
-const phase1Target = new Date("2026-04-24T18:30:00Z").getTime(); 
-const phase2Target = new Date("2026-05-29T18:30:00Z").getTime(); 
+/* ================= BACKGROUND FORM SUBMISSION (AJAX) ================= */
+const form = document.getElementById("contactForm");
+const statusMessage = document.getElementById("form-status");
+const submitBtn = document.getElementById("submitBtn");
 
-const dateDisplay = document.getElementById("target-date-display");
-const phaseLabel = document.getElementById("phase-label");
+form.addEventListener("submit", async function(event) {
+    event.preventDefault();
+    const data = new FormData(form);
+    submitBtn.innerText = "Sending...";
 
-function updateClock() {
-    const now = new Date().getTime();
-    let currentTarget;
+    try {
+        const response = await fetch(event.target.action, {
+            method: form.method,
+            body: data,
+            headers: { 'Accept': 'application/json' }
+        });
 
-    // Dynamically update text based on which phase we are in
-    if (now < phase1Target) {
-        currentTarget = phase1Target;
-        dateDisplay.innerText = "25 APR 2026";
-        phaseLabel.innerText = "Phase 1 Launch";
-    } else if (now < phase2Target) {
-        currentTarget = phase2Target;
-        dateDisplay.innerText = "PAN INDIA — 30 MAY 2026";
-        phaseLabel.innerText = "Global System Launch";
-    } else {
-        document.querySelector(".timer").innerHTML = "<div class='unit-value' style='letter-spacing: 10px;'>SYSTEM LIVE</div>";
-        document.querySelector(".waitlist-container").style.display = "none"; // Hide form when live
-        dateDisplay.innerText = "ACCESS GRANTED";
-        return;
+        if (response.ok) {
+            statusMessage.innerHTML = "Success! Your inquiry has been sent.";
+            statusMessage.style.color = "var(--gold)";
+            form.reset();
+        } else {
+            statusMessage.innerHTML = "Oops! There was a problem submitting your form.";
+            statusMessage.style.color = "#ff4d4d";
+        }
+    } catch (error) {
+        statusMessage.innerHTML = "Oops! Network error. Please try again later.";
+        statusMessage.style.color = "#ff4d4d";
+    } finally {
+        submitBtn.innerText = "Submit Inquiry";
+        setTimeout(() => { statusMessage.innerHTML = ""; }, 5000);
     }
-
-    const diff = currentTarget - now;
-
-    const d = Math.floor(diff / (1000 * 60 * 60 * 24));
-    const h = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-    const m = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
-    const s = Math.floor((diff % (1000 * 60)) / 1000);
-
-    document.getElementById("days").innerText = d < 10 ? "0" + d : d;
-    document.getElementById("hours").innerText = h < 10 ? "0" + h : h;
-    document.getElementById("minutes").innerText = m < 10 ? "0" + m : m;
-    document.getElementById("seconds").innerText = s < 10 ? "0" + s : s;
-}
-
-setInterval(updateClock, 1000);
-updateClock();
+});
 </script>
+
 </body>
 </html>
