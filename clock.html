@@ -1,567 +1,567 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Launch | gRaviTy Research</title>
-    <link rel="icon" type="image/png" href="logo.png">
-    <link rel="apple-touch-icon" href="logo.png">
-    <meta name="theme-color" content="#050505">
-    <meta name="msapplication-navbutton-color" content="#050505">
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <script defer src="https://cloud.umami.is/script.js" data-website-id="73132b12-a822-434c-8854-888438105660"></script>
-    <style>
-        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600&family=Inter:wght@100;200;300;400;500;600&display=swap');
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Launch | gRaviTy Research</title>
+    <link rel="icon" type="image/png" href="logo.png">
+    <link rel="apple-touch-icon" href="logo.png">
+    <meta name="theme-color" content="#050505">
+    <meta name="msapplication-navbutton-color" content="#050505">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <script defer src="https://cloud.umami.is/script.js" data-website-id="73132b12-a822-434c-8854-888438105660"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600&family=Inter:wght@100;200;300;400;500;600&display=swap');
 
-        :root {
-            --gold: #d4af37;
-            --gold-dim: rgba(212, 175, 55, 0.3);
-            --gold-glow: rgba(212, 175, 55, 0.15);
-            --bg: #050505;
-        }
+        :root {
+            --gold: #d4af37;
+            --gold-dim: rgba(212, 175, 55, 0.3);
+            --gold-glow: rgba(212, 175, 55, 0.15);
+            --bg: #050505;
+        }
 
-        /* ================= PROTECTION STYLES ================= */
-        body {
-            -webkit-user-select: none;
-            -moz-user-select: none;
-            -ms-user-select: none;
-            user-select: none;
-        }
-        /* ================= CUSTOM SCROLLBAR ================= */
+        /* ================= PROTECTION STYLES ================= */
+        body {
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+        }
+        /* ================= CUSTOM SCROLLBAR ================= */
 /* WebKit browsers (Chrome, Safari, Edge) */
 ::-webkit-scrollbar {
-    width: 12px;
+    width: 12px;
 }
 
 ::-webkit-scrollbar-track {
-    background: var(--bg);
-    border-left: 1px solid rgba(212, 175, 55, 0.1);
+    background: var(--bg);
+    border-left: 1px solid rgba(212, 175, 55, 0.1);
 }
 
 ::-webkit-scrollbar-thumb {
-    background: #0a0a0a; 
-    border: 1px solid var(--gold); 
-    border-radius: 0; /* Changed to 0 for sharp edges */
+    background: #0a0a0a; 
+    border: 1px solid var(--gold); 
+    border-radius: 0; /* Changed to 0 for sharp edges */
 }
 
 ::-webkit-scrollbar-thumb:hover {
-    background: rgba(212, 175, 55, 0.15); 
+    background: rgba(212, 175, 55, 0.15); 
 }
 
 /* Firefox support */
 html {
-    scrollbar-width: thin;
-    scrollbar-color: var(--gold) var(--bg);
+    scrollbar-width: thin;
+    scrollbar-color: var(--gold) var(--bg);
 }
 
-        /* ================= SEAMLESS PAGE TRANSITIONS ================= */
-        body {
-            opacity: 1;
-            transition: opacity 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-            margin: 0;
-            font-family: 'Inter', sans-serif;
-            background: var(--bg);
-            color: white;
-            overflow-x: hidden;
-            -webkit-font-smoothing: antialiased;
-        }
+        /* ================= SEAMLESS PAGE TRANSITIONS ================= */
+        body {
+            opacity: 1;
+            transition: opacity 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            margin: 0;
+            font-family: 'Inter', sans-serif;
+            background: var(--bg);
+            color: white;
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+        }
 
-        body.fade-out {
-            opacity: 0;
-        }
+        body.fade-out {
+            opacity: 0;
+        }
 
-        /* ================= CUSTOM CURSOR ================= */
-        @media (pointer: fine) {
-            * { cursor: none !important; }
-        }
+        /* ================= CUSTOM CURSOR ================= */
+        @media (pointer: fine) {
+            * { cursor: none !important; }
+        }
 
-        .cursor-dot {
-            width: 6px;
-            height: 6px;
-            background: var(--gold);
-            position: fixed;
-            top: 0;
-            left: 0;
-            border-radius: 50%;
-            pointer-events: none;
-            z-index: 10000;
-            transform: translate(-50%, -50%); 
-            box-shadow: 0 0 15px var(--gold);
-            transition: width 0.3s ease, height 0.3s ease, box-shadow 0.3s ease, background 0.3s ease, border 0.3s ease;
-            will-change: transform, width, height;
-        }
+        .cursor-dot {
+            width: 6px;
+            height: 6px;
+            background: var(--gold);
+            position: fixed;
+            top: 0;
+            left: 0;
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 10000;
+            transform: translate(-50%, -50%); 
+            box-shadow: 0 0 15px var(--gold);
+            transition: width 0.3s ease, height 0.3s ease, box-shadow 0.3s ease, background 0.3s ease, border 0.3s ease;
+            will-change: transform, width, height;
+        }
 
-        .cursor-dot.hover-state {
-            width: 30px;
-            height: 30px;
-            background: rgba(212, 175, 55, 0.05);
-            border: 1px solid var(--gold);
-        }
+        .cursor-dot.hover-state {
+            width: 30px;
+            height: 30px;
+            background: rgba(212, 175, 55, 0.05);
+            border: 1px solid var(--gold);
+        }
 
-        /* ================= OVERLAY ================= */
-        .overlay {
-            position: fixed;
-            inset: 0;
-            background: rgba(0,0,0,0.65);
-            backdrop-filter: blur(4px);
-            opacity: 0;
-            pointer-events: none;
-            transition: 0.4s ease;
-            z-index: 1500;
-        }
+        /* ================= OVERLAY ================= */
+        .overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(0,0,0,0.65);
+            backdrop-filter: blur(4px);
+            opacity: 0;
+            pointer-events: none;
+            transition: 0.4s ease;
+            z-index: 1500;
+        }
 
-        .overlay.show {
-            opacity: 1;
-            pointer-events: all;
-        }
+        .overlay.show {
+            opacity: 1;
+            pointer-events: all;
+        }
 
-        /* ================= SIDEBAR & MENU ================= */
-        .sidebar {
-            width: 280px;
-            height: 100%;
-            position: fixed;
-            left: 0;
-            top: 0;
-            background: #0a0a0a;
-            box-shadow: 2px 0 25px rgba(0,0,0,0.8);
-            transform: translateX(-100%);
-            transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-            padding-top: 100px;
-            z-index: 2000;
-            overflow-x: hidden;
-            border-right: 1px solid rgba(212, 175, 55, 0.2);
-        }
+        /* ================= SIDEBAR & MENU ================= */
+        .sidebar {
+            width: 280px;
+            height: 100%;
+            position: fixed;
+            left: 0;
+            top: 0;
+            background: #0a0a0a;
+            box-shadow: 2px 0 25px rgba(0,0,0,0.8);
+            transform: translateX(-100%);
+            transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            padding-top: 100px;
+            z-index: 2000;
+            overflow-x: hidden;
+            border-right: 1px solid rgba(212, 175, 55, 0.2);
+        }
 
-        .sidebar.open {
-            transform: translateX(0);
-        }
+        .sidebar.open {
+            transform: translateX(0);
+        }
 
-        .sidebar-content { 
-            padding: 0 30px; 
-        }
+        .sidebar-content { 
+            padding: 0 30px; 
+        }
 
-        .menu-label {
-            margin-top: 25px;
-            font-size: 10px;
-            letter-spacing: 2px;
-            color: var(--gold);
-            text-transform: uppercase;
-            opacity: 0.7;
-            margin-bottom: 5px;
-        }
+        .menu-label {
+            margin-top: 25px;
+            font-size: 10px;
+            letter-spacing: 2px;
+            color: var(--gold);
+            text-transform: uppercase;
+            opacity: 0.7;
+            margin-bottom: 5px;
+        }
 
-        .sidebar a {
-            display: flex;
-            align-items: center;
-            padding: 12px 0;
-            color: #888;
-            text-decoration: none;
-            transition: 0.25s;
-            font-size: 15px;
-        }
+        .sidebar a {
+            display: flex;
+            align-items: center;
+            padding: 12px 0;
+            color: #888;
+            text-decoration: none;
+            transition: 0.25s;
+            font-size: 15px;
+        }
 
-        .sidebar a.active-link {
-            color: var(--gold);
-        }
+        .sidebar a.active-link {
+            color: var(--gold);
+        }
 
-        .active-dot {
-            display: inline-block;
-            width: 6px;
-            height: 6px;
-            background-color: var(--gold);
-            border-radius: 50%;
-            margin-right: 12px;
-            box-shadow: 0 0 8px var(--gold);
-        }
+        .active-dot {
+            display: inline-block;
+            width: 6px;
+            height: 6px;
+            background-color: var(--gold);
+            border-radius: 50%;
+            margin-right: 12px;
+            box-shadow: 0 0 8px var(--gold);
+        }
 
-        /* ================= NAV & HAMBURGER ================= */
-        .nav {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 20px 40px;
-            z-index: 2500;
-            box-sizing: border-box;
-            background: rgba(5,5,5,0.85);
-            backdrop-filter: blur(12px);
-            border-bottom: 1px solid rgba(255,255,255,0.05);
-        }
+        /* ================= NAV & HAMBURGER ================= */
+        .nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 40px;
+            z-index: 2500;
+            box-sizing: border-box;
+            background: rgba(5,5,5,0.85);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+        }
 
-        .menu-icon {
-            cursor: pointer;
-            position: relative;
-            z-index: 2501;
-            width: 30px;
-            height: 24px;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-        }
+        .menu-icon {
+            cursor: pointer;
+            position: relative;
+            z-index: 2501;
+            width: 30px;
+            height: 24px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
 
-        .menu-icon span {
-            display: block;
-            width: 26px;
-            height: 2px;
-            background: var(--gold);
-            margin: 3px 0;
-            transition: 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
-            transform-origin: left center;
-        }
+        .menu-icon span {
+            display: block;
+            width: 26px;
+            height: 2px;
+            background: var(--gold);
+            margin: 3px 0;
+            transition: 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+            transform-origin: left center;
+        }
 
-        .menu-icon.active span:nth-child(1) { transform: rotate(45deg); width: 28px; }
-        .menu-icon.active span:nth-child(2) { opacity: 0; width: 0; }
-        .menu-icon.active span:nth-child(3) { transform: rotate(-45deg); width: 28px; }
+        .menu-icon.active span:nth-child(1) { transform: rotate(45deg); width: 28px; }
+        .menu-icon.active span:nth-child(2) { opacity: 0; width: 0; }
+        .menu-icon.active span:nth-child(3) { transform: rotate(-45deg); width: 28px; }
 
-        .logo-text {
-            font-family: 'Playfair Display', serif;
-            font-size: 22px;
-            font-weight: 600;
-            color: var(--gold);
-            letter-spacing: 3px;
-            text-decoration: none;
-        }
+        .logo-text {
+            font-family: 'Playfair Display', serif;
+            font-size: 22px;
+            font-weight: 600;
+            color: var(--gold);
+            letter-spacing: 3px;
+            text-decoration: none;
+        }
 
-        /* ================= ORBS (GPU ACCELERATED & CONTAINED) ================= */
-        .orb-container {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100vw;
-            height: 100vh;
-            overflow: hidden;
-            z-index: 1;
-            pointer-events: none;
-        }
+        /* ================= ORBS (GPU ACCELERATED & CONTAINED) ================= */
+        .orb-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            overflow: hidden;
+            z-index: 1;
+            pointer-events: none;
+        }
 
-        .gold-orb {
-            position: absolute;
-            border-radius: 50%;
-            filter: blur(160px);
-            opacity: 0.12;
-            will-change: transform;
-        }
+        .gold-orb {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(160px);
+            opacity: 0.12;
+            will-change: transform;
+        }
 
-        .orb1 { 
-            width: 700px; height: 700px; background: var(--gold); 
-            top: -15%; left: -15%;
-            animation: move1 28s infinite linear; 
-        }
-        .orb2 { 
-            width: 600px; height: 600px; background: #fff; 
-            bottom: -15%; right: -15%;
-            animation: move2 35s infinite linear; 
-        }
+        .orb1 { 
+            width: 700px; height: 700px; background: var(--gold); 
+            top: -15%; left: -15%;
+            animation: move1 28s infinite linear; 
+        }
+        .orb2 { 
+            width: 600px; height: 600px; background: #fff; 
+            bottom: -15%; right: -15%;
+            animation: move2 35s infinite linear; 
+        }
 
-        @keyframes move1 { 
-            0% { transform: translate3d(0, 0, 0); } 
-            50% { transform: translate3d(90vw, 80vh, 0); } 
-            100% { transform: translate3d(0, 0, 0); } 
-        }
-        @keyframes move2 { 
-            0% { transform: translate3d(0, 0, 0); } 
-            50% { transform: translate3d(-90vw, -80vh, 0); } 
-            100% { transform: translate3d(0, 0, 0); } 
-        }
+        @keyframes move1 { 
+            0% { transform: translate3d(0, 0, 0); } 
+            50% { transform: translate3d(90vw, 80vh, 0); } 
+            100% { transform: translate3d(0, 0, 0); } 
+        }
+        @keyframes move2 { 
+            0% { transform: translate3d(0, 0, 0); } 
+            50% { transform: translate3d(-90vw, -80vh, 0); } 
+            100% { transform: translate3d(0, 0, 0); } 
+        }
 
-        /* ================= MAIN CONTAINER ================= */
-        .container {
-            min-height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            flex-direction: column;
-            position: relative;
-            z-index: 2;
-            padding: 100px 20px 40px; 
-            box-sizing: border-box;
-        }
+        /* ================= MAIN CONTAINER ================= */
+        .container {
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            position: relative;
+            z-index: 2;
+            padding: 100px 20px 40px; 
+            box-sizing: border-box;
+        }
 
-        /* ================= PREMIUM HOME BUTTON ================= */
-        .home-btn {
-            display: inline-flex;
-            align-items: center;
-            padding: 10px 24px;
-            background: rgba(212, 175, 55, 0.04);
-            border: 1px solid rgba(212, 175, 55, 0.3);
-            color: var(--gold);
-            text-decoration: none;
-            font-size: 11px;
-            font-weight: 400;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
-            margin-bottom: 30px;
-            backdrop-filter: blur(4px);
-            cursor: pointer;
-        }
+        /* ================= PREMIUM HOME BUTTON ================= */
+        .home-btn {
+            display: inline-flex;
+            align-items: center;
+            padding: 10px 24px;
+            background: rgba(212, 175, 55, 0.04);
+            border: 1px solid rgba(212, 175, 55, 0.3);
+            color: var(--gold);
+            text-decoration: none;
+            font-size: 11px;
+            font-weight: 400;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+            margin-bottom: 30px;
+            backdrop-filter: blur(4px);
+            cursor: pointer;
+        }
 
-        .home-btn::before {
-            content: '←';
-            margin-right: 10px;
-            font-size: 14px;
-            transition: transform 0.4s ease;
-        }
+        .home-btn::before {
+            content: '←';
+            margin-right: 10px;
+            font-size: 14px;
+            transition: transform 0.4s ease;
+        }
 
-        .label {
-            font-size: 12px;
-            font-weight: 300;
-            letter-spacing: 10px;
-            color: white;
-            text-transform: uppercase;
-            margin-bottom: 50px;
-            opacity: 0.8;
-            text-align: center;
-        }
+        .label {
+            font-size: 12px;
+            font-weight: 300;
+            letter-spacing: 10px;
+            color: white;
+            text-transform: uppercase;
+            margin-bottom: 50px;
+            opacity: 0.8;
+            text-align: center;
+        }
 
-        /* ================= TIMER STYLING ================= */
-        .timer {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
+        /* ================= TIMER STYLING ================= */
+        .timer {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
 
-        .unit-box {
-            background: rgba(255, 255, 255, 0.02);
-            border: 1px solid rgba(212, 175, 55, 0.4);
-            backdrop-filter: blur(10px);
-            padding: 35px 25px;
-            border-radius: 4px;
-            min-width: 140px;
-            text-align: center;
-            transition: transform 0.3s ease, border-color 0.3s ease;
-            box-sizing: border-box;
-        }
+        .unit-box {
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid rgba(212, 175, 55, 0.4);
+            backdrop-filter: blur(10px);
+            padding: 35px 25px;
+            border-radius: 4px;
+            min-width: 140px;
+            text-align: center;
+            transition: transform 0.3s ease, border-color 0.3s ease;
+            box-sizing: border-box;
+        }
 
-        .unit-value {
-            font-family: 'Inter', sans-serif;
-            font-size: clamp(45px, 8vw, 85px);
-            color: var(--gold);
-            font-weight: 100;
-            line-height: 1;
-            letter-spacing: -2px;
-        }
+        .unit-value {
+            font-family: 'Inter', sans-serif;
+            font-size: clamp(45px, 8vw, 85px);
+            color: var(--gold);
+            font-weight: 100;
+            line-height: 1;
+            letter-spacing: -2px;
+        }
 
-        .unit-label {
-            font-size: 10px;
-            color: #888;
-            text-transform: uppercase;
-            letter-spacing: 4px;
-            margin-top: 15px;
-        }
+        .unit-label {
+            font-size: 10px;
+            color: #888;
+            text-transform: uppercase;
+            letter-spacing: 4px;
+            margin-top: 15px;
+        }
 
-        /* ================= VERTICAL LINES ================= */
-        .separator {
-            width: 1px;
-            height: 100px;
-            background: var(--gold);
-            box-shadow: 0 0 20px var(--gold), 0 0 10px var(--gold);
-            margin: 0 40px;
-            opacity: 0.7;
-            flex-shrink: 0;
-        }
+        /* ================= VERTICAL LINES ================= */
+        .separator {
+            width: 1px;
+            height: 100px;
+            background: var(--gold);
+            box-shadow: 0 0 20px var(--gold), 0 0 10px var(--gold);
+            margin: 0 40px;
+            opacity: 0.7;
+            flex-shrink: 0;
+        }
 
-        /* ================= WAITLIST STYLES ================= */
-        .waitlist-container {
-            max-width: 450px;
-            width: 100%;
-            margin: 60px auto 0;
-            text-align: center;
-            background: rgba(255, 255, 255, 0.02);
-            border: 1px solid rgba(212, 175, 55, 0.15);
-            padding: 35px 30px;
-            border-radius: 8px;
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-            transition: border-color 0.4s ease, box-shadow 0.4s ease;
-            box-sizing: border-box;
-        }
+        /* ================= WAITLIST STYLES ================= */
+        .waitlist-container {
+            max-width: 450px;
+            width: 100%;
+            margin: 60px auto 0;
+            text-align: center;
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid rgba(212, 175, 55, 0.15);
+            padding: 35px 30px;
+            border-radius: 8px;
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            transition: border-color 0.4s ease, box-shadow 0.4s ease;
+            box-sizing: border-box;
+        }
 
-        .waitlist-title {
-            font-family: 'Playfair Display', serif;
-            color: var(--gold);
-            margin-top: 0;
-            margin-bottom: 10px;
-            font-size: 1.6rem;
-            font-weight: 400;
-        }
+        .waitlist-title {
+            font-family: 'Playfair Display', serif;
+            color: var(--gold);
+            margin-top: 0;
+            margin-bottom: 10px;
+            font-size: 1.6rem;
+            font-weight: 400;
+        }
 
-        .waitlist-desc {
-            color: #888;
-            font-size: 13px;
-            line-height: 1.5;
-            margin-bottom: 25px;
-            font-family: 'Inter', sans-serif;
-        }
+        .waitlist-desc {
+            color: #888;
+            font-size: 13px;
+            line-height: 1.5;
+            margin-bottom: 25px;
+            font-family: 'Inter', sans-serif;
+        }
 
-        .waitlist-form {
-            display: flex;
-            flex-direction: column;
-            gap: 15px;
-        }
+        .waitlist-form {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
 
-        .waitlist-input {
-            background: rgba(0, 0, 0, 0.4);
-            border: 1px solid #333;
-            color: white;
-            padding: 14px 15px;
-            border-radius: 4px;
-            font-family: 'Inter', sans-serif;
-            font-size: 14px;
-            outline: none;
-            transition: 0.3s ease;
-            text-align: center;
-        }
+        .waitlist-input {
+            background: rgba(0, 0, 0, 0.4);
+            border: 1px solid #333;
+            color: white;
+            padding: 14px 15px;
+            border-radius: 4px;
+            font-family: 'Inter', sans-serif;
+            font-size: 14px;
+            outline: none;
+            transition: 0.3s ease;
+            text-align: center;
+        }
 
-        .waitlist-input::placeholder {
-            color: #555;
-            letter-spacing: 0.5px;
-        }
+        .waitlist-input::placeholder {
+            color: #555;
+            letter-spacing: 0.5px;
+        }
 
-        .waitlist-input:focus {
-            border-color: var(--gold);
-            box-shadow: inset 0 0 10px rgba(212, 175, 55, 0.1);
-        }
+        .waitlist-input:focus {
+            border-color: var(--gold);
+            box-shadow: inset 0 0 10px rgba(212, 175, 55, 0.1);
+        }
 
-        .waitlist-btn {
-            width: 100%;
-            margin-top: 5px;
-            padding: 14px;
-            font-weight: 500;
-            letter-spacing: 1px;
-            text-transform: uppercase;
-            justify-content: center;
-        }
+        .waitlist-btn {
+            width: 100%;
+            margin-top: 5px;
+            padding: 14px;
+            font-weight: 500;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            justify-content: center;
+        }
 
-        .waitlist-btn::before {
-            display: none; 
-        }
+        .waitlist-btn::before {
+            display: none; 
+        }
 
-        /* launch text */
-        .launch-text {
-            margin-top: 40px;
-            text-align: center;
-            width: 100%;
-            font-family: 'Playfair Display', serif;
-            font-size: 16px;
-            letter-spacing: 5px;
-            color: white;
-            padding: 0 20px;
-            box-sizing: border-box;
-        }
+        /* launch text */
+        .launch-text {
+            margin-top: 40px;
+            text-align: center;
+            width: 100%;
+            font-family: 'Playfair Display', serif;
+            font-size: 16px;
+            letter-spacing: 5px;
+            color: white;
+            padding: 0 20px;
+            box-sizing: border-box;
+        }
 
-        .launch-text span { color: var(--gold); }
+        .launch-text span { color: var(--gold); }
 
-        /* ================= PROTECTIVE HOVER QUERY ================= */
-        @media (hover: hover) and (pointer: fine) {
-            .sidebar a:hover {
-                color: var(--gold);
-                transform: translateX(6px);
-            }
+        /* ================= PROTECTIVE HOVER QUERY ================= */
+        @media (hover: hover) and (pointer: fine) {
+            .sidebar a:hover {
+                color: var(--gold);
+                transform: translateX(6px);
+            }
 
-            .home-btn:hover {
-                background: var(--gold);
-                color: var(--bg);
-                border-color: var(--gold);
-                box-shadow: 0 4px 15px rgba(212, 175, 55, 0.25);
-                transform: translateY(-2px);
-            }
+            .home-btn:hover {
+                background: var(--gold);
+                color: var(--bg);
+                border-color: var(--gold);
+                box-shadow: 0 4px 15px rgba(212, 175, 55, 0.25);
+                transform: translateY(-2px);
+            }
 
-            .home-btn:hover::before {
-                transform: translateX(-4px);
-            }
+            .home-btn:hover::before {
+                transform: translateX(-4px);
+            }
 
-            .unit-box:hover {
-                border-color: var(--gold);
-                transform: translateY(-5px);
-            }
+            .unit-box:hover {
+                border-color: var(--gold);
+                transform: translateY(-5px);
+            }
 
-            .waitlist-container:hover {
-                border-color: rgba(212, 175, 55, 0.4);
-                box-shadow: 0 0 20px rgba(212, 175, 55, 0.05);
-            }
-        }
+            .waitlist-container:hover {
+                border-color: rgba(212, 175, 55, 0.4);
+                box-shadow: 0 0 20px rgba(212, 175, 55, 0.05);
+            }
+        }
 
-        /* ================= MOBILE OPTIMIZATION ================= */
-        @media screen and (max-width: 768px) {
-            * { cursor: auto !important; }
-            .cursor-dot { display: none !important; }
-            .sidebar { width: 85%; }
-            .nav { padding: 15px 20px; }
-            
-            .label {
-                letter-spacing: 6px;
-                margin-bottom: 30px;
-            }
+        /* ================= MOBILE OPTIMIZATION ================= */
+        @media screen and (max-width: 768px) {
+            * { cursor: auto !important; }
+            .cursor-dot { display: none !important; }
+            .sidebar { width: 85%; }
+            .nav { padding: 15px 20px; }
+            
+            .label {
+                letter-spacing: 6px;
+                margin-bottom: 30px;
+            }
 
-            .timer {
-                display: grid;
-                grid-template-columns: repeat(2, 1fr);
-                gap: 15px;
-                width: 100%;
-                max-width: 340px;
-            }
-            
-            .separator { display: none; } 
-            
-            .unit-box { 
-                min-width: auto; 
-                padding: 20px 10px; 
-            }
-            
-            .unit-value { 
-                font-size: clamp(35px, 10vw, 50px); 
-            }
+            .timer {
+                display: grid;
+                grid-template-columns: repeat(2, 1fr);
+                gap: 15px;
+                width: 100%;
+                max-width: 340px;
+            }
+            
+            .separator { display: none; } 
+            
+            .unit-box { 
+                min-width: auto; 
+                padding: 20px 10px; 
+            }
+            
+            .unit-value { 
+                font-size: clamp(35px, 10vw, 50px); 
+            }
 
-            .unit-label {
-                letter-spacing: 2px;
-                font-size: 9px;
-            }
+            .unit-label {
+                letter-spacing: 2px;
+                font-size: 9px;
+            }
 
-            .waitlist-container {
-                margin-top: 40px;
-                padding: 25px 20px;
-            }
+            .waitlist-container {
+                margin-top: 40px;
+                padding: 25px 20px;
+            }
 
-            .launch-text { 
-                margin-top: 30px;
-                font-size: 13px; 
-                line-height: 1.6;
-            }
-        }
+            .launch-text { 
+                margin-top: 30px;
+                font-size: 13px; 
+                line-height: 1.6;
+            }
+        }
 
-        @media screen and (max-width: 380px) {
-            .timer { gap: 10px; }
-            .unit-box { padding: 15px 5px; }
-            .unit-value { font-size: 32px; }
-        }
-       /* ================= SYSTEM STATUS BAR ================= */
-        .status-bar {
-            position: fixed;
-            bottom: 20px;
-            left: 20px;
-            font-family: monospace;
-            font-size: 9px;
-            color: var(--gold);
-            opacity: 0.4;
-            z-index: 9999;
-            letter-spacing: 1px;
-            pointer-events: none;
-            text-transform: uppercase;
-            transition: opacity 0.3s ease;
-        }
+        @media screen and (max-width: 380px) {
+            .timer { gap: 10px; }
+            .unit-box { padding: 15px 5px; }
+            .unit-value { font-size: 32px; }
+        }
+       /* ================= SYSTEM STATUS BAR ================= */
+        .status-bar {
+            position: fixed;
+            bottom: 20px;
+            left: 20px;
+            font-family: monospace;
+            font-size: 9px;
+            color: var(--gold);
+            opacity: 0.4;
+            z-index: 9999;
+            letter-spacing: 1px;
+            pointer-events: none;
+            text-transform: uppercase;
+            transition: opacity 0.3s ease;
+        }
 
-        @media screen and (max-width: 768px) {
-            .status-bar { bottom: 10px; left: 10px; font-size: 8px; opacity: 0.2; }
-        }
+        @media screen and (max-width: 768px) {
+            .status-bar { bottom: 10px; left: 10px; font-size: 8px; opacity: 0.2; }
+        }
 
-    </style>
+    </style>
 </head>
 <body oncontextmenu="return false;">
 
@@ -570,90 +570,90 @@ html {
 <div class="overlay" id="overlay" onclick="toggleMenu()"></div>
 
 <div id="sidebar" class="sidebar">
-    <div class="sidebar-content">
-        <div class="menu-label">System</div>
-        <a href="index.html">Home</a>
-        <a href="clock.html" class="active-link"><span class="active-dot"></span>Market Clock</a> 
+    <div class="sidebar-content">
+        <div class="menu-label">System</div>
+        <a href="index.html">Home</a>
+        <a href="clock.html" class="active-link"><span class="active-dot"></span>Market Clock</a> 
 
-        <div class="menu-label">Advanced Tools</div>
-        <a href="calc.html">Wealth Calculators</a>
+        <div class="menu-label">Advanced Tools</div>
+        <a href="calc.html">Wealth Calculators</a>
 
-        <div class="menu-label">Research</div>
-        <a href="researchportal.html">Research Portal</a>
+        <div class="menu-label">Research</div>
+        <a href="researchportal.html">Research Portal</a>
 
-        <div class="menu-label">Our Firm</div>
-        <a href="aboutus.html">About Us</a>
-        <a href="vision.html">Our Vision</a>
+        <div class="menu-label">Our Firm</div>
+        <a href="aboutus.html">About Us</a>
+        <a href="vision.html">Our Vision</a>
 
-        <div class="menu-label">Access</div>
-        <a href="contactus.html">Contact Us</a>
-    </div>
+        <div class="menu-label">Access</div>
+        <a href="contactus.html">Contact Us</a>
+    </div>
 </div>
 
 <div class="nav">
-    <div class="menu-icon" onclick="toggleMenu()">
-        <span></span>
-        <span></span>
-        <span></span>
-    </div>
-    <a href="index.html" class="logo-text">gRaviTy</a>
+    <div class="menu-icon" onclick="toggleMenu()">
+        <span></span>
+        <span></span>
+        <span></span>
+    </div>
+    <a href="index.html" class="logo-text">gRaviTy</a>
 </div>
 
 <div class="orb-container">
-    <div class="gold-orb orb1"></div>
-    <div class="gold-orb orb2"></div>
+    <div class="gold-orb orb1"></div>
+    <div class="gold-orb orb2"></div>
 </div>
 
 <div class="container">
-    <a href="index.html" class="home-btn">Home</a>
-    <div class="label" id="phase-label">System Launch</div>
+    <a href="index.html" class="home-btn">Home</a>
+    <div class="label" id="phase-label">System Launch</div>
     
-    <div class="timer">
-        <div class="unit-box">
-            <div id="days" class="unit-value">00</div>
-            <div class="unit-label">Days</div>
-        </div>
-        
-        <div class="separator"></div>
+    <div class="timer">
+        <div class="unit-box">
+            <div id="days" class="unit-value">00</div>
+            <div class="unit-label">Days</div>
+        </div>
+        
+        <div class="separator"></div>
 
-        <div class="unit-box">
-            <div id="hours" class="unit-value">00</div>
-            <div class="unit-label">Hours</div>
-        </div>
+        <div class="unit-box">
+            <div id="hours" class="unit-value">00</div>
+            <div class="unit-label">Hours</div>
+        </div>
 
-        <div class="separator"></div>
+        <div class="separator"></div>
 
-        <div class="unit-box">
-            <div id="minutes" class="unit-value">00</div>
-            <div class="unit-label">Minutes</div>
-        </div>
+        <div class="unit-box">
+            <div id="minutes" class="unit-value">00</div>
+            <div class="unit-label">Minutes</div>
+        </div>
 
-        <div class="separator"></div>
+        <div class="separator"></div>
 
-        <div class="unit-box">
-            <div id="seconds" class="unit-value">00</div>
-            <div class="unit-label">Seconds</div>
-        </div>
-    </div>
+        <div class="unit-box">
+            <div id="seconds" class="unit-value">00</div>
+            <div class="unit-label">Seconds</div>
+        </div>
+    </div>
 
-    <div class="waitlist-container">
-        <h3 class="waitlist-title">Phase 2 Access</h3>
-        <p class="waitlist-desc" id="waitlist-desc">Join the secure waitlist. Be notified the exact moment the system goes live.Phase 2 release on May 30, 2026 </p>
-        
-        <form id="waitlist-form" action="https://formspree.io/f/meevrbpg" method="POST" class="waitlist-form">
-            <input type="email" name="email" placeholder="Enter your email address" required class="waitlist-input">
-            <input type="hidden" name="_subject" value="New Waitlist Signup from Market Clock!">
-            <button type="submit" class="home-btn waitlist-btn" id="waitlist-submit">Join Waitlist</button>
-        </form>
+    <div class="waitlist-container">
+        <h3 class="waitlist-title">Phase 2 Access</h3>
+        <p class="waitlist-desc" id="waitlist-desc">Join the secure waitlist. Be notified the exact moment the system goes live.Phase 2 release on May 30, 2026 </p>
+        
+        <form id="waitlist-form" action="https://formspree.io/f/meevrbpg" method="POST" class="waitlist-form">
+            <input type="email" name="email" placeholder="Enter your email address" required class="waitlist-input">
+            <input type="hidden" name="_subject" value="New Waitlist Signup from Market Clock!">
+            <button type="submit" class="home-btn waitlist-btn" id="waitlist-submit">Join Waitlist</button>
+        </form>
 
-        <div id="waitlist-success" style="display: none; color: var(--gold); font-size: 16px; font-weight: 500; letter-spacing: 1px;">
-            Thank you. Your access is secured.
-        </div>
-    </div>
+        <div id="waitlist-success" style="display: none; color: var(--gold); font-size: 16px; font-weight: 500; letter-spacing: 1px;">
+            Thank you. Your access is secured.
+        </div>
+    </div>
 
-    <div class="launch-text">
-        <span id="target-date-display">...</span>
-    </div>
+    <div class="launch-text">
+        <span id="target-date-display">...</span>
+    </div>
 </div>
 
 <div id="status-bar" class="status-bar">> SYSTEM_INITIALIZING</div>
@@ -661,10 +661,10 @@ html {
 <script>
 /* ================= MENU CLOSURE ONLY ================= */
 document.addEventListener('keydown', function(e) {
-    if (e.key === "Escape" && document.getElementById("sidebar").classList.contains("open")) {
-        toggleMenu();
-        return;
-    }
+    if (e.key === "Escape" && document.getElementById("sidebar").classList.contains("open")) {
+        toggleMenu();
+        return;
+    }
 });
 
 /* TOUCH DETECTION */
@@ -672,51 +672,51 @@ const isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
 
 /* CUSTOM CURSOR - GPU ACCELERATED */
 if (!isTouchDevice) {
-    const cursorDot = document.getElementById('cursor-dot');
-    window.addEventListener('mousemove', (e) => {
-        cursorDot.style.transform = `translate3d(${e.clientX}px, ${e.clientY}px, 0) translate(-50%, -50%)`;
-    });
-    
-    document.querySelectorAll('a, button, .menu-icon, .logo-text, .unit-box, .close-btn, input').forEach(el => {
-        el.addEventListener('mouseenter', () => cursorDot.classList.add('hover-state'));
-        el.addEventListener('mouseleave', () => cursorDot.classList.remove('hover-state'));
-    });
+    const cursorDot = document.getElementById('cursor-dot');
+    window.addEventListener('mousemove', (e) => {
+        cursorDot.style.transform = `translate3d(${e.clientX}px, ${e.clientY}px, 0) translate(-50%, -50%)`;
+    });
+    
+    document.querySelectorAll('a, button, .menu-icon, .logo-text, .unit-box, .close-btn, input').forEach(el => {
+        el.addEventListener('mouseenter', () => cursorDot.classList.add('hover-state'));
+        el.addEventListener('mouseleave', () => cursorDot.classList.remove('hover-state'));
+    });
 }
 
 /* ================= MENU LOGIC (UPDATED WITH OVERLAY & ANIMATION) ================= */
 function toggleMenu() {
-    const sidebar = document.getElementById("sidebar");
-    const overlay = document.getElementById("overlay");
-    const menuIcon = document.querySelector(".menu-icon");
-    const body = document.body;
+    const sidebar = document.getElementById("sidebar");
+    const overlay = document.getElementById("overlay");
+    const menuIcon = document.querySelector(".menu-icon");
+    const body = document.body;
 
-    const isOpen = sidebar.classList.toggle("open");
-    overlay.classList.toggle("show");
-    menuIcon.classList.toggle("active");
+    const isOpen = sidebar.classList.toggle("open");
+    overlay.classList.toggle("show");
+    menuIcon.classList.toggle("active");
 
-    body.style.overflow = isOpen ? "hidden" : "";
+    body.style.overflow = isOpen ? "hidden" : "";
 }
 
 /* ================= SEAMLESS PAGE TRANSITIONS ================= */
 document.addEventListener("DOMContentLoaded", () => {
-    document.querySelectorAll('a[href]').forEach(link => {
-        link.addEventListener('click', function(e) {
-            const targetUrl = this.getAttribute('href');
-            
-            if (targetUrl && !targetUrl.startsWith('http') && !targetUrl.startsWith('mailto') && !targetUrl.startsWith('#')) {
-                e.preventDefault(); 
-                document.body.classList.add('fade-out'); 
-                
-                setTimeout(() => { 
-                    window.location.assign(targetUrl); 
-                }, 400);
-            }
-        });
-    });
+    document.querySelectorAll('a[href]').forEach(link => {
+        link.addEventListener('click', function(e) {
+            const targetUrl = this.getAttribute('href');
+            
+            if (targetUrl && !targetUrl.startsWith('http') && !targetUrl.startsWith('mailto') && !targetUrl.startsWith('#')) {
+                e.preventDefault(); 
+                document.body.classList.add('fade-out'); 
+                
+                setTimeout(() => { 
+                    window.location.assign(targetUrl); 
+                }, 400);
+            }
+        });
+    });
 });
 
 window.addEventListener('pageshow', (event) => {
-    if (event.persisted) document.body.classList.remove('fade-out');
+    if (event.persisted) document.body.classList.remove('fade-out');
 });
 
 /* ================= AJAX FORM SUBMISSION ================= */
@@ -726,116 +726,116 @@ const waitlistSubmitBtn = document.getElementById('waitlist-submit');
 const waitlistDesc = document.getElementById('waitlist-desc');
 
 if (waitlistForm) {
-    waitlistForm.addEventListener('submit', async function(e) {
-        e.preventDefault(); 
-        waitlistSubmitBtn.innerText = "SUBMITTING...";
+    waitlistForm.addEventListener('submit', async function(e) {
+        e.preventDefault(); 
+        waitlistSubmitBtn.innerText = "SUBMITTING...";
 
-        const formData = new FormData(waitlistForm);
+        const formData = new FormData(waitlistForm);
 
-        try {
-            const response = await fetch(waitlistForm.action, {
-                method: waitlistForm.method,
-                body: formData,
-                headers: {
-                    'Accept': 'application/json'
-                }
-            });
+        try {
+            const response = await fetch(waitlistForm.action, {
+                method: waitlistForm.method,
+                body: formData,
+                headers: {
+                    'Accept': 'application/json'
+                }
+            });
 
-            if (response.ok) {
-                waitlistForm.reset(); 
-                waitlistForm.style.display = 'none';
-                waitlistDesc.style.display = 'none';
-                waitlistSuccess.style.display = 'block';
-            } else {
-                waitlistSubmitBtn.innerText = "ERROR. TRY AGAIN.";
-            }
-        } catch (error) {
-            waitlistSubmitBtn.innerText = "ERROR. TRY AGAIN.";
-        }
-    });
+            if (response.ok) {
+                waitlistForm.reset(); 
+                waitlistForm.style.display = 'none';
+                waitlistDesc.style.display = 'none';
+                waitlistSuccess.style.display = 'block';
+            } else {
+                waitlistSubmitBtn.innerText = "ERROR. TRY AGAIN.";
+            }
+        } catch (error) {
+            waitlistSubmitBtn.innerText = "ERROR. TRY AGAIN.";
+        }
+    });
 }
 
 /* ================= DYNAMIC TIMER LOGIC ================= */
-const phase1Target = new Date("2026-04-24T18:30:00Z").getTime(); 
-const phase2Target = new Date("2026-05-29T18:30:00Z").getTime(); 
+const phase1Target = new Date("2026-04-24T18:30:00Z").getTime(); 
+const phase2Target = new Date("2026-05-29T18:30:00Z").getTime(); 
 
 const dateDisplay = document.getElementById("target-date-display");
 const phaseLabel = document.getElementById("phase-label");
 
 function updateClock() {
-    const now = new Date().getTime();
-    let currentTarget;
+    const now = new Date().getTime();
+    let currentTarget;
 
-    if (now < phase1Target) {
-        currentTarget = phase1Target;
-        dateDisplay.innerText = "25 APR 2026";
-        phaseLabel.innerText = "Phase 1 Launch";
-    } else if (now < phase2Target) {
-        currentTarget = phase2Target;
-        dateDisplay.innerText = "PAN INDIA — 30 MAY 2026";
-        phaseLabel.innerText = "Global System Launch";
-    } else {
-        document.querySelector(".timer").innerHTML = "<div class='unit-value' style='letter-spacing: 10px;'>SYSTEM LIVE</div>";
-        document.querySelector(".waitlist-container").style.display = "none"; 
-        dateDisplay.innerText = "ACCESS GRANTED";
-        return;
-    }
+    if (now < phase1Target) {
+        currentTarget = phase1Target;
+        dateDisplay.innerText = "25 APR 2026";
+        phaseLabel.innerText = "Phase 1 Launch";
+    } else if (now < phase2Target) {
+        currentTarget = phase2Target;
+        dateDisplay.innerText = "PAN INDIA — 30 MAY 2026";
+        phaseLabel.innerText = "Global System Launch";
+    } else {
+        document.querySelector(".timer").innerHTML = "<div class='unit-value' style='letter-spacing: 10px;'>SYSTEM LIVE</div>";
+        document.querySelector(".waitlist-container").style.display = "none"; 
+        dateDisplay.innerText = "ACCESS GRANTED";
+        return;
+    }
 
-    const diff = currentTarget - now;
+    const diff = currentTarget - now;
 
-    const d = Math.floor(diff / (1000 * 60 * 60 * 24));
-    const h = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-    const m = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
-    const s = Math.floor((diff % (1000 * 60)) / 1000);
+    const d = Math.floor(diff / (1000 * 60 * 60 * 24));
+    const h = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+    const m = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+    const s = Math.floor((diff % (1000 * 60)) / 1000);
 
-    document.getElementById("days").innerText = d < 10 ? "0" + d : d;
-    document.getElementById("hours").innerText = h < 10 ? "0" + h : h;
-    document.getElementById("minutes").innerText = m < 10 ? "0" + m : m;
-    document.getElementById("seconds").innerText = s < 10 ? "0" + s : s;
+    document.getElementById("days").innerText = d < 10 ? "0" + d : d;
+    document.getElementById("hours").innerText = h < 10 ? "0" + h : h;
+    document.getElementById("minutes").innerText = m < 10 ? "0" + m : m;
+    document.getElementById("seconds").innerText = s < 10 ? "0" + s : s;
 }
 
 setInterval(updateClock, 1000);
 updateClock();
-    /* ================= SYSTEM HEARTBEAT & LAUNCH SEQUENCE ================= */
+    /* ================= SYSTEM HEARTBEAT & LAUNCH SEQUENCE ================= */
 const launchDateVal = new Date("May 30, 2026 00:00:00").getTime();
 
 const heartbeatLogs = [
-    "> NODE_01_SYNCED", 
-    "> LIQUIDITY_MAPPED", 
-    "> VOL_SPIKE_DETECTED", 
-    "> ENCRYPTING_DATA", 
-    "> LATENCY_0.02ms", 
-    "> TRACE_COMPLETE",
-    "> PROJECT_GRAVITY_LIVE: 2026-05-30" 
+    "> NODE_01_SYNCED", 
+    "> LIQUIDITY_MAPPED", 
+    "> VOL_SPIKE_DETECTED", 
+    "> ENCRYPTING_DATA", 
+    "> LATENCY_0.02ms", 
+    "> TRACE_COMPLETE",
+    "> PROJECT_GRAVITY_LIVE: 2026-05-30" 
 ];
 
 const statusBar = document.getElementById('status-bar');
 
 setInterval(() => {
-    const nowTime = new Date().getTime();
-    const dist = launchDateVal - nowTime;
-    const daysLeft = Math.floor(dist / (1000 * 60 * 60 * 24));
-    
-    // Dynamic countdown logic
-    const countdownMsg = `> T-MINUS: ${daysLeft} DAYS TO DEPLOY`;
-    
-    // 30% chance to show countdown, 70% random system logs
-    const showCounter = Math.random() < 0.3;
-    const randomMsg = heartbeatLogs[Math.floor(Math.random() * heartbeatLogs.length)];
-    const finalMsg = (daysLeft > 0 && showCounter) ? countdownMsg : randomMsg;
+    const nowTime = new Date().getTime();
+    const dist = launchDateVal - nowTime;
+    const daysLeft = Math.floor(dist / (1000 * 60 * 60 * 24));
+    
+    // Dynamic countdown logic
+    const countdownMsg = `> T-MINUS: ${daysLeft} DAYS TO DEPLOY`;
+    
+    // 30% chance to show countdown, 70% random system logs
+    const showCounter = Math.random() < 0.3;
+    const randomMsg = heartbeatLogs[Math.floor(Math.random() * heartbeatLogs.length)];
+    const finalMsg = (daysLeft > 0 && showCounter) ? countdownMsg : randomMsg;
 
-    if (statusBar) statusBar.innerText = finalMsg;
-    
-    // Console Heartbeat
-    console.log(`%c${finalMsg}`, "color: #d4af37; font-family: monospace; font-size: 10px;");
+    if (statusBar) statusBar.innerText = finalMsg;
+    
+    // Console Heartbeat
+    console.log(`%c${finalMsg}`, "color: #d4af37; font-family: monospace; font-size: 10px;");
 }, 4000);
 
 // Easter Egg for DevTools
 console.log(
-    "%c gRaviTy %c Deployment Window: MAY 2026 %c v2.4 ",
-    "background: #d4af37; color: #050505; font-weight: bold; padding: 4px 8px; border-radius: 3px 0 0 3px;",
-    "background: #1a1a1a; color: #d4af37; padding: 4px 8px;",
-    "background: #333; color: #888; padding: 4px 8px; border-radius: 0 3px 3px 0;"
+    "%c gRaviTy %c Deployment Window: MAY 2026 %c v2.4 ",
+    "background: #d4af37; color: #050505; font-weight: bold; padding: 4px 8px; border-radius: 3px 0 0 3px;",
+    "background: #1a1a1a; color: #d4af37; padding: 4px 8px;",
+    "background: #333; color: #888; padding: 4px 8px; border-radius: 0 3px 3px 0;"
 );
 </script>
     
