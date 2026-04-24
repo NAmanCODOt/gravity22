@@ -14,7 +14,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <script defer src="https://cloud.umami.is/script.js" data-website-id="73132b12-a822-434c-8854-888438105660"></script>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600&family=Inter:wght@100;200;300;400;600&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600&family=Inter:wght@100;200;300;400;500;600&display=swap');
 
         :root {
             --gold: #d4af37;
@@ -251,14 +251,14 @@
 
         /* ================= MAIN CONTAINER ================= */
         .container {
-            height: 100vh;
+            min-height: 100vh;
             display: flex;
             justify-content: center;
             align-items: center;
             flex-direction: column;
             position: relative;
             z-index: 2;
-            padding: 0 20px;
+            padding: 100px 20px 40px; /* added top padding for nav */
             box-sizing: border-box;
         }
 
@@ -278,6 +278,7 @@
             transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
             margin-bottom: 30px;
             backdrop-filter: blur(4px);
+            cursor: pointer;
         }
 
         .home-btn::before {
@@ -305,7 +306,7 @@
             letter-spacing: 10px;
             color: white;
             text-transform: uppercase;
-            margin-bottom: 60px;
+            margin-bottom: 50px;
             opacity: 0.8;
             text-align: center;
         }
@@ -362,10 +363,90 @@
             flex-shrink: 0;
         }
 
+        /* ================= WAITLIST STYLES ================= */
+        .waitlist-container {
+            max-width: 450px;
+            width: 100%;
+            margin: 60px auto 0;
+            text-align: center;
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid rgba(212, 175, 55, 0.15);
+            padding: 35px 30px;
+            border-radius: 8px;
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            transition: border-color 0.4s ease, box-shadow 0.4s ease;
+            box-sizing: border-box;
+        }
+
+        .waitlist-container:hover {
+            border-color: rgba(212, 175, 55, 0.4);
+            box-shadow: 0 0 20px rgba(212, 175, 55, 0.05);
+        }
+
+        .waitlist-title {
+            font-family: 'Playfair Display', serif;
+            color: var(--gold);
+            margin-top: 0;
+            margin-bottom: 10px;
+            font-size: 1.6rem;
+            font-weight: 400;
+        }
+
+        .waitlist-desc {
+            color: #888;
+            font-size: 13px;
+            line-height: 1.5;
+            margin-bottom: 25px;
+            font-family: 'Inter', sans-serif;
+        }
+
+        .waitlist-form {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .waitlist-input {
+            background: rgba(0, 0, 0, 0.4);
+            border: 1px solid #333;
+            color: white;
+            padding: 14px 15px;
+            border-radius: 4px;
+            font-family: 'Inter', sans-serif;
+            font-size: 14px;
+            outline: none;
+            transition: 0.3s ease;
+            text-align: center;
+        }
+
+        .waitlist-input::placeholder {
+            color: #555;
+            letter-spacing: 0.5px;
+        }
+
+        .waitlist-input:focus {
+            border-color: var(--gold);
+            box-shadow: inset 0 0 10px rgba(212, 175, 55, 0.1);
+        }
+
+        .waitlist-btn {
+            width: 100%;
+            margin-top: 5px;
+            padding: 14px;
+            font-weight: 500;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            justify-content: center;
+        }
+
+        .waitlist-btn::before {
+            display: none; /* removes the back arrow from the reused home-btn class */
+        }
+
         /* launch text */
         .launch-text {
-            position: absolute;
-            bottom: 120px;
+            margin-top: 40px;
             text-align: center;
             width: 100%;
             font-family: 'Playfair Display', serif;
@@ -414,8 +495,13 @@
                 font-size: 9px;
             }
 
+            .waitlist-container {
+                margin-top: 40px;
+                padding: 25px 20px;
+            }
+
             .launch-text { 
-                bottom: 100px; 
+                margin-top: 30px;
                 font-size: 13px; 
                 line-height: 1.6;
             }
@@ -500,14 +586,26 @@
             <div class="unit-label">Seconds</div>
         </div>
     </div>
-</div>
 
-<div class="launch-text">
-    <span id="target-date-display">...</span>
+    <div class="waitlist-container">
+        <h3 class="waitlist-title">Phase 1 Access</h3>
+        <p class="waitlist-desc">Join the secure waitlist. Be notified the exact moment the system goes live.</p>
+        
+        <form action="https://formspree.io/f/meevrbpg" method="POST" class="waitlist-form">
+            <input type="email" name="email" placeholder="Enter your email address" required class="waitlist-input">
+            <input type="hidden" name="_subject" value="New Waitlist Signup from Market Clock!">
+            <input type="hidden" name="_next" value="https://gravityinsights.github.io/GRAVITY_RESEARCH/clock.html">
+            <button type="submit" class="home-btn waitlist-btn">Join Waitlist</button>
+        </form>
+    </div>
+
+    <div class="launch-text">
+        <span id="target-date-display">...</span>
+    </div>
 </div>
 
 <script>
-/* ================= MENU CLOSURE ONLY (REMOVED GARBAGE JS DEVTOOLS BLOCK) ================= */
+/* ================= MENU CLOSURE ONLY ================= */
 document.addEventListener('keydown', function(e) {
     if (e.key === "Escape" && document.getElementById("sidebar").classList.contains("open")) {
         toggleMenu();
@@ -525,7 +623,7 @@ if (!isTouchDevice) {
         cursorDot.style.transform = `translate3d(${e.clientX}px, ${e.clientY}px, 0) translate(-50%, -50%)`;
     });
     
-    document.querySelectorAll('a, button, .menu-icon, .logo-text, .unit-box, .close-btn').forEach(el => {
+    document.querySelectorAll('a, button, .menu-icon, .logo-text, .unit-box, .close-btn, input').forEach(el => {
         el.addEventListener('mouseenter', () => cursorDot.classList.add('hover-state'));
         el.addEventListener('mouseleave', () => cursorDot.classList.remove('hover-state'));
     });
@@ -589,6 +687,7 @@ function updateClock() {
         phaseLabel.innerText = "Global System Launch";
     } else {
         document.querySelector(".timer").innerHTML = "<div class='unit-value' style='letter-spacing: 10px;'>SYSTEM LIVE</div>";
+        document.querySelector(".waitlist-container").style.display = "none"; // Hide form when live
         dateDisplay.innerText = "ACCESS GRANTED";
         return;
     }
